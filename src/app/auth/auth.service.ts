@@ -63,10 +63,10 @@ private async getUser(): Promise<User> {
     }
   });
 
-  let gUser = await graphClient.api('/me').get();
+  const graphUser = await graphClient.api('/me').get();
   let user = new User();
-  user.displayName = gUser.displayName;
-  user.email = gUser.mail || gUser.userPrincipalName;
+  user.displayName = graphUser.displayName;
+  user.email = graphUser.mail || graphUser.userPrincipalName;
 
   return user;
 }
