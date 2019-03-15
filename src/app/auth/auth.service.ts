@@ -10,12 +10,14 @@ import { Client } from '@microsoft/microsoft-graph-client';
 export class AuthService {
 public isAuth: boolean;
 public user: User;
-  constructor(private msalService: MsalService) {
+ constructor(private msalService: MsalService) {
     this.isAuth = false;
     this.user = null;
 
-    this.isAuth = this.msalService.getUser() != null;
-    this.getUser().then((user) => {this.user = user; });
+  
+      this.isAuth = this.msalService.getUser() != null;
+    this.getUser().then((user) => {this.user = user; console.warn(this.user); });
+
   }
 
 async signIn(): Promise<void> {

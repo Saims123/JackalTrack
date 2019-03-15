@@ -32,10 +32,10 @@
 
 
     <div class="avatar">
-        <span *ngIf="authService.isAuth"> Hi {{authService.user.displayName}}!</span>
+        <span *ngIf="authService.isAuth"> Hi {{authService.user?.displayName }}!</span>
 
       <mat-menu #appAvatar="matMenu">
-      <p *ngIf="authService.isAuth">{{authService.user.email}}</p>
+      <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
         <mat-divider></mat-divider>
         <button (click)="signIn()" mat-menu-item>Login</button>
         <button *ngIf="authService.isAuth" mat-menu-item>Profile</button>
