@@ -1,0 +1,52 @@
+<mat-toolbar color="accent">
+  <mat-toolbar-row class="mainNav">
+    <div class="logo">
+      <img src="../../assets/logo/jackal2.png" />
+      <span>JackalTrack</span>
+    </div>
+    <div class="nav" *ngIf="authService.isAuth">
+      <mat-menu #appProgress="matMenu">
+        <button mat-menu-item>Attendance</button>
+        <button mat-menu-item>Milestones</button>
+        <button mat-menu-item>Chapters</button>
+      </mat-menu>
+
+      <mat-menu #appMeeting="matMenu">
+        <button mat-menu-item>Timeslots</button>
+        <button mat-menu-item>Notes</button>
+      </mat-menu>
+
+      <button mat-button>Actions</button>
+      <button mat-button [matMenuTriggerFor]="appMeeting">
+        Meetings
+      </button>
+
+      <button mat-button [matMenuTriggerFor]="appProgress">
+        Progress
+      </button>
+
+      <button mat-button>Students</button>
+    </div>
+
+
+
+
+    <div class="avatar">
+        <span *ngIf="authService.isAuth"> Hi {{authService.user?.displayName }}!</span>
+
+      <mat-menu #appAvatar="matMenu">
+      <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
+        <mat-divider></mat-divider>
+        <button (click)="signIn()" mat-menu-item>Login</button>
+        <button *ngIf="authService.isAuth" mat-menu-item>Profile</button>
+        <button (click)="signOut()" mat-menu-item>Logout</button>
+      </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="appAvatar">
+        <mat-icon style="font-size: 40px !important">account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+
+
+</mat-toolbar>

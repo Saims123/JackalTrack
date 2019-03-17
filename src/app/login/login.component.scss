@@ -1,0 +1,17 @@
+div {
+  align-content: stretch;
+  text-align: center;
+  display: inline-block;
+}
+img{
+  display: inline-block;
+  height: 300px;
+  width: 375px;
+}
+
+.container {
+display : flex;
+}
+:host{
+  display: block;
+}
