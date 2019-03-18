@@ -25,14 +25,14 @@
         Progress
       </button>
 
-      <button mat-button>Students</button>
+      <button [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Students</button>
     </div>
 
 
 
 
-    <div class="avatar">
-        <span *ngIf="authService.isAuth"> Hi {{authService.user?.displayName }}!</span>
+    <div *ngIf="authService.isAuth" class="avatar">
+        <span> Hi {{authService.user?.displayName }}!</span>
 
       <mat-menu #appAvatar="matMenu">
       <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
