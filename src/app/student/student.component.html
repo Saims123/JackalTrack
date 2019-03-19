@@ -32,12 +32,11 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;">
     </tr>
   </table>
-</div>
 
 
-<form>
+<form aria-label="Add new student">
   <mat-form-field class="field">
-    <input #studentName type="text" placeholder="Name" aria-label="Student Name" matInput [formControl]="newStudentControl" [matAutocomplete]="autoOne">
+    <input #studentName type="text" placeholder="Name" aria-label="Student Name" matInput [formControl]="newStudentControl" [matAutocomplete]="autoOne" required>
     <mat-autocomplete #autoOne="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{option.name}}
@@ -46,7 +45,7 @@
   </mat-form-field>
 
   <mat-form-field class="field">
-    <input #course type="text" placeholder="Course" aria-label="Course" matInput [matAutocomplete]="autoTwo">
+    <input #course type="text" placeholder="Course" aria-label="Course" matInput [matAutocomplete]="autoTwo" required>
     <mat-autocomplete #autoTwo="matAutocomplete">
       <mat-option *ngFor="let course of courses" [value]="course">
         {{course}}
@@ -56,3 +55,8 @@
 
   <button mat-icon-button (click)="test(studentName.value,course.value)"><mat-icon>add_circle</mat-icon></button>
 </form>
+
+</div>
+
+
+
