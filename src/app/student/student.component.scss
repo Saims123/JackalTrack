@@ -1,13 +1,24 @@
 table {
   width: 100%;
+  text-align: left;
 }
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
 
 td,
 th {
+  font-size: 14px;
   width: 25%;
+}
+
+.mat-elevation-z8{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.field{
+  padding: 10px;
+}
+
+mat-icon{
+  font-size: 36px;
 }

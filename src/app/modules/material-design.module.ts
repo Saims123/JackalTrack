@@ -5,6 +5,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -42,6 +43,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -86,6 +88,7 @@ import {
     MatTooltipModule,
     MatTreeModule,
     ScrollingModule,
+    ReactiveFormsModule,
   ]
 })
 export class MaterialModule {}

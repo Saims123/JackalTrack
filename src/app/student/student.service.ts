@@ -9,9 +9,10 @@ export class StudentService {
 
   constructor() {
     this.students = [
-    {displayName: 'Student 1', email: 'student1@bournemouth.ac.uk', course: 'Software Engineering', id: 0}
+    {displayName: 'Student 1', email: 'student1@bournemouth.ac.uk', course: 'Software Engineering', id: 0},
+      { displayName: 'Student 2', email: 'student2@bournemouth.ac.uk', course: 'BIT', id: 1},
+      { displayName: 'Student 3', email: 'student3@bournemouth.ac.uk', course: 'Forensics', id: 3}
     ];
-
 
   }
 
@@ -22,15 +23,12 @@ export class StudentService {
   }
 
   removeStudent(_id: any): void {
-    this.students.splice(_id, 0);
+    this.students.splice(_id, 1);
   }
 
   getStudents(): Observable<Student []> {
     return of(this.students);
   }
-
-
-
 
 }
 
