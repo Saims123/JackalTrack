@@ -4,18 +4,17 @@ import { User } from './user';
 import {OAuthSettings} from './oauth';
 // import { AlertsService } from '../alerts.service';
 import { Client } from '@microsoft/microsoft-graph-client';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 public isAuth: boolean;
 public user: User;
- constructor(private msalService: MsalService) {
+  constructor(private msalService: MsalService, private router: Router) {
     this.isAuth = false;
     this.user = null;
-
-  
-      this.isAuth = this.msalService.getUser() != null;
+    this.isAuth = this.msalService.getUser() != null;
     this.getUser().then((user) => {this.user = user; console.warn(this.user); });
 
   }
@@ -34,6 +33,7 @@ signOut(): void {
   this.msalService.logout();
   this.user = null;
   this.isAuth = false;
+  this.router.navigate(['/login']);
 }
 
 async getAccessToken(): Promise<string> {

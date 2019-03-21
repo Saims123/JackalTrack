@@ -17,6 +17,11 @@ import { ToastModule } from 'primeng/toast';
 import { StudentComponent } from './student/student.component';
 import { ErrorComponent } from './error/error.component';
 import { FormsModule } from '@angular/forms';
+import { TimeslotSupervisorComponent } from './meeting/timeslot-supervisor/timeslot-supervisor.component';
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ErrorComponent,
-    StudentComponent
+    StudentComponent,
+    TimeslotSupervisorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +47,11 @@ import { FormsModule } from '@angular/forms';
       clientID: OAuthSettings.appId,
       authority:
         'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/'
+    }),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
     })
   ],
   providers: [],

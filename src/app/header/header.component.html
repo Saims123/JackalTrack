@@ -4,6 +4,7 @@
       <img src="../../assets/logo/jackal2.png" />
       <span>JackalTrack</span>
     </div>
+
     <div class="nav" *ngIf="authService.isAuth">
       <mat-menu #appProgress="matMenu">
         <button mat-menu-item>Attendance</button>
@@ -12,7 +13,7 @@
       </mat-menu>
 
       <mat-menu #appMeeting="matMenu">
-        <button mat-menu-item>Timeslots</button>
+        <button mat-menu-item [routerLink]="['/timeslot']">Timeslots</button>
         <button mat-menu-item>Notes</button>
       </mat-menu>
 
@@ -38,7 +39,7 @@
       <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
         <mat-divider></mat-divider>
         <button (click)="signIn()" mat-menu-item>Login</button>
-        <button *ngIf="authService.isAuth" mat-menu-item>Profile</button>
+        <button *ngIf="isSupervisor" mat-menu-item>Profile</button>
         <button (click)="signOut()" mat-menu-item>Logout</button>
       </mat-menu>
 

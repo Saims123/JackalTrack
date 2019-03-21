@@ -34,7 +34,7 @@
   </table>
 
 
-<form aria-label="Add new student">
+<form>
   <mat-form-field class="field">
     <input #studentName type="text" placeholder="Name" aria-label="Student Name" matInput [formControl]="newStudentControl" [matAutocomplete]="autoOne" required>
     <mat-autocomplete #autoOne="matAutocomplete" [displayWith]="displayFn">

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { GraphService } from '../graph/graph.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,15 +9,27 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  showNav: boolean;
-  constructor(public authService: AuthService) { }
+  isSupervisor = false;
+  constructor(
+    public authService: AuthService,
+    public graphService: GraphService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.showNav = false;
-  }
+  ngOnInit() {}
 
   async signIn(): Promise<void> {
-    await this.authService.signIn();
+    await this.authService.signIn().then(() => {
+      this.graphService.getMe().then(data => {
+        if (data.jobTitle !== 'Student') {
+          this.isSupervisor = true;
+        }
+      }).then(() => {
+          if (this.authService.isAuth) {
+            this.router.navigate(['/student']);
+          }
+      });
+    });
   }
 
   signOut(): void {
