@@ -7,21 +7,22 @@ import { MaterialModule } from './modules/material-design.module';
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from './auth/oauth';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { StudentComponent } from './student/student.component';
-import { ErrorComponent } from './error/error.component';
+import { StudentComponent } from './components/student/student.component';
+import { ErrorComponent } from './components/error/error.component';
 import { FormsModule } from '@angular/forms';
-import { TimeslotSupervisorComponent } from './meeting/timeslot-supervisor/timeslot-supervisor.component';
+import { TimeslotSupervisorComponent } from './components/meeting/timeslot-supervisor/timeslot-supervisor.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { TimeslotConfirmationDialog } from './components/meeting/timeslot-supervisor/dialogbox/confirmation-dialog-component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HomeComponent } from './home/home.component';
     ErrorComponent,
     StudentComponent,
     TimeslotSupervisorComponent,
-    HomeComponent
+    HomeComponent,
+    TimeslotConfirmationDialog
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ import { HomeComponent } from './home/home.component';
     })
   ],
   providers: [],
+  entryComponents: [TimeslotConfirmationDialog,TimeslotSupervisorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { StudentComponent } from '../student/student.component';
-import { LoginComponent } from '../login/login.component';
-import { ErrorComponent } from '../error/error.component';
-import { TimeslotSupervisorComponent } from '../meeting/timeslot-supervisor/timeslot-supervisor.component';
+import { StudentComponent } from '../components/student/student.component';
+import { LoginComponent } from '../components/login/login.component';
+import { ErrorComponent } from '../components/error/error.component';
+import { TimeslotSupervisorComponent } from '../components/meeting/timeslot-supervisor/timeslot-supervisor.component';
 import { MsalGuard } from '@azure/msal-angular/dist/msal-guard.service';
 
 const routes: Routes = [
