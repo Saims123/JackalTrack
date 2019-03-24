@@ -44,10 +44,10 @@
       </mat-menu>
 
       <button mat-icon-button [matMenuTriggerFor]="appAvatar">
-        <mat-icon style="font-size: 40px !important">account_circle</mat-icon>
+        <mat-icon style="font-size: 36px !important">account_circle</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
 
-
+<mat-progress-bar *ngIf="!authService.isTokenReady" color="warn" mode="indeterminate"></mat-progress-bar>
 </mat-toolbar>

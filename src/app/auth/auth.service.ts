@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 public isAuth: boolean;
+public isTokenReady: boolean;
 public user: User;
   constructor(private msalService: MsalService, private router: Router) {
     this.isAuth = false;
@@ -20,6 +21,7 @@ public user: User;
   }
 
 async signIn(): Promise<void> {
+  this.isTokenReady = false;
   let result = await this.msalService.loginPopup(OAuthSettings.scopes).catch((reason) => {
     console.warn('Login failed', JSON.stringify(reason, null, 2));
   });
@@ -34,6 +36,7 @@ signOut(): void {
   this.user = null;
   this.isAuth = false;
   this.router.navigate(['/login']);
+  this.isTokenReady = null;
 }
 
 async getAccessToken(): Promise<string> {
@@ -43,7 +46,7 @@ async getAccessToken(): Promise<string> {
     });
 
   // Temporary to display token in an error box
-  if (result) {console.log('Token acquired', result);
+  if (result) {console.log('Token acquired', result); this.isTokenReady = true;
 }
   return result;
 }

@@ -1,11 +1,14 @@
 .mainNav {
+    text-align: start;
+    display: inline-flex;
   button {
     font-size: large;
   }
 
   .nav {
     flex: 2;
-        text-align: center;
+    display: block;
+    text-align: center;
   }
 
   .avatar {
@@ -14,18 +17,13 @@
   }
 
   .logo {
+    flex: 1;
     img {
       height: 50px;
       width: 65px;
     }
 
-    flex: 1;
-
   }
-
-  text-align: start;
-  display: flex;
-
 }
 
 

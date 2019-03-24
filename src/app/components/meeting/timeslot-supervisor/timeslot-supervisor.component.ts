@@ -6,14 +6,14 @@ import {
   OnInit
 } from '@angular/core';
 
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { StudentService } from '../../student/student.service';
 import { GraphService } from 'src/app/graph/graph.service';
-import { ceilToNearest, floorToNearest } from './ng-calendar-utilities';
+import { ceilToNearest, floorToNearest, CustomEventTitleFormatter } from './ng-calendar-utilities';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
@@ -23,7 +23,13 @@ import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-comp
   templateUrl: './timeslot-supervisor.component.html',
   styleUrls: ['./timeslot-supervisor.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
+  ]
 })
 export class TimeslotSupervisorComponent implements OnInit {
   viewDate = new Date();

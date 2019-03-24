@@ -2,8 +2,7 @@
    pointer-events: none;
  }
  mwl-calendar-week-view {
-   @import "~bootstrap/dist/css/bootstrap-reboot.css";
-   @import "~angular-calendar/css/angular-calendar.css";
+   @import "../../../../../node_modules/angular-calendar/css/angular-calendar.css";
   }
 section{
   margin: 0 auto;
@@ -15,4 +14,8 @@ section{
 }
 mat-form-field{
   padding: 10px;
+}
+
+.form-control{
+  padding: 50px;
 }
