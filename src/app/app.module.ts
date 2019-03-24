@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './modules/app-routing.module';
@@ -39,6 +40,7 @@ import { TimeslotConfirmationDialog } from './components/meeting/timeslot-superv
   imports: [
     BrowserModule,
     FormsModule,
+    NgbModule,
     AppRoutingModule,
     MaterialModule,
     MessagesModule,

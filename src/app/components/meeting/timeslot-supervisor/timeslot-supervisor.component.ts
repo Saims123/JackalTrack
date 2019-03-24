@@ -25,7 +25,6 @@ import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-comp
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class TimeslotSupervisorComponent implements OnInit {
   viewDate = new Date();
   minDate = new Date();
@@ -36,7 +35,12 @@ export class TimeslotSupervisorComponent implements OnInit {
   studentNo = 0;
   isDataLoaded = false;
 
-  constructor(private cdr: ChangeDetectorRef, public studentService: StudentService, public graphService: GraphService, public dialog: MatDialog) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    public studentService: StudentService,
+    public graphService: GraphService,
+    public dialog: MatDialog
+  ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.studentService
       .getStudents()
@@ -64,7 +68,8 @@ export class TimeslotSupervisorComponent implements OnInit {
             title: event.subject,
             color: this.calColor
           });
-        }))
+        })
+      )
       .then(() => {
         this.events = microsoftEvents;
       })
@@ -74,19 +79,18 @@ export class TimeslotSupervisorComponent implements OnInit {
       });
   }
 
-
   getTimeslots() {
-    console.warn(this.events.filter((event) =>  event.title === 'New Timeslot'));
-    return this.events.filter((event) =>  event.title === 'New Timeslot');
+    console.warn(this.events.filter(event => event.title === 'New Timeslot'));
+    return this.events.filter(event => event.title === 'New Timeslot');
   }
-
-
-
-
 
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
 
-  startDragToCreate(segment: DayViewHourSegment, mouseDownEvent: MouseEvent, segmentElement: HTMLElement) {
+  startDragToCreate(
+    segment: DayViewHourSegment,
+    mouseDownEvent: MouseEvent,
+    segmentElement: HTMLElement
+  ) {
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
       title: 'New Timeslot',
@@ -100,7 +104,6 @@ export class TimeslotSupervisorComponent implements OnInit {
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter(iEvent => iEvent !== event);
             console.log('Event deleted', event);
-
           }
         }
       ]
@@ -110,6 +113,19 @@ export class TimeslotSupervisorComponent implements OnInit {
     const segmentPosition = segmentElement.getBoundingClientRect();
     this.dragToCreateActive = true;
     const endOfView = endOfWeek(this.viewDate);
+
+    fromEvent(document, 'mousedown')
+      .pipe(
+        finalize(() => {
+          delete dragToSelectEvent.meta.tmpEvent;
+          this.dragToCreateActive = false;
+          this.refresh();
+        }),
+        takeUntil(fromEvent(document, 'mouseup'))
+      ).subscribe(() => {
+        const newEnd = moment.utc(segment.date).add(30, 'minutes').toDate();
+        dragToSelectEvent.end = newEnd;
+      });
 
     fromEvent(document, 'mousemove')
       .pipe(
@@ -137,11 +153,8 @@ export class TimeslotSupervisorComponent implements OnInit {
           dragToSelectEvent.end = newEnd;
         }
         this.refresh();
-
       });
   }
-
-
 
   private refresh() {
     this.events = [...this.events];
