@@ -24,6 +24,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HomeComponent } from './components/home/home.component';
 import { TimeslotConfirmationDialog } from './components/meeting/timeslot-supervisor/dialogbox/confirmation-dialog-component';
+import { TimetableSupervisorComponent } from './components/meeting/timetable-supervisor/timetable-supervisor.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TimeslotConfirmationDialog } from './components/meeting/timeslot-superv
     StudentComponent,
     TimeslotSupervisorComponent,
     HomeComponent,
-    TimeslotConfirmationDialog
+    TimeslotConfirmationDialog,
+    TimetableSupervisorComponent
   ],
   imports: [
     BrowserModule,

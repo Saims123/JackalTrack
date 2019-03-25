@@ -28,10 +28,9 @@ export class TimeslotConfirmationDialog {
     this.data.forEach(event => {
       this.timeslots.push({
         day: moment(event.start).format('ddd'),
-        start: moment(event.start).format('hh:mm'),
-        end: moment(event.end).format('hh:mm')
+        startTime: moment(event.start).format('hh:mm'),
+        endTime: moment(event.end).format('hh:mm')
       });
-      console.log(this.timeslots);
     });
   }
   onNoClick(): void {
@@ -41,6 +40,6 @@ export class TimeslotConfirmationDialog {
 
 interface Timeslot {
   day: string;
-  start: string;
-  end: string;
+  startTime: string;
+  endTime: string;
 }

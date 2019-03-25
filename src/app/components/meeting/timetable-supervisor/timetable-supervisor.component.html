@@ -1,0 +1,19 @@
+<h2>Timetable</h2>
+
+<button mat-button>Create new Timeslot</button>
+
+<mat-grid-list cols="2" rowHeight="5:1">
+  <mat-grid-tile
+      *ngFor="let ts of timeslotService.getTimeslots(); let i = index">
+    {{ts.day}}
+    {{ts.startTime}}
+    {{ts.endTime}}
+      <mat-grid-tile
+      *ngFor="let ts of timeslotService.getTimeslots(); let i = index">
+    {{ts.day}}
+    {{ts.startTime}}
+    {{ts.endTime}}
+  </mat-grid-tile>
+  </mat-grid-tile>
+
+</mat-grid-list>

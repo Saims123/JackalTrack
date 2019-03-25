@@ -13,10 +13,16 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { StudentService } from '../../student/student.service';
 import { GraphService } from 'src/app/graph/graph.service';
-import { ceilToNearest, floorToNearest, CustomEventTitleFormatter } from './ng-calendar-utilities';
+import {
+  ceilToNearest,
+  floorToNearest,
+  CustomEventTitleFormatter
+} from './ng-calendar-utilities';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
+import { TimeslotService } from 'src/app/services/timeslot.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timeslot-supervisor',
@@ -45,7 +51,9 @@ export class TimeslotSupervisorComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public studentService: StudentService,
     public graphService: GraphService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public timeslotService: TimeslotService,
+    private router: Router
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.studentService
@@ -53,8 +61,12 @@ export class TimeslotSupervisorComponent implements OnInit {
       .subscribe(students => (this.studentNo = students.length));
   }
   openDialog() {
-    this.dialog.open(TimeslotConfirmationDialog, {
-      data: this.getTimeslots()
+    const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
+      data: this.getNewTimeslots()
+    });
+    dialogRef.afterClosed().subscribe(timeslots => {
+        this.timeslotService.importNewTimeslot(timeslots);
+        this.router.navigate(['/timetable']);
     });
   }
 
@@ -85,7 +97,7 @@ export class TimeslotSupervisorComponent implements OnInit {
       });
   }
 
-  getTimeslots() {
+  getNewTimeslots() {
     console.warn(this.events.filter(event => event.title === 'New Timeslot'));
     return this.events.filter(event => event.title === 'New Timeslot');
   }
@@ -128,8 +140,12 @@ export class TimeslotSupervisorComponent implements OnInit {
           this.refresh();
         }),
         takeUntil(fromEvent(document, 'mouseup'))
-      ).subscribe(() => {
-        const newEnd = moment.utc(segment.date).add(30, 'minutes').toDate();
+      )
+      .subscribe(() => {
+        const newEnd = moment
+          .utc(segment.date)
+          .add(30, 'minutes')
+          .toDate();
         dragToSelectEvent.end = newEnd;
       });
 
