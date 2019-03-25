@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import { GraphService } from '../../graph/graph.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { GraphService } from '../../services/graph/graph.service';
 import { Router } from '@angular/router';
 
 @Component({

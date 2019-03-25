@@ -5,24 +5,22 @@ import {
   ViewEncapsulation,
   OnInit
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
-import { StudentService } from '../../student/student.service';
-import { GraphService } from 'src/app/graph/graph.service';
-import {
-  ceilToNearest,
-  floorToNearest,
-  CustomEventTitleFormatter
-} from './ng-calendar-utilities';
+import {ceilToNearest, floorToNearest, CustomEventTitleFormatter} from './ng-calendar-utilities';
 import * as moment from 'moment';
-import { MatDialog } from '@angular/material';
+
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
-import { TimeslotService } from 'src/app/services/timeslot.service';
-import { Router } from '@angular/router';
+
+import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
+import { StudentService } from '../../../services/student.service';
+import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
   selector: 'app-timeslot-supervisor',

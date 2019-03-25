@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { StudentService, Student } from './student.service';
+import { StudentService, Student } from '../../services/student.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';

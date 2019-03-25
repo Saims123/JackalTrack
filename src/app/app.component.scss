@@ -7,3 +7,8 @@
   margin: inherit;
   padding-top: 30px;
 }
+
+:host ::ng-deep button {
+  margin-right: .25em;
+}
+

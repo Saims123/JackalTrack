@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../components/student/student.service';
-
+import { Student } from '../student.service';
+import {MessageService} from 'primeng/api';
 @Injectable({
   providedIn: 'root'
 })
 export class TimeslotService {
   timeslots: Timeslot[] = [];
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   // tslint:disable:variable-name
   populateTimeslot(_day: string, _startTime: string, _endTime: string, _student ?: Student) {
@@ -21,6 +21,8 @@ export class TimeslotService {
 
   importNewTimeslot(timeslots: Timeslot[]) {
     this.timeslots = timeslots;
+    this.messageService.add({ severity: 'success', summary: 'Timeslot created successfully', detail: 'Send to all students successfully' });
+
     console.log(this.timeslots);
   }
 

@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from 'primeng/api';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { MaterialModule } from './modules/material-design.module';
 import { MsalModule } from '@azure/msal-angular';
-import { OAuthSettings } from './auth/oauth';
+import { OAuthSettings } from './services/auth/oauth';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -52,7 +53,9 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
       authority:
-        'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/'
+        'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
+      redirectUri: window.location.origin,
+      postLogoutRedirectUri: window.location.origin,
     }),
     BrowserAnimationsModule,
     CalendarModule.forRoot({
@@ -60,8 +63,8 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
       useFactory: adapterFactory
     })
   ],
-  providers: [],
-  entryComponents: [TimeslotConfirmationDialog,TimeslotSupervisorComponent],
+  providers: [MessageService],
+  entryComponents: [TimeslotConfirmationDialog, TimeslotSupervisorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

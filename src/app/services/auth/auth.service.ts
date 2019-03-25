@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
 import { User } from './user';
 import {OAuthSettings} from './oauth';
-// import { AlertsService } from '../alerts.service';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Router } from '@angular/router';
 @Injectable({
@@ -33,6 +32,8 @@ async signIn(): Promise<void> {
 
 signOut(): void {
   this.msalService.logout();
+  sessionStorage.clear();
+  localStorage.clear();
   this.user = null;
   this.isAuth = false;
   this.router.navigate(['/login']);

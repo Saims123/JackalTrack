@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeslotService } from 'src/app/services/timeslot.service';
+import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
