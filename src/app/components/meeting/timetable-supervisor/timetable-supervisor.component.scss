@@ -1,0 +1,16 @@
+.timetable{
+  display: inline-table;
+  .available-time{
+    border: 1px black;
+    display: block;
+  }
+  .timeslot{
+    display: inherit;
+    p{
+      display: inherit;
+    }
+  }
+  .student-slot{
+    width: 100%;
+  }
+}

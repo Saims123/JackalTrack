@@ -55,7 +55,7 @@ private graphClient: Client;
     try {
       let result = await this.graphClient
       .api(`/me/calendarview?startdatetime=${startOfWeek}&enddatetime=${endOfWeek}`)
-      .select(['subject', 'start', 'end', 'isAllDay'])
+      .select(['subject', 'start', 'end',])
       .get();
       return result.value;
     } catch (error) {

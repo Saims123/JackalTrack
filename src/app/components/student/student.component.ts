@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { StudentService, Student } from '../../services/student.service';
+import { SupervisionService, Student } from '../../services/supervision.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -31,7 +31,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     'Forensics'
   ];
   filteredOptions: Observable<Option[]>;
-  constructor(public studentService: StudentService) {
+  constructor(public studentService: SupervisionService) {
     this.dataSource = new MatTableDataSource();
   }
 

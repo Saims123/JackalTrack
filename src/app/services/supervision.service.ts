@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { User } from './auth/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
+export class SupervisionService {
   students: Student [];
 
   constructor() {
     this.students = [
     {displayName: 'Student 1', email: 'student1@bournemouth.ac.uk', course: 'Software Engineering', id: 0},
       { displayName: 'Student 2', email: 'student2@bournemouth.ac.uk', course: 'BIT', id: 1},
-      { displayName: 'Student 3', email: 'student3@bournemouth.ac.uk', course: 'Forensics', id: 3}
+      { displayName: 'Student 3', email: 'student3@bournemouth.ac.uk', course: 'Forensics', id: 2}
     ];
 
   }
@@ -31,7 +32,6 @@ export class StudentService {
   }
 
 }
-
 
 export interface Student {
   displayName: string;

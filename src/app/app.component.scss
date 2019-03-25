@@ -8,7 +8,19 @@
   padding-top: 30px;
 }
 
-:host ::ng-deep button {
-  margin-right: .25em;
+
+::ng-deep .ui-toast-message-warn {
+  background: rgb(235, 235, 145);
 }
 
+::ng-deep .ui-toast-message-error {
+  background: rgb(235, 145, 145);
+}
+
+::ng-deep .ui-toast-message-success {
+  background: rgb(96, 230, 78);
+}
+
+::ng-deep .ui-toast-message-info {
+  background: rgb(145, 199, 235);
+}

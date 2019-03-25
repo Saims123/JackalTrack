@@ -19,7 +19,7 @@ import * as moment from 'moment';
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
 
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
-import { StudentService } from '../../../services/student.service';
+import { SupervisionService } from '../../../services/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class TimeslotSupervisorComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    public studentService: StudentService,
+    public studentService: SupervisionService,
     public graphService: GraphService,
     public dialog: MatDialog,
     public timeslotService: TimeslotService,
