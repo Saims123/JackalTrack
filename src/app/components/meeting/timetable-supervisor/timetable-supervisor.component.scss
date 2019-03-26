@@ -23,3 +23,11 @@
 :host{
   text-align: start;
 }
+.mat-card-list{
+  display: flex;
+  mat-card{
+    width: 25%;
+    display: block;
+    margin: 10px;
+  }
+}

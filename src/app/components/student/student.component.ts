@@ -4,6 +4,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { ConfirmationService } from 'primeng/api';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -31,7 +32,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     'Forensics'
   ];
   filteredOptions: Observable<Option[]>;
-  constructor(public studentService: SupervisionService) {
+  constructor(public studentService: SupervisionService, private confirmService: ConfirmationService) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -57,9 +58,15 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeStudent(e): void {
-    this.studentService.removeStudent(e.id);
-    this.refreshStudentList();
+  removeStudent(student: Student): void {
+    this.confirmService.confirm({
+      message: `Are you sure you want to remove ${student.displayName}?`,
+      accept: () => {
+        this.studentService.removeStudent(student.id);
+        this.refreshStudentList();
+      }
+    })
+
   }
 
   refreshStudentList(): void {
@@ -72,7 +79,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
 
-  test(name, course) {
+  addStudent(name, course) {
     console.log(name, course);
     this.studentService.addStudent(name, course);
     this.refreshStudentList();

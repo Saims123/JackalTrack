@@ -53,8 +53,8 @@ export class TimeslotService {
     }
   }
   getStudentsNotBookedSlots() {
-    let students: Student[] = [];
-    this.supervisionService.getStudents().subscribe(data => (students = data));
+    let students: Student[]= [];
+    this.supervisionService.getStudents().subscribe(data => (students = [...data]));
 
     this.timeslots.forEach(timeslot => { // Special Reverse search for students
       if ('student' in timeslot) {

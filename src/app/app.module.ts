@@ -27,6 +27,9 @@ import { HomeComponent } from './components/home/home.component';
 import { TimeslotConfirmationDialog } from './components/meeting/timeslot-supervisor/dialogbox/confirmation-dialog-component';
 import { TimetableSupervisorComponent } from './components/meeting/timetable-supervisor/timetable-supervisor.component';
 
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,7 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
     TimetableSupervisorComponent
   ],
   imports: [
+    ConfirmDialogModule,
     BrowserModule,
     FormsModule,
     NgbModule,
@@ -63,8 +67,8 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
       useFactory: adapterFactory
     })
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   entryComponents: [TimeslotConfirmationDialog, TimeslotSupervisorComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

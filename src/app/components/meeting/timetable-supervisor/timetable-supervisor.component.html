@@ -3,6 +3,7 @@
       mat-button>Create new Timeslot</button>
   </h2>
 </div>
+
 <div class="grid" *ngIf="timeslots">
   <div class="timetable" *ngFor="let ts of timeslots; let i = index">
     <div class="available-time">
@@ -25,9 +26,13 @@
 
 <h2>Students not booked</h2>
 
-<div class="grid" *ngFor="let student of timeslotService.getStudentsNotBookedSlots()">
-  <div>
-  <p>  {{student.displayName}} </p>
-    <p>{{student.email}}</p>
-  </div>
+
+<div class="mat-card-list">
+  <mat-card color="primary" *ngFor="let student of timeslotService.getStudentsNotBookedSlots()">
+  <mat-card-header>
+    <mat-card-title> {{student.displayName}}</mat-card-title>
+    <mat-card-subtitle> {{student.email}} </mat-card-subtitle>
+  </mat-card-header>
+  <a href="mailto:{{student.email}}?subject=Timeslot booking reminder">Remind</a>
+    </mat-card>
 </div>
