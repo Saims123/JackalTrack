@@ -13,7 +13,11 @@ import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
-import {ceilToNearest, floorToNearest, CustomEventTitleFormatter} from './ng-calendar-utilities';
+import {
+  ceilToNearest,
+  floorToNearest,
+  CustomEventTitleFormatter
+} from './ng-calendar-utilities';
 import * as moment from 'moment';
 
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
@@ -58,21 +62,12 @@ export class TimeslotSupervisorComponent implements OnInit {
       .getStudents()
       .subscribe(students => (this.studentNo = students.length));
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
-      data: this.getNewTimeslots()
-    });
-    dialogRef.afterClosed().subscribe(timeslots => {
-        this.timeslotService.importNewTimeslot(timeslots);
-        this.router.navigate(['/timetable']);
-    });
-  }
 
   ngOnInit(): void {
-    this.updateEvents();
+    this.importMicrosoftEvents();
   }
 
-  updateEvents() {
+  importMicrosoftEvents() {
     const microsoftEvents: CalendarEvent[] = [];
     this.graphService
       .getEventsOnCurrentWeek()
@@ -84,12 +79,9 @@ export class TimeslotSupervisorComponent implements OnInit {
             title: event.subject,
             color: this.calColor
           });
-        })
-      )
-      .then(() => {
+        })).then(() => {
         this.events = microsoftEvents;
-      })
-      .finally(() => {
+      }).finally(() => {
         this.isDataLoaded = true;
         this.refresh();
       });
@@ -100,6 +92,15 @@ export class TimeslotSupervisorComponent implements OnInit {
     return this.events.filter(event => event.title === 'New Timeslot');
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
+      data: this.getNewTimeslots()
+    });
+    dialogRef.afterClosed().subscribe(timeslots => {
+      this.timeslotService.initiateNewTimeslot(timeslots);
+      this.router.navigate(['/timetable']);
+    });
+  }
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
 
   startDragToCreate(

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../supervision.service';
+import { Student, SupervisionService } from '../supervision.service';
 import { MessageService } from 'primeng/api';
 @Injectable({
   providedIn: 'root'
 })
 export class TimeslotService {
   timeslots: Timeslot[] = [];
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private supervisionService: SupervisionService
+  ) {}
 
   // tslint:disable:variable-name
   populateTimeslot(
@@ -23,7 +26,7 @@ export class TimeslotService {
     });
   }
 
-  importNewTimeslot(timeslots: Timeslot[]) {
+  initiateNewTimeslot(timeslots: Timeslot[]) {
     this.timeslots = timeslots;
     this.messageService.add({
       severity: 'success',
@@ -38,17 +41,33 @@ export class TimeslotService {
     return this.timeslots;
   }
 
-  bookTimeslot(timeslot: Timeslot, student: Student) {
+  bookTimeslot(timeslot: number, student: Student) {
     const index = this.timeslots.findIndex(ts => ts.student !== student);
 
-    if (index < 0) {
-      this.timeslots.find(ts => ts === timeslot).student = student;
-      // Send success message
+    // if (index < 0) {
+    //   this.timeslots.find(ts => ts === timeslot).student = student;
+    //   // Send success message
+    // }
+    if (this.timeslots.length > 0) {
+      this.timeslots[timeslot].student = student;
     }
+  }
+  getStudentsNotBookedSlots() {
+    let students: Student[] = [];
+    this.supervisionService.getStudents().subscribe(data => (students = data));
+
+    this.timeslots.forEach(timeslot => { // Special Reverse search for students
+      if ('student' in timeslot) {
+          students.splice(students.indexOf(timeslot.student), 1);
+      }
+    });
+
+    console.warn('Not booked : ', students);
+    return students;
   }
 }
 
-interface Timeslot {
+export interface Timeslot {
   day: string;
   startTime: string;
   endTime: string;

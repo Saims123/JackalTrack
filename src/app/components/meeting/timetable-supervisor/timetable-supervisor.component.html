@@ -1,29 +1,33 @@
-<h2>Timetable</h2>
-
-<button color="primary" style="float:right;" mat-button>Create new Timeslot</button>
-
-<mat-grid-list cols="2" rowHeight="5:1">
-  <mat-grid-tile *ngFor="let ts of timeslotService.getTimeslots(); let i = index">
-    {{ts.day}}
-    {{ts.startTime}}
-    {{ts.endTime}}
-
-  </mat-grid-tile>
-
-</mat-grid-list>
-
-<div class="timetable" *ngFor="let ts of timeslotService.getTimeslots(); let i = index">
-  <div class="available-time">
-    <b>{{ts.day}}</b>
-    <div class="timeslot">
-      <p> {{ts.startTime}} </p>
-      <p> {{ts.endTime}} </p>
+<div style="display: inline;">
+  <h2 style="text-align: start;">Timetable <button color="primary" style="display:block; float: right; text-align: end;"
+      mat-button>Create new Timeslot</button>
+  </h2>
+</div>
+<div class="grid" *ngIf="timeslots">
+  <div class="timetable" *ngFor="let ts of timeslots; let i = index">
+    <div class="available-time">
+      <h4>{{ts.day}}</h4>
+      <div class="timeslot">
+        <h5> {{ts.startTime}} </h5>
+        <h5> {{ts.endTime}} </h5>
+      </div>
+      <div class="student-slot">
+        <h5 *ngIf="!ts.student; else student;">Not Booked</h5>
+        <ng-template #student>
+          <h5>{{ts.student.displayName}}</h5>
+        </ng-template>
+      </div>
     </div>
-
   </div>
+</div>
 
-  <div class="student-slot">
-    <b *ngIf="(ts.student | json) != '{}'">Not Booked</b>
-    <b *ngIf="(ts.student | json) == '{}'">{{ts.student}}</b>
+
+
+<h2>Students not booked</h2>
+
+<div class="grid" *ngFor="let student of timeslotService.getStudentsNotBookedSlots()">
+  <div>
+  <p>  {{student.displayName}} </p>
+    <p>{{student.email}}</p>
   </div>
 </div>

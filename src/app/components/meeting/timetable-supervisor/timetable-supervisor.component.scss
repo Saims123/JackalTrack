@@ -1,16 +1,25 @@
 .timetable{
-  display: inline-table;
+  flex-grow: 1;
+  flex-wrap: wrap;
   .available-time{
-    border: 1px black;
+    border: 1px black solid;
     display: block;
   }
   .timeslot{
-    display: inherit;
-    p{
-      display: inherit;
-    }
+    display: block;
   }
   .student-slot{
-    width: 100%;
+    border-top: 1px black dotted;
   }
+}
+.grid{
+  display: inline-flex;
+      width: 100%;
+      text-align: center;
+        margin: 0 auto;
+        width: 90%;
+}
+
+:host{
+  text-align: start;
 }
