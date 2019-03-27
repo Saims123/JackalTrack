@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="side">
+
+  <mat-card color="primary" *ngFor="let student of supervision.getStudents()">
+    <mat-card-header>
+      <mat-card-title> {{supervision.displayName}}</mat-card-title>
+      <mat-card-subtitle> {{supervision.email}} </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+    </div>
+      <div class="notes">
+      </div>
+</div>

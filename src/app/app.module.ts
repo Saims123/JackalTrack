@@ -29,6 +29,10 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { NotesComponent } from './components/meeting/notes/notes.component';
+import { ComponentsComponent } from './src/components/components.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { ConfirmationService } from 'primeng/api';
     TimeslotSupervisorComponent,
     HomeComponent,
     TimeslotConfirmationDialog,
-    TimetableSupervisorComponent
+    TimetableSupervisorComponent,
+    NotesComponent,
+    ComponentsComponent
   ],
   imports: [
     ConfirmDialogModule,
@@ -65,7 +71,13 @@ import { ConfirmationService } from 'primeng/api';
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
   ],
   providers: [MessageService, ConfirmationService],
   entryComponents: [TimeslotConfirmationDialog, TimeslotSupervisorComponent],

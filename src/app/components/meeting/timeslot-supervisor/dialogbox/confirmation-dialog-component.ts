@@ -28,8 +28,8 @@ export class TimeslotConfirmationDialog {
     this.data.forEach(event => {
       this.timeslots.push({
         day: moment(event.start).format('ddd'),
-        startTime: moment(event.start).format('hh:mm a'),
-        endTime: moment(event.end).format('hh:mm a')
+        startTime: moment(event.start).format('HH:mm'),
+        endTime: moment(event.end).format('HH:mm')
       });
     });
   }

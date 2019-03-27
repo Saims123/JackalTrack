@@ -1,38 +1,48 @@
 <div style="display: inline;">
-  <h2 style="text-align: start;">Timetable <button color="primary" style="display:block; float: right; text-align: end;"
-      mat-button>Create new Timeslot</button>
+  <h2 style="text-align: start;">
+    Timetable
+    <button color="primary" [routerLink]="['/timeslot']" style="display:block; float: right; text-align: end;" mat-button>
+      Create new Timeslot
+    </button>
   </h2>
 </div>
 
-<div class="grid" *ngIf="timeslots">
-  <div class="timetable" *ngFor="let ts of timeslots; let i = index">
-    <div class="available-time">
-      <h4>{{ts.day}}</h4>
-      <div class="timeslot">
-        <h5> {{ts.startTime}} </h5>
-        <h5> {{ts.endTime}} </h5>
-      </div>
-      <div class="student-slot">
-        <h5 *ngIf="!ts.student; else student;">Not Booked</h5>
-        <ng-template #student>
-          <h5>{{ts.student.displayName}}</h5>
-        </ng-template>
+  <div *ngIf="timeslots.length > 0; else noData;" class="timetable-grid">
+    <div class="timetable" *ngFor="let ts of timeslots; let i = index">
+      <div class="available-time">
+        <h4>{{ ts.day }}</h4>
+        <div class="timeslot">
+          <h5>{{ ts.startTime }}</h5>
+          <h5>{{ ts.endTime }}</h5>
+        </div>
+        <div class="student-slot">
+          <h5 *ngIf="!ts.student; else student">Not Booked</h5>
+          <ng-template #student>
+            <h5>{{ ts.student.displayName }}</h5>
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-
-<h2>Students not booked</h2>
-
-
-<div class="mat-card-list">
-  <mat-card color="primary" *ngFor="let student of timeslotService.getStudentsNotBookedSlots()">
-  <mat-card-header>
-    <mat-card-title> {{student.displayName}}</mat-card-title>
-    <mat-card-subtitle> {{student.email}} </mat-card-subtitle>
-  </mat-card-header>
-  <a href="mailto:{{student.email}}?subject=Timeslot booking reminder">Remind</a>
+  <h2>Students not booked</h2>
+  <div *ngIf="timeslots.length > 0; else noData;" class="mat-card-list">
+    <mat-card color="primary" *ngFor="let student of students">
+      <mat-card-header>
+        <mat-card-title> {{ student.displayName }}</mat-card-title>
+        <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>
+      </mat-card-header>
+      <a href="mailto:{{ student.email }}?subject=Timeslot booking reminder"
+        >Remind</a
+      >
     </mat-card>
-</div>
+  </div>
+
+
+
+<ng-template #noData>
+  <mat-card>
+  <mat-icon>info</mat-icon>
+  My my such empty, please create a new schedule.
+  </mat-card>
+</ng-template>

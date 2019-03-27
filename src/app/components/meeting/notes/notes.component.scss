@@ -1,0 +1,13 @@
+.container{
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  .side{
+    background-color: #CFD8DC;
+    width: 30%;
+  }
+  .notes{
+    background-color: #E0E0E0;
+    width: 70%;
+  }
+}

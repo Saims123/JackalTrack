@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeslotService, Timeslot } from 'src/app/services/timeslots/timeslot.service';
-import { SupervisionService } from 'src/app/services/supervision.service';
+import {
+  TimeslotService,
+  Timeslot
+} from 'src/app/services/timeslots/timeslot.service';
+import {
+  SupervisionService,
+  Student
+} from 'src/app/services/supervision.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -9,15 +15,17 @@ import { SupervisionService } from 'src/app/services/supervision.service';
 })
 export class TimetableSupervisorComponent implements OnInit {
   timeslots: Timeslot[] = [];
-  constructor(private timeslotService: TimeslotService, private supervision: SupervisionService) {
-   }
+  students: Student[] = [];
+  constructor(
+    private timeslotService: TimeslotService,
+    private supervision: SupervisionService
+  ) {}
 
   ngOnInit() {
-    this.supervision.getStudents().subscribe((student) => {
+    this.supervision.getStudents().subscribe(student => {
       this.timeslotService.bookTimeslot(1, student[1]);
     });
     this.timeslots = this.timeslotService.getTimeslots();
-    this.timeslotService.getStudentsNotBookedSlots();
+    this.students = this.timeslotService.getStudentsNotBookedSlots();
   }
-
 }

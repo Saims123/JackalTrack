@@ -79,9 +79,12 @@ export class TimeslotSupervisorComponent implements OnInit {
             title: event.subject,
             color: this.calColor
           });
-        })).then(() => {
+        })
+      )
+      .then(() => {
         this.events = microsoftEvents;
-      }).finally(() => {
+      })
+      .finally(() => {
         this.isDataLoaded = true;
         this.refresh();
       });
@@ -97,8 +100,10 @@ export class TimeslotSupervisorComponent implements OnInit {
       data: this.getNewTimeslots()
     });
     dialogRef.afterClosed().subscribe(timeslots => {
-      this.timeslotService.initiateNewTimeslot(timeslots);
-      this.router.navigate(['/timetable']);
+      if (timeslots) {
+        this.timeslotService.initiateNewTimeslot(timeslots);
+        this.router.navigate(['/timetable']);
+      }
     });
   }
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
