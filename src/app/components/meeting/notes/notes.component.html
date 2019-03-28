@@ -1,14 +1,22 @@
+
 <div class="container">
   <div class="side">
+    <h2>Students</h2>
+    <div class="student-cards">
+      <!-- <mat-card *ngFor="let student of students">
+        <mat-card-header>
+          <mat-card-title> {{ student.displayName }}</mat-card-title>
+        </mat-card-header>
+      </mat-card> -->
 
-  <mat-card color="primary" *ngFor="let student of supervision.getStudents()">
-    <mat-card-header>
-      <mat-card-title> {{supervision.displayName}}</mat-card-title>
-      <mat-card-subtitle> {{supervision.email}} </mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+      <mat-nav-list color="primary" *ngFor="let student of students">
+        <mat-list-item color="accent"><b>{{ student.displayName }}</b></mat-list-item>
+        </mat-nav-list>
 
     </div>
-      <div class="notes">
-      </div>
+  </div>
+  <div class="notes">
+
+    <h2>Meeting notes </h2>
+  </div>
 </div>

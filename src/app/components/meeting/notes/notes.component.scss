@@ -1,13 +1,22 @@
-.container{
-  margin: 0 auto;
+.container {
   position: relative;
-  width: 100%;
-  .side{
-    background-color: #CFD8DC;
-    width: 30%;
+  min-width: 100%;
+  display: flex;
+  text-align: start;
+  .side {
+    padding: 20px;
+    flex: 1;
+    background-color: #cfd8dc;
+
+    height: 100%;
+    border-radius: 25px;
   }
-  .notes{
-    background-color: #E0E0E0;
-    width: 70%;
+  .notes {
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 5px;
+    flex: 3;
+    background-color: #e0e0e0;
+    height: 100%;
   }
 }

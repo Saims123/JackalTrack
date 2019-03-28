@@ -18,7 +18,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { StudentComponent } from './components/student/student.component';
 import { ErrorComponent } from './components/error/error.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimeslotSupervisorComponent } from './components/meeting/timeslot-supervisor/timeslot-supervisor.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -30,7 +30,8 @@ import { TimetableSupervisorComponent } from './components/meeting/timetable-sup
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { NotesComponent } from './components/meeting/notes/notes.component';
-import { ComponentsComponent } from './src/components/components.component';
+import { AddNotesComponent } from './components/meeting/notes/add-notes/add-notes.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -47,7 +48,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     TimeslotConfirmationDialog,
     TimetableSupervisorComponent,
     NotesComponent,
-    ComponentsComponent
+    AddNotesComponent,
+    DashboardComponent
   ],
   imports: [
     ConfirmDialogModule,
@@ -64,7 +66,6 @@ import { LayoutModule } from '@angular/cdk/layout';
       clientID: OAuthSettings.appId,
       authority:
         'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
-      redirectUri: window.location.origin,
       postLogoutRedirectUri: window.location.origin,
     }),
     BrowserAnimationsModule,
@@ -72,6 +73,7 @@ import { LayoutModule } from '@angular/cdk/layout';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    ReactiveFormsModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,

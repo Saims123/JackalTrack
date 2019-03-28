@@ -27,7 +27,7 @@
 
   <h2>Students not booked</h2>
   <div *ngIf="timeslots.length > 0; else noData;" class="mat-card-list">
-    <mat-card color="primary" *ngFor="let student of students">
+    <mat-card color="accent" *ngFor="let student of students">
       <mat-card-header>
         <mat-card-title> {{ student.displayName }}</mat-card-title>
         <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>

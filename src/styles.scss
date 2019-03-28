@@ -4,5 +4,7 @@
    @import "~bootstrap/scss/bootstrap.scss";
 html{
       height: 100%;
-      background-color: antiquewhite;
+      body{
+        height: inherit;
+      }
     }

@@ -6,12 +6,17 @@ import { ErrorComponent } from '../components/error/error.component';
 import { TimeslotSupervisorComponent } from '../components/meeting/timeslot-supervisor/timeslot-supervisor.component';
 import { MsalGuard } from '@azure/msal-angular/dist/msal-guard.service';
 import { TimetableSupervisorComponent } from '../components/meeting/timetable-supervisor/timetable-supervisor.component';
+import { AddNotesComponent } from '../components/meeting/notes/add-notes/add-notes.component';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { NotesComponent } from '../components/meeting/notes/notes.component';
 
 const routes: Routes = [
   { path: 'student', component: StudentComponent , canActivate: [MsalGuard]},
   {path: 'login', component: LoginComponent},
   { path: 'timeslot', component: TimeslotSupervisorComponent , canActivate: [MsalGuard]},
   { path: 'timetable', component: TimetableSupervisorComponent, canActivate: [MsalGuard] },
+    { path: 'meeting/notes', component: NotesComponent, canActivate: [MsalGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [MsalGuard] },
 
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   {path : '**', component: ErrorComponent}

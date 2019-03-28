@@ -3,7 +3,9 @@
 <mat-form-field>
   <input matInput aria-label="From" [min]="minDate" [matDatepicker]="startPicker" placeholder="Choose a starting date" required>
   <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-  <mat-datepicker #startPicker></mat-datepicker>
+  <mat-datepicker #startPicker>
+  <input type="time"/>
+  </mat-datepicker>
 </mat-form-field>
 
 <mat-form-field>
@@ -16,7 +18,10 @@
     <input matInput placeholder="Location">
   </mat-form-field>
 
-  <button style="width: 70%;"mat-button (click)="openDialog()"> Schedule</button>
+  <button style="width: 70%;" mat-raised-button color="primary" matBadge="{{getNewTimeslots().length}}" matBadgeColor="accent" (click)="openDialog()">
+    <mat-icon>schedule</mat-icon>
+    Schedule
+  </button>
 </form>
 
 </div>
