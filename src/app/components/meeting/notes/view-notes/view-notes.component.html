@@ -1,0 +1,25 @@
+<mat-card *ngFor="let notes of meetingNotes">
+  <mat-card-header>
+        <button  mat-icon-button>
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+    <mat-card-title> {{ notes.title }}</mat-card-title>
+    <mat-card-subtitle> {{ notes.created }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-header>
+    <mat-card-title>Checklist</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-selection-list color="primary" #test *ngFor="let list of notes.todoList" >
+      <mat-list-option [checkboxPosition]="'before'" #test2 (change)="revealChanges(list,test2.selected)"  [selected]="list.completed">
+        {{ list.task }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+
+  <mat-card-header>
+    <mat-card-title>Notes</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>{{ notes.notes }}</mat-card-content>
+</mat-card>

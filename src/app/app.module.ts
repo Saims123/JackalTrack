@@ -26,6 +26,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HomeComponent } from './components/home/home.component';
 import { TimeslotConfirmationDialog } from './components/meeting/timeslot-supervisor/dialogbox/confirmation-dialog-component';
 import { TimetableSupervisorComponent } from './components/meeting/timetable-supervisor/timetable-supervisor.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
@@ -34,6 +35,7 @@ import { AddNotesComponent } from './components/meeting/notes/add-notes/add-note
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ViewNotesComponent } from './components/meeting/notes/view-notes/view-notes.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     TimetableSupervisorComponent,
     NotesComponent,
     AddNotesComponent,
-    DashboardComponent
+    DashboardComponent,
+    ViewNotesComponent
   ],
   imports: [
     ConfirmDialogModule,
@@ -66,7 +69,7 @@ import { LayoutModule } from '@angular/cdk/layout';
       clientID: OAuthSettings.appId,
       authority:
         'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
-      postLogoutRedirectUri: window.location.origin,
+      postLogoutRedirectUri: window.location.origin
     }),
     BrowserAnimationsModule,
     CalendarModule.forRoot({
@@ -79,10 +82,11 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,
+    NgScrollbarModule
   ],
   providers: [MessageService, ConfirmationService],
   entryComponents: [TimeslotConfirmationDialog, TimeslotSupervisorComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

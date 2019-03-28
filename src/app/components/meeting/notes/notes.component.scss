@@ -16,7 +16,15 @@
     padding: 10px;
     margin-left: 5px;
     flex: 3;
-    background-color: #e0e0e0;
-    height: 100%;
   }
+  mat-list-item{
+    background-color: #D1C4E9; border-radius:10px;
+  }
+}
+
+.selected {
+  background-color: #90A4AE !important;
+}
+ng-scrollbar{
+  max-height: 80vh;
 }

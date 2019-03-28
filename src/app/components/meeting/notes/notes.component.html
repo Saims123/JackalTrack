@@ -1,22 +1,23 @@
-
 <div class="container">
   <div class="side">
-    <h2>Students</h2>
+    <h3>Students</h3>
     <div class="student-cards">
-      <!-- <mat-card *ngFor="let student of students">
-        <mat-card-header>
-          <mat-card-title> {{ student.displayName }}</mat-card-title>
-        </mat-card-header>
-      </mat-card> -->
-
-      <mat-nav-list color="primary" *ngFor="let student of students">
-        <mat-list-item color="accent"><b>{{ student.displayName }}</b></mat-list-item>
-        </mat-nav-list>
-
+      <mat-nav-list *ngFor="let student of students">
+        <mat-list-item (click)="selectStudentOnClick(student)" [class.selected]="student === selectedStudent">
+          <b>{{ student.displayName }}</b>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
   </div>
-  <div class="notes">
 
-    <h2>Meeting notes </h2>
+  <div class="notes">
+    <h3>Meeting notes</h3>
+    <ng-scrollbar>
+    <button mat-button color="primary">
+      <mat-icon>add</mat-icon>New notes
+    </button>
+      <view-meeting-notes [student]="selectedStudent"> </view-meeting-notes>
+    </ng-scrollbar>
+
   </div>
 </div>

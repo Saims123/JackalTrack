@@ -1,0 +1,21 @@
+mat-list-option {
+  ::ng-deep .mat-pseudo-checkbox-checked::after {
+    top: 0px;
+    left: -1px;
+    width: 25px !important;
+    height: 10px !important;
+  }
+  ::ng-deep .mat-pseudo-checkbox {
+    height: 25px !important;
+    width: 25px !important;
+  }
+}
+
+mat-card{
+  margin-top: 10px;
+}
+
+mat-icon{
+font-size: 26px !important;
+text-align: center;
+}
