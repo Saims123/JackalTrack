@@ -74,8 +74,8 @@ export class TimeslotSupervisorComponent implements OnInit {
       .then(data =>
         data.forEach(event => {
           microsoftEvents.push({
-            start: new Date(event.start.dateTime),
-            end: new Date(event.end.dateTime),
+            start: moment.utc(event.start.dateTime).toDate(),
+            end: moment.utc(event.end.dateTime).toDate(),
             title: event.subject,
             color: this.calColor
           });
