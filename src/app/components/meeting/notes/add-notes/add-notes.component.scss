@@ -25,3 +25,19 @@
 .col:last-child {
   margin-right: 0;
 }
+
+button:focus {
+  outline: none;
+}
+
+.area-expand{
+width: 85vw;
+flex:1;
+}
+// .todo-list{
+// border: grey 1px solid;
+// border-radius: 20px;
+// margin: 0 auto;
+// width: 85vw;
+// padding: 10px;
+// }

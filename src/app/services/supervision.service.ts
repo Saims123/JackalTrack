@@ -26,6 +26,9 @@ export class SupervisionService {
   removeStudent(_id: any): void {
     this.students.splice(_id, 1);
   }
+  getStudent(_id: string) {
+    return this.students.find((student) => student.id == _id);
+  }
 
   getStudents(): Observable<Student []> {
     return of(this.students);

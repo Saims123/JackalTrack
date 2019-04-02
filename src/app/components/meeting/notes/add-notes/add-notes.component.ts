@@ -1,93 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import {
+  Student,
+  SupervisionService
+} from 'src/app/services/supervision.service';
+import * as moment from 'moment';
+import { TodoList, MeetingNote, MeetingNotesService } from 'src/app/services/meeting-notes/meeting-notes.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-notes',
   templateUrl: './add-notes.component.html',
   styleUrls: ['./add-notes.component.scss']
 })
-export class AddNotesComponent {
+export class AddNotesComponent implements OnInit, OnDestroy {
+  student: Student;
+  todoList: TodoList[] = [];
+  meetingNote: MeetingNote;
+  createdDateTime = moment.utc().toLocaleString();
+  routeSub: any;
+
   meetingNotesForm = this.fb.group({
-    student: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
+    student: this.student,
+    todoList: [null, Validators.required],
+    notes: [null, Validators.required]
   });
 
-  hasUnitNumber = false;
+  constructor(
+    private fb: FormBuilder,
+    private routes: ActivatedRoute,
+    private supervisionService: SupervisionService,
+    private meetingNoteService: MeetingNotesService,
+    private route: Router
+  ) {
+    this.routeSub = this.routes.params.subscribe(params => {
+      console.log(this.supervisionService.getStudent(String(params.id)));
+      this.student = this.supervisionService.getStudent(params.id);
+      console.warn(this.student);
+    });
+  }
 
-  states = [
-    {name: 'Alabama', abbreviation: 'AL'},
-    {name: 'Alaska', abbreviation: 'AK'},
-    {name: 'American Samoa', abbreviation: 'AS'},
-    {name: 'Arizona', abbreviation: 'AZ'},
-    {name: 'Arkansas', abbreviation: 'AR'},
-    {name: 'California', abbreviation: 'CA'},
-    {name: 'Colorado', abbreviation: 'CO'},
-    {name: 'Connecticut', abbreviation: 'CT'},
-    {name: 'Delaware', abbreviation: 'DE'},
-    {name: 'District Of Columbia', abbreviation: 'DC'},
-    {name: 'Federated States Of Micronesia', abbreviation: 'FM'},
-    {name: 'Florida', abbreviation: 'FL'},
-    {name: 'Georgia', abbreviation: 'GA'},
-    {name: 'Guam', abbreviation: 'GU'},
-    {name: 'Hawaii', abbreviation: 'HI'},
-    {name: 'Idaho', abbreviation: 'ID'},
-    {name: 'Illinois', abbreviation: 'IL'},
-    {name: 'Indiana', abbreviation: 'IN'},
-    {name: 'Iowa', abbreviation: 'IA'},
-    {name: 'Kansas', abbreviation: 'KS'},
-    {name: 'Kentucky', abbreviation: 'KY'},
-    {name: 'Louisiana', abbreviation: 'LA'},
-    {name: 'Maine', abbreviation: 'ME'},
-    {name: 'Marshall Islands', abbreviation: 'MH'},
-    {name: 'Maryland', abbreviation: 'MD'},
-    {name: 'Massachusetts', abbreviation: 'MA'},
-    {name: 'Michigan', abbreviation: 'MI'},
-    {name: 'Minnesota', abbreviation: 'MN'},
-    {name: 'Mississippi', abbreviation: 'MS'},
-    {name: 'Missouri', abbreviation: 'MO'},
-    {name: 'Montana', abbreviation: 'MT'},
-    {name: 'Nebraska', abbreviation: 'NE'},
-    {name: 'Nevada', abbreviation: 'NV'},
-    {name: 'New Hampshire', abbreviation: 'NH'},
-    {name: 'New Jersey', abbreviation: 'NJ'},
-    {name: 'New Mexico', abbreviation: 'NM'},
-    {name: 'New York', abbreviation: 'NY'},
-    {name: 'North Carolina', abbreviation: 'NC'},
-    {name: 'North Dakota', abbreviation: 'ND'},
-    {name: 'Northern Mariana Islands', abbreviation: 'MP'},
-    {name: 'Ohio', abbreviation: 'OH'},
-    {name: 'Oklahoma', abbreviation: 'OK'},
-    {name: 'Oregon', abbreviation: 'OR'},
-    {name: 'Palau', abbreviation: 'PW'},
-    {name: 'Pennsylvania', abbreviation: 'PA'},
-    {name: 'Puerto Rico', abbreviation: 'PR'},
-    {name: 'Rhode Island', abbreviation: 'RI'},
-    {name: 'South Carolina', abbreviation: 'SC'},
-    {name: 'South Dakota', abbreviation: 'SD'},
-    {name: 'Tennessee', abbreviation: 'TN'},
-    {name: 'Texas', abbreviation: 'TX'},
-    {name: 'Utah', abbreviation: 'UT'},
-    {name: 'Vermont', abbreviation: 'VT'},
-    {name: 'Virgin Islands', abbreviation: 'VI'},
-    {name: 'Virginia', abbreviation: 'VA'},
-    {name: 'Washington', abbreviation: 'WA'},
-    {name: 'West Virginia', abbreviation: 'WV'},
-    {name: 'Wisconsin', abbreviation: 'WI'},
-    {name: 'Wyoming', abbreviation: 'WY'}
-  ];
+  ngOnInit() {
+    // Default behaviour, create a template task for further use
+    this.generateNewTask();
+  }
 
-  constructor(private fb: FormBuilder) {}
+  generateNewTask() {
+    this.addNewTodoList(`New Task ${this.todoList.length + 1}`);
+  }
 
-  onSubmit() {
-    alert('Thanks!');
+  removeTask(task) {
+    this.todoList.splice(this.todoList.findIndex(list => list === task), 1);
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+  }
+
+  addNewTodoList(_task: string) {
+    this.todoList.push({ task: _task, completed: false });
+  }
+
+  onSubmit(note) {
+    this.meetingNote = {created: this.createdDateTime, notes: note, todoList: this.todoList};
+    this.meetingNoteService.addMeetingNoteToStudent(this.student, [this.meetingNote]);
+    console.warn(this.meetingNote)
+    this.route.navigate(['/meeting/notes']);
   }
 }
