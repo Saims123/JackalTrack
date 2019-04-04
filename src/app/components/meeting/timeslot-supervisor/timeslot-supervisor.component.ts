@@ -102,7 +102,7 @@ export class TimeslotSupervisorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(timeslots => {
       if (timeslots) {
         this.timeslotService.initiateNewTimeslot(timeslots);
-        this.router.navigate(['/timetable']);
+        this.router.navigate(['meeting/timetable']);
       }
     });
   }

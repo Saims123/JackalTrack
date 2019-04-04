@@ -63,7 +63,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   onSubmit(note) {
     this.meetingNote = {created: this.createdDateTime, notes: note, todoList: this.todoList};
     this.meetingNoteService.addMeetingNoteToStudent(this.student, [this.meetingNote]);
-    console.warn(this.meetingNote)
+    console.warn(this.meetingNote);
     this.route.navigate(['/meeting/notes']);
   }
 }
