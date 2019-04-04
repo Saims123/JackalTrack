@@ -12,10 +12,20 @@ mat-list-option {
 }
 
 mat-card{
-  margin-top: 10px;
+  margin: 5px;
+}
+
+button:focus {
+  outline: none;
 }
 
 mat-icon{
 font-size: 26px !important;
 text-align: center;
+flex-shrink: 1;
+}
+
+
+.actions-button{
+flex-grow: 2;
 }

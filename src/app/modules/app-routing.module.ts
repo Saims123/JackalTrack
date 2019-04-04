@@ -11,19 +11,36 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
 import { NotesComponent } from '../components/meeting/notes/notes.component';
 
 const routes: Routes = [
-  { path: 'student', component: StudentComponent , canActivate: [MsalGuard]},
-  {path: 'login', component: LoginComponent},
-  { path: 'timeslot', component: TimeslotSupervisorComponent , canActivate: [MsalGuard]},
-  { path: 'timetable', component: TimetableSupervisorComponent, canActivate: [MsalGuard] },
-    { path: 'meeting/notes', component: NotesComponent, canActivate: [MsalGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [MsalGuard] },
+  { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'timeslot',
+    component: TimeslotSupervisorComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'meeting/timetable',
+    component: TimetableSupervisorComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'meeting/notes',
+    component: NotesComponent,
+    canActivate: [MsalGuard],
+  },
+  { path: 'meeting/notes/new/student/:id', component: AddNotesComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [MsalGuard]
+  },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path : '**', component: ErrorComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

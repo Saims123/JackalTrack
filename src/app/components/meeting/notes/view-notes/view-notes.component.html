@@ -1,18 +1,25 @@
 <mat-card *ngFor="let notes of meetingNotes">
   <mat-card-header>
-        <button  mat-icon-button>
-          <mat-icon>delete_forever</mat-icon>
-        </button>
-    <mat-card-title> {{ notes.title }}</mat-card-title>
-    <mat-card-subtitle> {{ notes.created }}</mat-card-subtitle>
+    <div class="actions-button">
+      <mat-card-title> {{ notes.title }}</mat-card-title>
+      <mat-card-subtitle> {{ notes.created }}</mat-card-subtitle>
+    </div>
+    <button mat-icon-button>
+      <mat-icon>edit_mode</mat-icon>
+    </button>
+
+    <button mat-icon-button>
+      <mat-icon>delete_forever</mat-icon>
+    </button>
   </mat-card-header>
 
-  <mat-card-header>
+
     <mat-card-title>Checklist</mat-card-title>
-  </mat-card-header>
+
   <mat-card-content>
-    <mat-selection-list color="primary" #test *ngFor="let list of notes.todoList;" >
-      <mat-list-option [checkboxPosition]="'before'" #test2 (change)="list.completed != list.completed" (click)="revealChanges(notes)" [selected]="list.completed">
+    <mat-selection-list color="primary" #test *ngFor="let list of notes.todoList">
+      <mat-list-option [checkboxPosition]="'before'" (change)="(list.completed != list.completed)"
+      (click)="revealChanges(notes)" [selected]="list.completed">
         {{ list.task }}
       </mat-list-option>
     </mat-selection-list>

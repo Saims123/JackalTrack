@@ -1,7 +1,7 @@
 <mat-toolbar color="accent">
   <mat-toolbar-row class="mainNav">
     <div class="logo" [routerLink]="['/dashboard']">
-      <img src="../../assets/logo/jackal2.png" />
+      <img src="assets/logo/jackal2.png">
       <span>JackalTrack</span>
     </div>
 
@@ -13,7 +13,7 @@
       </mat-menu>
 
       <mat-menu #appMeeting="matMenu">
-        <button mat-menu-item [routerLink]="['/timetable']">Timeslots</button>
+        <button mat-menu-item [routerLink]="['meeting/timetable']">Timeslots</button>
         <button mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
       </mat-menu>
 

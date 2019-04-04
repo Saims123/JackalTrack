@@ -15,10 +15,16 @@ export class MeetingNotesService {
   }
 
   addMeetingNoteToStudent(_student: Student, _notes: MeetingNote[]) {
-    this.studentNotes.push({
-      student: _student,
-      meetingNotes: _notes
-    });
+    const index = this.studentNotes.findIndex(notes => notes.student === _student);
+    if (index > 0) {
+      this.studentNotes[index].meetingNotes = _notes;
+    } else {
+      this.studentNotes.push({
+        student: _student,
+        meetingNotes: _notes
+      });
+    }
+
   }
 
   getStudentNotes(student: Student) {
@@ -37,16 +43,17 @@ export class MeetingNotesService {
 
   initiateMockData() {
     let mockNote: MeetingNote[];
-    mockNote = [{
-      title: 'Nothing special',
-      todoList: [
-        { task: 'Task1', completed: false },
-        { task: 'Task2', completed: true }
-      ],
-      notes:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      created: new Date().toISOString()
-    },
+    mockNote = [
+      {
+        title: 'Nothing special',
+        todoList: [
+          { task: 'Task1', completed: false },
+          { task: 'Task2', completed: true }
+        ],
+        notes:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        created: new Date().toISOString()
+      },
       {
         title: 'Nothing special2',
         todoList: [
@@ -67,7 +74,7 @@ export class MeetingNotesService {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         created: new Date().toISOString()
       }
-  ];
+    ];
 
     this.addMeetingNoteToStudent(this.students[1], mockNote);
   }
@@ -79,7 +86,7 @@ export interface StudentNotes {
 }
 
 export interface MeetingNote {
-  title: string;
+  title?: string;
   created: string;
   todoList?: TodoList[];
   notes: string;

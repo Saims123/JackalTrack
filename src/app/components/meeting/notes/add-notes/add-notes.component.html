@@ -1,94 +1,56 @@
-<!-- <form [formGroup]="meetingNotesForm" novalidate (ngSubmit)="onSubmit()">
-  <mat-card >
+<form class="form-group" novalidate>
+  <mat-card>
     <mat-card-header>
       <mat-card-title>New Meeting Note</mat-card-title>
+      <mat-card-subtitle>Student : {{ student.displayName }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Company" formControlName="company">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="First name" formControlName="firstName">
-            <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Last name" formControlName="lastName">
-            <mat-error *ngIf="addressForm.controls['lastName'].hasError('required')">
-              Last name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Address" formControlName="address"></textarea>
-            <mat-error *ngIf="addressForm.controls['address'].hasError('required')">
-              Address is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row" *ngIf="!hasUnitNumber">
-        <div class="col">
-          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-            + Add C/O, Apt, Suite, Unit
+      <h5>Meeting : {{ createdDateTime }}</h5>
+
+      <div class="todo-list">
+        <mat-form-field
+          appearance="outline"
+          class="area-expand"
+          *ngFor="let list of todoList"
+        >
+          <mat-label>Task</mat-label>
+          <input
+            matInput
+            placeholder="Task"
+            [(ngModel)]="list.task"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <button mat-icon-button matSuffix (click)="removeTask(list)">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button color="accent" (click)="generateNewTask()">
+            New Task
           </button>
         </div>
       </div>
-      <div class="row" *ngIf="hasUnitNumber">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="City" formControlName="city">
-            <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
-              City is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="State" formControlName="state">
-              <mat-option *ngFor="let state of states" [value]="state.abbreviation">
-                {{ state.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="addressForm.controls['state'].hasError('required')">
-              State is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-        </div>
-      </div>
 
-      </div>
+      <mat-form-field appearance="outline" class="area-expand">
+        <mat-label>Notes</mat-label>
+        <textarea
+          matTextareaAutosize
+          matAutosizeMinRows="5"
+          matInput
+          placeholder="Notes"
+          #notes
+        >
+        </textarea>
+      </mat-form-field>
     </mat-card-content>
+
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="secondary">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit(notes.value)">
+        Create Note
+      </button>
     </mat-card-actions>
   </mat-card>
-</form> -->
+</form>
