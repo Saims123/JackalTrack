@@ -5,23 +5,23 @@ import { Student } from '../supervision.service';
   providedIn: 'root'
 })
 export class AttendanceService {
-  attendanceRecord : AttendaceRecord[];
-  constructor() { 
-    
+  attendanceRecord: AttendaceRecord[];
+  constructor() {
+
   }
 }
 
 
 export interface AttendaceRecord {
   student: Student;
-  records : Attendance[];
+  records: Attendance[];
 }
 
 interface Attendance {
   date: string;
-  attended: AttendanceState; 
-  //Might need to update depending on the requirement 
+  attended: AttendanceState;
+  //Might need to update depending on the requirement
 }
 enum AttendanceState {
-  Yes= 1, No = 0 , Cancelled=2, Unknown=3
+  Yes= 1, No = 0 , Cancelled= 2, Unknown= 3
 }

@@ -1,5 +1,8 @@
 <h1 mat-dialog-title>Confirm Timeslot</h1>
 <div mat-dialog-content>
+  <p><b>Start</b> : {{data.start}} </p>
+  <p><b>Until</b> : {{data.end}}</p>
+  <p><b>Location</b> : {{data.location}}</p>
   <p>Schedule this meeting timeslot for every : </p>
 
   <div class="grid-list" *ngFor="let item of timeslots">
