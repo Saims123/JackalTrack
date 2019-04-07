@@ -34,18 +34,26 @@
   </table>
 
 
-<form>
-  <mat-form-field class="field">
-    <input #studentName type="text" placeholder="Name" aria-label="Student Name" matInput [formControl]="newStudentControl" [matAutocomplete]="autoOne" required>
-    <mat-autocomplete #autoOne="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.name}}
+<form [formGroup]="studentsForm">
+<h1 class="mat-h1">Add students</h1>
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+    <ng-container *ngIf="!isLoading">
+      <mat-option *ngFor="let student of filteredStudents" [value]="student">
+        <span>{{ student.displayName }}</span>
+        <span> | email: {{student.mail}}</span>
       </mat-option>
-    </mat-autocomplete>
+    </ng-container>
+  </mat-autocomplete>
+
+  <mat-form-field style="width: 400px;">
+    <input matInput placeholder="Choose a user" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>
 
-  <mat-form-field class="field">
-    <input #course type="text" placeholder="Course" aria-label="Course" matInput [matAutocomplete]="autoTwo" required>
+
+
+ <mat-form-field class="field">
+    <input type="text" placeholder="Course" aria-label="Course" formControlName='courseInput' matInput [matAutocomplete]="autoTwo" required>
     <mat-autocomplete #autoTwo="matAutocomplete">
       <mat-option *ngFor="let course of courses" [value]="course">
         {{course}}
@@ -53,7 +61,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <button mat-icon-button (click)="addStudent(studentName.value,course.value)"><mat-icon>add_circle</mat-icon></button>
+  <button mat-icon-button (click)="addStudent()"><mat-icon>add_circle</mat-icon></button>
 </form>
 </div>
 

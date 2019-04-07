@@ -3,6 +3,9 @@ import { Client } from '@microsoft/microsoft-graph-client';
 import { Event } from './event';
 import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
+import { from, Observable, of } from 'rxjs';
+import { Student } from '../supervision.service';
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,16 +68,19 @@ export class GraphService {
     }
   }
 
-  async getUsers(name: string): Promise<Event[]> {
-    try {
-      let result = await this.graphClient
-        .api('/users')
-        .filter(`startswith(displayName, ${name})`)
-        .get();
-      return result.value;
-    } catch (error) {
-      console.warn('Could not get events', JSON.stringify(error, null, 2));
+  getUsers(name: string): Observable<any[]> {
+    if (name == '') {
+      return of([]);
     }
+    const userObservable = Observable.fromPromise(
+      this.graphClient
+        .api(`/users?$filter=startswith(displayName,'${name}')&$top=10`)
+        .select(['id', 'displayName', 'mail'])
+        .get()
+        .then(res => {
+          return res.value;
+        })
+    );
+    return userObservable;
   }
-
 }

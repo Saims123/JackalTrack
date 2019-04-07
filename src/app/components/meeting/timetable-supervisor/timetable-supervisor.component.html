@@ -1,5 +1,5 @@
 <div style="display: inline;">
-  <h1 class="display-4">
+  <h1 class="mat-h1">
     Timetable
     <button color="primary" [routerLink]="['/timeslot']" style="display:block; float: right; text-align: end;" mat-button>
       Create new Timeslot
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <h1 class="display-4">Students not booked</h1>
+  <h1 class="mat-h1">Students not booked</h1>
   <div *ngIf="timeslots.length > 0; else noData;" class="mat-card-list">
     <mat-card color="accent" *ngFor="let student of students">
       <mat-card-header>
