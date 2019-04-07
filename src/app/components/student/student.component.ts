@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { SupervisionService, Student } from '../../services/supervision.service';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import {
+  SupervisionService,
+  Student
+} from '../../services/supervision.service';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { ConfirmationService } from 'primeng/api';
+import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
+import { ToastrService } from 'ngx-toastr';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -32,7 +36,11 @@ export class StudentComponent implements OnInit, OnDestroy {
     'Forensics'
   ];
   filteredOptions: Observable<Option[]>;
-  constructor(public studentService: SupervisionService, private confirmService: ConfirmationService) {
+  constructor(
+    public studentService: SupervisionService,
+    private dialog: MatDialog,
+    private toastService: ToastrService
+  ) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -59,25 +67,27 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   removeStudent(student: Student): void {
-    this.confirmService.confirm({
-      message: `Are you sure you want to remove ${student.displayName}?`,
-      accept: () => {
-        this.studentService.removeStudent(student.id);
-        this.refreshStudentList();
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+      data: student
+    });
+    dialogRef.afterClosed().subscribe((state) => {
+      if (state) {
+      this.studentService.removeStudent(student.id);
+      this.refreshStudentList();
+      this.toastService.success(`Successfully deleted ${student.displayName}`, 'Delete Student');
+      this.studentService.getStudents().subscribe(s => {console.log(s)});
       }
-    })
+
+    });
 
   }
 
   refreshStudentList(): void {
     this.dataSubscription = this.studentService
       .getStudents()
-      .subscribe(
-        students => (this.dataSource.data = students)
-      );
+      .subscribe(students => (this.dataSource.data = [...students]));
     this.dataSource.sort = this.sort;
   }
-
 
   addStudent(name, course) {
     console.log(name, course);

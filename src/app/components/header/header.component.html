@@ -7,13 +7,13 @@
 
     <div class="nav" *ngIf="authService.isAuth">
       <mat-menu #appProgress="matMenu">
-        <button mat-menu-item>Attendance</button>
-        <button mat-menu-item>Milestones</button>
-        <button mat-menu-item>Chapters</button>
+        <button mat-menu-item [routerLink]="['progress/attendance']">Attendance</button>
+        <button mat-menu-item [routerLink]="['progress/milestone']">Milestones</button>
+        <button mat-menu-item [routerLink]="['progress/chapter']">Chapters</button>
       </mat-menu>
 
       <mat-menu #appMeeting="matMenu">
-        <button mat-menu-item [routerLink]="['meeting/timetable']">Timeslots</button>
+        <button mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
         <button mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
       </mat-menu>
 

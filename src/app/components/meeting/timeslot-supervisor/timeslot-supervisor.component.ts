@@ -21,7 +21,7 @@ import {
 import * as moment from 'moment';
 
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
-
+import { ToastrService } from 'ngx-toastr';
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 import { SupervisionService } from '../../../services/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -57,6 +57,7 @@ export class TimeslotSupervisorComponent implements OnInit {
     public studentService: SupervisionService,
     public graphService: GraphService,
     public dialog: MatDialog,
+    private toastService: ToastrService,
     public timeslotService: TimeslotService,
     private router: Router
   ) {
@@ -106,6 +107,7 @@ export class TimeslotSupervisorComponent implements OnInit {
       if (timeslots) {
         this.timeslotService.initiateNewTimeslot(timeslots);
         this.router.navigate(['meeting/timetable']);
+        this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
       }
     });
   }

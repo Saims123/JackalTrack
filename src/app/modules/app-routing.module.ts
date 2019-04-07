@@ -9,6 +9,7 @@ import { TimetableSupervisorComponent } from '../components/meeting/timetable-su
 import { AddNotesComponent } from '../components/meeting/notes/add-notes/add-notes.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { NotesComponent } from '../components/meeting/notes/notes.component';
+import { AttendanceTrackingComponent } from '../components/progress/attendance-tracking/attendance-tracking.component';
 
 const routes: Routes = [
   { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
@@ -26,12 +27,17 @@ const routes: Routes = [
   {
     path: 'meeting/notes',
     component: NotesComponent,
-    canActivate: [MsalGuard],
+    canActivate: [MsalGuard]
   },
   { path: 'meeting/notes/new/student/:id', component: AddNotesComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'progress/attendance',
+    component: AttendanceTrackingComponent,
     canActivate: [MsalGuard]
   },
 

@@ -17,11 +17,11 @@ export interface AttendaceRecord {
   records: Attendance[];
 }
 
-interface Attendance {
+export interface Attendance {
   date: string;
   attended: AttendanceState;
   //Might need to update depending on the requirement
 }
-enum AttendanceState {
+export enum AttendanceState {
   Yes= 1, No = 0 , Cancelled= 2, Unknown= 3
 }
