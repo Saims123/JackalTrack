@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { MaterialModule } from './modules/material-design.module';
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from './services/auth/oauth';
-import { ToastrModule } from 'ngx-toastr';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,16 +22,17 @@ import { NotesComponent } from './components/meeting/notes/notes.component';
 import { AddNotesComponent } from './components/meeting/notes/add-notes/add-notes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ViewNotesComponent } from './components/meeting/notes/view-notes/view-notes.component';
-
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-
-import { LayoutModule } from '@angular/cdk/layout';
 import { AttendanceButtonComponent } from './components/progress/attendance-tracking/attendance-button/attendance-button.component';
 import { AttendanceTrackingComponent } from './components/progress/attendance-tracking/attendance-tracking.component';
 import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-dialog-component';
 import { AddStudentConfirmationComponent } from './components/student/dialogbox/add-student-confirm.component';
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 @NgModule({
   declarations: [
@@ -60,19 +60,15 @@ import { AddStudentConfirmationComponent } from './components/student/dialogbox/
     NgbModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule,
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
       authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
       postLogoutRedirectUri: window.location.origin
     }),
-    BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    ReactiveFormsModule,
-    LayoutModule,
     NgScrollbarModule,
     ToastrModule.forRoot()
   ],

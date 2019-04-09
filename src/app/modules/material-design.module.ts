@@ -5,7 +5,6 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
-
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -43,7 +42,10 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   exports: [
@@ -89,6 +91,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTreeModule,
     ScrollingModule,
     ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    LayoutModule
   ]
 })
 export class MaterialModule {}
