@@ -1,10 +1,23 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { SupervisionService, Student } from '../../services/supervision.service';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { Subscription, Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { ConfirmationService } from 'primeng/api';
+import {
+  SupervisionService,
+  Student
+} from '../../services/supervision.service';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { Subscription, of } from 'rxjs';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  debounceTime,
+  tap,
+  switchMap,
+  finalize,
+  startWith,
+  distinctUntilChanged,
+  catchError
+} from 'rxjs/operators';
+import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
+import { ToastrService } from 'ngx-toastr';
+import { GraphService } from 'src/app/services/graph/graph.service';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -18,12 +31,8 @@ export class StudentComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   newStudentControl = new FormControl();
 
-  options: Option[] = [
-    { name: 'Steve' },
-    { name: 'Gail' },
-    { name: 'Adam' },
-    { name: 'Christine' }
-  ];
+  studentsForm: FormGroup;
+  options: Student[] = [];
 
   courses = [
     'Software Engineering',
@@ -31,58 +40,87 @@ export class StudentComponent implements OnInit, OnDestroy {
     'Business In Computing',
     'Forensics'
   ];
-  filteredOptions: Observable<Option[]>;
-  constructor(public studentService: SupervisionService, private confirmService: ConfirmationService) {
+  filteredStudents: Student[] = [];
+  isLoading = false;
+  constructor(
+    public studentService: SupervisionService,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private toastService: ToastrService,
+    private graphService: GraphService
+  ) {
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit() {
+    this.studentsForm = this.fb.group({ userInput: null, courseInput: null });
+    this.studentsForm
+      .get('userInput')
+      .valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        tap(() => (this.isLoading = true))
+      )
+      .subscribe(users => {
+        this.graphService
+          .getUsers(users)
+          .subscribe(
+            res => (
+              (this.filteredStudents = res),
+              debounceTime(100),
+              (this.isLoading = false)
+            )
+          );
+
+      });
+
     this.refreshStudentList();
-
-    this.filteredOptions = this.newStudentControl.valueChanges.pipe(
-      startWith<Option | string>(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.options.slice()))
-    );
   }
 
-  displayFn(user?: Option): string | undefined {
-    return user ? user.name : undefined;
-  }
-
-  private _filter(name: string): Option[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => {
-      return option.name.toLowerCase().indexOf(filterValue) === 0;
-    });
+  displayFn(user?: Student): string | undefined {
+    return user ? user.displayName : undefined;
   }
 
   removeStudent(student: Student): void {
-    this.confirmService.confirm({
-      message: `Are you sure you want to remove ${student.displayName}?`,
-      accept: () => {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+      data: student
+    });
+    dialogRef.afterClosed().subscribe(state => {
+      if (state) {
         this.studentService.removeStudent(student.id);
         this.refreshStudentList();
+        this.toastService.success(
+          `Successfully deleted ${student.displayName}`,
+          'Delete Student'
+        );
       }
-    })
-
+    });
   }
 
   refreshStudentList(): void {
     this.dataSubscription = this.studentService
       .getStudents()
-      .subscribe(
-        students => (this.dataSource.data = students)
-      );
+      .subscribe(students => (this.dataSource.data = [...students]));
     this.dataSource.sort = this.sort;
   }
 
+  addStudent() {
+    const selectedStudent = this.studentsForm.get('userInput').value;
+    const courseName = this.studentsForm.get('courseInput').value;
 
-  addStudent(name, course) {
-    console.log(name, course);
-    this.studentService.addStudent(name, course);
+    let newStudent: Student = {
+      uniqueID: selectedStudent.id,
+      course: courseName,
+      displayName: selectedStudent.displayName,
+      email: selectedStudent.mail
+    };
+
+    this.studentService.addStudent(newStudent);
+    console.log(newStudent);
     this.refreshStudentList();
+
+    this.studentsForm.get('userInput').reset();
+    this.studentsForm.get('courseInput').reset();
   }
 
   ngOnDestroy(): void {

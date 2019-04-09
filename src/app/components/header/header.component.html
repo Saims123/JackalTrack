@@ -7,13 +7,13 @@
 
     <div class="nav" *ngIf="authService.isAuth">
       <mat-menu #appProgress="matMenu">
-        <button mat-menu-item>Attendance</button>
-        <button mat-menu-item>Milestones</button>
-        <button mat-menu-item>Chapters</button>
+        <button mat-menu-item [routerLink]="['progress/attendance']">Attendance</button>
+        <button mat-menu-item [routerLink]="['progress/milestone']">Milestones</button>
+        <button mat-menu-item [routerLink]="['progress/chapter']">Chapters</button>
       </mat-menu>
 
       <mat-menu #appMeeting="matMenu">
-        <button mat-menu-item [routerLink]="['meeting/timetable']">Timeslots</button>
+        <button mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
         <button mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
       </mat-menu>
 
@@ -27,9 +27,9 @@
       </button>
 
       <button [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Students</button>
+      <button *ngIf="!isSupervisor" [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Supervisor</button>
+
     </div>
-
-
 
 
     <div *ngIf="authService.isAuth" class="avatar">
@@ -38,8 +38,6 @@
       <mat-menu #appAvatar="matMenu">
       <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
         <mat-divider></mat-divider>
-        <button (click)="signIn()" mat-menu-item>Login</button>
-        <button *ngIf="isSupervisor" mat-menu-item>Profile</button>
         <button (click)="signOut()" mat-menu-item>Logout</button>
       </mat-menu>
 

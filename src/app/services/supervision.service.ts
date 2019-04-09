@@ -6,40 +6,57 @@ import { User } from './auth/user';
   providedIn: 'root'
 })
 export class SupervisionService {
-  students: Student [];
+  students: Student[];
 
   constructor() {
     this.students = [
-    {displayName: 'Student 1', email: 'student1@bournemouth.ac.uk', course: 'Software Engineering', id: 0},
-      { displayName: 'Student 2', email: 'student2@bournemouth.ac.uk', course: 'BIT', id: 1},
-      { displayName: 'Student 3', email: 'student3@bournemouth.ac.uk', course: 'Forensics', id: 2}
+      {
+        displayName: 'Student 1',
+        email: 'student1@bournemouth.ac.uk',
+        course: 'Software Engineering',
+        id: 0
+      },
+      {
+        displayName: 'Student 2',
+        email: 'student2@bournemouth.ac.uk',
+        course: 'BIT',
+        id: 1
+      },
+      {
+        displayName: 'Student 3',
+        email: 'student3@bournemouth.ac.uk',
+        course: 'Forensics',
+        id: 2
+      }
     ];
-
   }
 
-
-  addStudent(name: string, _course: string): void {
-    let _email: string = name + '@bournemouth.ac.uk';
-    this.students.push({displayName: name, email: _email, course: _course, id: this.students.length});
+  addStudent(student: Student): void {
+    this.students.push({
+      uniqueID: student.uniqueID,
+      displayName: student.displayName,
+      email: student.email,
+      course: student.course,
+      id: this.students.length
+    });
   }
 
   removeStudent(_id: any): void {
     this.students.splice(_id, 1);
   }
   getStudent(_id: string) {
-    return this.students.find((student) => student.id == _id);
+    return this.students.find(student => student.id == _id);
   }
 
-  getStudents(): Observable<Student []> {
+  getStudents(): Observable<Student[]> {
     return of(this.students);
   }
-
 }
 
 export interface Student {
   displayName: string;
   email: string;
   course: string;
-  id: any;
-  uniqueID ?: string;
+  id?: any;
+  uniqueID?: string;
 }

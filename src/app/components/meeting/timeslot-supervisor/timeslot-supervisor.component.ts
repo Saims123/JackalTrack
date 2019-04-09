@@ -21,7 +21,7 @@ import {
 import * as moment from 'moment';
 
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
-
+import { ToastrService } from 'ngx-toastr';
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 import { SupervisionService } from '../../../services/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -45,6 +45,9 @@ export class TimeslotSupervisorComponent implements OnInit {
   events: CalendarEvent[] = [];
   calColor: EventColor;
 
+  meetingStartDate: Date;
+  meetingEndDate: Date;
+
   dragToCreateActive = false;
   studentNo = 0;
   isDataLoaded = false;
@@ -54,6 +57,7 @@ export class TimeslotSupervisorComponent implements OnInit {
     public studentService: SupervisionService,
     public graphService: GraphService,
     public dialog: MatDialog,
+    private toastService: ToastrService,
     public timeslotService: TimeslotService,
     private router: Router
   ) {
@@ -91,21 +95,29 @@ export class TimeslotSupervisorComponent implements OnInit {
   }
 
   getNewTimeslots() {
-    console.warn(this.events.filter(event => event.title === 'New Timeslot'));
     return this.events.filter(event => event.title === 'New Timeslot');
   }
 
-  openDialog() {
+  openDialog(_location) {
+    console.log(this.meetingStartDate, this.meetingEndDate, _location);
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
-      data: this.getNewTimeslots()
+      data: {start: this.meetingStartDate, end: this.meetingEndDate, location: _location, timeslots: this.getNewTimeslots()}
     });
     dialogRef.afterClosed().subscribe(timeslots => {
       if (timeslots) {
         this.timeslotService.initiateNewTimeslot(timeslots);
         this.router.navigate(['meeting/timetable']);
+        this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
       }
     });
   }
+
+  test(data){
+    console.log(data);
+  }
+
+
+
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
 
   startDragToCreate(
