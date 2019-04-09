@@ -27,9 +27,9 @@
       </button>
 
       <button [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Students</button>
+      <button *ngIf="!isSupervisor" [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Supervisor</button>
+
     </div>
-
-
 
 
     <div *ngIf="authService.isAuth" class="avatar">
@@ -38,8 +38,6 @@
       <mat-menu #appAvatar="matMenu">
       <p *ngIf="authService.isAuth">{{authService.user?.email}}</p>
         <mat-divider></mat-divider>
-        <button (click)="signIn()" mat-menu-item>Login</button>
-        <button *ngIf="isSupervisor" mat-menu-item>Profile</button>
         <button (click)="signOut()" mat-menu-item>Logout</button>
       </mat-menu>
 
