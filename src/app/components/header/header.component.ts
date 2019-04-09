@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
         }
       }).then(() => {
           if (this.authService.isAuth) {
-            this.router.navigate(['/student']);
+            this.router.navigate(['/dashboard']);
           }
       });
     });

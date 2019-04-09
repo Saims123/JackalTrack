@@ -28,11 +28,11 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AttendanceButtonComponent } from './components/progress/attendance-tracking/attendance-button/attendance-button.component';
 import { AttendanceTrackingComponent } from './components/progress/attendance-tracking/attendance-tracking.component';
 import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-dialog-component';
+import { AddStudentConfirmationComponent } from './components/student/dialogbox/add-student-confirm.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-
     DashboardComponent,
     ViewNotesComponent,
     AttendanceButtonComponent,
+    AddStudentConfirmationComponent,
     AttendanceTrackingComponent
   ],
   imports: [
@@ -62,8 +63,7 @@ import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-
     BrowserAnimationsModule,
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
-      authority:
-        'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
+      authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
       postLogoutRedirectUri: window.location.origin
     }),
     BrowserAnimationsModule,
@@ -72,11 +72,6 @@ import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-
       useFactory: adapterFactory
     }),
     ReactiveFormsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
     LayoutModule,
     NgScrollbarModule,
     ToastrModule.forRoot()
@@ -85,7 +80,8 @@ import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-
   entryComponents: [
     TimeslotConfirmationDialog,
     TimeslotSupervisorComponent,
-    DeleteConfirmationDialog
+    DeleteConfirmationDialog,
+    AddStudentConfirmationComponent
   ],
   bootstrap: [AppComponent]
 })

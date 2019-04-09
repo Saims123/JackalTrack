@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public authService: AuthService , private router: Router) {
     if (this.authService.isAuth) {
-      this.router.navigate(['/student']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   async signIn(): Promise<void> {
-    await this.authService.signIn().then(() => { this.router.navigate(['/student']); });
+    await this.authService.signIn().then(() => { this.router.navigate(['/dashboard']); });
   }
 
 }
