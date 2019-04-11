@@ -14,18 +14,15 @@ export class SupervisionService implements OnInit, OnDestroy {
   subscription: any;
 
   constructor(
-    private http: HttpClient,
-    private toastService: ToastrService,
-    private supervisorService: SupervisorService
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
-    console.log('Main Service : ', this.supervisorService.supervisor);
   }
 
-  addStudent(_student: Student) {
+  addStudent(_supervisor,_student: Student) {
     return this.http.post(`${JackalNestAPI.SupervisionGroup}/student`, {
-      supervisor: this.supervisorService.supervisor,
+      supervisor: _supervisor,
       student: _student
     });
   }
@@ -45,7 +42,7 @@ export class SupervisionService implements OnInit, OnDestroy {
   }
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
-    console.log(this.supervisorService.supervisor);
+    console.log(_id);
     return this.http.get<SupervisionGroup>(
       `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
     );

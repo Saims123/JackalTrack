@@ -24,13 +24,6 @@ export class TimetableSupervisorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.supervisor.getSupervisor().subscribe(supervisor => {
-      this.supervision
-        .getSupervisionGroupFromNest(supervisor.uniqueID)
-        .subscribe((group: any) => {
-          this.timeslotService.bookTimeslot(1, group.students[0]);
-        });
-    });
 
     this.timeslots = this.timeslotService.getTimeslots();
     this.students = this.timeslotService.getStudentsNotBookedSlots();

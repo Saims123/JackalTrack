@@ -47,9 +47,6 @@ export class TimeslotService {
   }
   getStudentsNotBookedSlots() {
     let students: Student[] = [];
-    this.supervisor.getSupervisor().subscribe(supervisor => {
-          this.supervisionService.getSupervisionGroupFromNest(supervisor.uniqueID).subscribe(group => (students = group.students));
-    });
 
     this.timeslots.forEach(timeslot => { // Special Reverse search for students
       if ('student' in timeslot) {

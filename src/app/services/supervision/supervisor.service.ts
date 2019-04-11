@@ -1,29 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Supervisor } from './supervision.service';
+import {
+  Supervisor,
+  SupervisionGroup,
+  SupervisionService
+} from './supervision.service';
 import { GraphService } from '../graph/graph.service';
 import { of, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupervisorService {
-public supervisor: Supervisor;
+  public supervisor: Observable<SupervisionGroup>;
 
-  constructor(private graphService: GraphService) {
-    this.graphService.getMe().subscribe(
-      user =>
-        {(this.supervisor = {
-          uniqueID: user.id,
-          displayName: user.displayName,
-          email: user.mail,
-          location: user.location
-        }),
-      console.log('Supervisor Triggered : ', this.supervisor)}
+  constructor(
+    private graphService: GraphService,
+    private supervisionService: SupervisionService
+  ) {}
+
+  experiment() {
+    console.log(
+      'Experiment : ',
+     this.supervisor = this.graphService
+        .getMe()
+        .pipe(
+          mergeMap(supervisor =>
+            this.supervisionService.getSupervisionGroupFromNest(supervisor.id)
+          )
+        )
     );
   }
-
-  getSupervisor() : Observable<Supervisor>{
-    return of(this.supervisor);
-  }
-
 }

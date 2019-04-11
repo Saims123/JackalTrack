@@ -68,11 +68,6 @@ export class TimeslotSupervisorComponent implements OnInit {
 
   ngOnInit(): void {
     this.importMicrosoftEvents();
-    this.supervisor.getSupervisor().subscribe(supervisor => {
-      this.supervisionGroupService
-        .getSupervisionGroupFromNest(supervisor.uniqueID)
-        .subscribe((group: any) => (this.studentNo = group.students.length));
-    });
   }
 
   importMicrosoftEvents() {

@@ -47,12 +47,19 @@ export class StudentComponent implements OnInit, OnDestroy {
     private graphService: GraphService
   ) {
     this.dataSource = new MatTableDataSource();
+    this.supervisorService.experiment();
   }
 
   ngOnInit() {
     this.subscribeToStudentSearch();
     this.refreshStudentList();
     console.log('Witness : ', this.supervisorService.supervisor);
+    this.supervisorService.supervisor.subscribe(data => {
+      console.warn('Conclusion : ', data),
+        (this.dataSource.data = data[0].students),
+        console.warn('AfterMath :', this.dataSource.data);
+    });
+    this.dataSource.sort = this.sort;
   }
 
   displayFn(user?: Student): string | undefined {
@@ -67,7 +74,6 @@ export class StudentComponent implements OnInit, OnDestroy {
       if (state) {
         this.supervisionService.removeStudent(student.uniqueID).subscribe(
           (res: any) => {
-            console.log(res);
             this.toastService.success(
               `Successfully deleted ${student.displayName}`,
               'Delete Student'
@@ -75,31 +81,28 @@ export class StudentComponent implements OnInit, OnDestroy {
             this.dataSource = res.student.students;
           },
           err => {
-            this.toastService.error(err.message, 'Delete Student');
-            return err;
-          }
+            this.toastService.error(err.message, 'Delete Student');          }
         );
       }
     });
   }
 
   refreshStudentList(): void {
-
-    this.supervisionService
-      .getSupervisionGroupFromNest(this.supervisorService.supervisor.uniqueID)
-      .subscribe(
-        (group: SupervisionGroup) => (
-          (this.supervisionGroup = group),
-          console.warn('What: ', group),
-          (this.dataSource.data = this.supervisionGroup.students)
-        ),
-        err => {
-          console.error('Unable to refresh Student', err);
-        },
-        () => {
-          console.log('Final Step ', this.dataSource.data);
-        }
-      );
+    // this.supervisionService
+    //   .getSupervisionGroupFromNest(this.supervisorService.supervisor.uniqueID)
+    //   .subscribe(
+    //     (group: SupervisionGroup) => (
+    //       (this.supervisionGroup = group),
+    //       console.warn('What: ', group),
+    //       (this.dataSource.data = this.supervisionGroup.students)
+    //     ),
+    //     err => {
+    //       console.error('Unable to refresh Student', err);
+    //     },
+    //     () => {
+    //       console.log('Final Step ', this.dataSource.data);
+    //     }
+    //   );
   }
 
   addStudent() {
@@ -118,7 +121,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(state => {
       if (state) {
-        this.supervisionService.addStudent(newStudent).subscribe(
+        this.supervisionService.addStudent(null, newStudent).subscribe(
           res => {
             console.log(res);
             this.toastService.success(
@@ -135,9 +138,6 @@ export class StudentComponent implements OnInit, OnDestroy {
         this.refreshStudentList();
       }
     });
-
-    this.supervisionService.addStudent(newStudent);
-    console.log(newStudent);
     this.refreshStudentList();
 
     this.studentsForm.get('userInput').reset();
@@ -166,7 +166,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-   // this.dataSubscription.unsubscribe();
+    // this.dataSubscription.unsubscribe();
   }
 }
 
