@@ -12,7 +12,7 @@ import { NotesComponent } from '../components/meeting/notes/notes.component';
 import { AttendanceTrackingComponent } from '../components/progress/attendance-tracking/attendance-tracking.component';
 
 const routes: Routes = [
-  { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
+  { path: 'supervision/:id/student', component: StudentComponent, canActivate: [MsalGuard] },
   { path: 'login', component: LoginComponent },
   {
     path: 'timeslot',
@@ -42,7 +42,7 @@ const routes: Routes = [
   },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  
+
   { path: '**', component: ErrorComponent }
 ];
 

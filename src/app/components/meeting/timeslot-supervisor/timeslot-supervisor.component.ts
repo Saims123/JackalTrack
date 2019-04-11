@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil, debounceTime } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import {
   ceilToNearest,
@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 import { SupervisionService } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
+import { SupervisorService } from 'src/app/services/supervision/supervisor.service';
 
 @Component({
   selector: 'app-timeslot-supervisor',
@@ -59,15 +60,19 @@ export class TimeslotSupervisorComponent implements OnInit {
     public dialog: MatDialog,
     private toastService: ToastrService,
     public timeslotService: TimeslotService,
-    private router: Router
+    private router: Router,
+    private supervisor: SupervisorService
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
   }
 
   ngOnInit(): void {
     this.importMicrosoftEvents();
-    this.supervisionGroupService.getStudents()
-      .subscribe((students) => this.studentNo = students.length);
+    this.supervisor.getSupervisor().subscribe(supervisor => {
+      this.supervisionGroupService
+        .getSupervisionGroupFromNest(supervisor.uniqueID)
+        .subscribe((group: any) => (this.studentNo = group.students.length));
+    });
   }
 
   importMicrosoftEvents() {
@@ -100,22 +105,28 @@ export class TimeslotSupervisorComponent implements OnInit {
   openDialog(_location) {
     console.log(this.meetingStartDate, this.meetingEndDate, _location);
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
-      data: {start: this.meetingStartDate, end: this.meetingEndDate, location: _location, timeslots: this.getNewTimeslots()}
+      data: {
+        start: this.meetingStartDate,
+        end: this.meetingEndDate,
+        location: _location,
+        timeslots: this.getNewTimeslots()
+      }
     });
     dialogRef.afterClosed().subscribe(timeslots => {
       if (timeslots) {
         this.timeslotService.initiateNewTimeslot(timeslots);
         this.router.navigate(['meeting/timetable']);
-        this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
+        this.toastService.success(
+          'Timeslot creation',
+          'Successfully created and sent to all students'
+        );
       }
     });
   }
 
-  test(data){
+  test(data) {
     console.log(data);
   }
-
-
 
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
 

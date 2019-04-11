@@ -4,6 +4,7 @@ import { User } from './user';
 import {OAuthSettings} from './oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Router } from '@angular/router';
+import { SupervisorService } from '../supervision/supervisor.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -74,7 +75,9 @@ private async getUser(): Promise<User> {
   let user = new User();
   user.displayName = graphUser.displayName;
   user.mail = graphUser.mail || graphUser.userPrincipalName;
-
+  user.id = graphUser.id;
+  user.jobTitle = graphUser.jobTitle;
+  user.location = graphUser.location;
   return user;
 }
 

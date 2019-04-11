@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Student, SupervisionService } from '../supervision/supervision.service';
+import { SupervisorService } from '../supervision/supervisor.service';
 @Injectable({
   providedIn: 'root'
 })
 export class TimeslotService {
   timeslots: Timeslot[] = [];
-  constructor(private supervisionService: SupervisionService
+  constructor(private supervisionService: SupervisionService,
+    private supervisor: SupervisorService
   ) {}
 
   // tslint:disable:variable-name
@@ -44,8 +46,10 @@ export class TimeslotService {
     }
   }
   getStudentsNotBookedSlots() {
-    let students: Student[]= [];
-    this.supervisionService.getStudents().subscribe(data => (students = [...data]));
+    let students: Student[] = [];
+    this.supervisor.getSupervisor().subscribe(supervisor => {
+          this.supervisionService.getSupervisionGroupFromNest(supervisor.uniqueID).subscribe(group => (students = group.students));
+    });
 
     this.timeslots.forEach(timeslot => { // Special Reverse search for students
       if ('student' in timeslot) {

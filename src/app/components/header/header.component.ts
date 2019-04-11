@@ -20,15 +20,15 @@ export class HeaderComponent implements OnInit {
 
   async signIn(): Promise<void> {
     await this.authService.signIn().then(() => {
-      this.graphService.getMe().then(data => {
-        if (data.jobTitle !== 'Student') {
-          this.isSupervisor = true;
-        }
-      }).then(() => {
-          if (this.authService.isAuth) {
-            this.router.navigate(['/dashboard']);
+      this.graphService.getMe()
+        .subscribe(data => {
+          if (data.jobTitle !== 'Student') {
+            this.isSupervisor = true;
           }
-      });
+        });
+      if (this.authService.isAuth) {
+        this.router.navigate(['/dashboard']);
+      }
     });
   }
 

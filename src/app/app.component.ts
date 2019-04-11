@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SupervisionGroup, SupervisionService } from './services/supervision/supervision.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'JackalTrack';
+  constructor() {
+  }
 }

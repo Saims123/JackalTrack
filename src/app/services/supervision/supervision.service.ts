@@ -5,101 +5,56 @@ import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
 import { ToastrService } from 'ngx-toastr';
 import { GraphService } from '../graph/graph.service';
+import { SupervisorService } from './supervisor.service';
 @Injectable({
   providedIn: 'root'
 })
 export class SupervisionService implements OnInit, OnDestroy {
   supervisionGroup: SupervisionGroup;
-  _supervisor: Supervisor;
   subscription: any;
 
   constructor(
-    private graphService: GraphService,
     private http: HttpClient,
-    private toastService: ToastrService
-  ) {
-    this.graphService.getMe()
-    .then(user => {
-      this._supervisor = {
-        uniqueID: user.id,
-        email: user.mail,
-        displayName: user.displayName,
-        location: user.location
-      };
-    }).then(() => this.getSupervisionGroupFromNest());
-
-  }
+    private toastService: ToastrService,
+    private supervisorService: SupervisorService
+  ) {}
 
   ngOnInit() {
+    console.log('Main Service : ', this.supervisorService.supervisor);
   }
 
-  addStudent(_student: Student): void {
-    this.http
-      .post(`${JackalNestAPI.SupervisionGroup}/student`, {
-        supervisor: this._supervisor,
-        student: _student
-      })
-      .subscribe(
-        res => {
-          console.log(res);
-          this.toastService.success(
-            `Successfully added ${_student.displayName} under your supervision`,
-            'Add Student'
-          );
-        },
-        err => {
-          this.toastService.error(err, 'Add Student');
-        }
-      );
-
-    this.getSupervisionGroupFromNest();
+  addStudent(_student: Student) {
+    return this.http.post(`${JackalNestAPI.SupervisionGroup}/student`, {
+      supervisor: this.supervisorService.supervisor,
+      student: _student
+    });
   }
 
-  removeStudent(_id: any): void {
-    this.http.delete(`${JackalNestAPI.SupervisionGroup}/${_id}`).subscribe(
-      res => {
-        console.log(res);
-        this.toastService.success(
-          'Successfully deleted student',
-          'Delete Student'
-        );
-      },
-      err => {
-        this.toastService.error(err, 'Delete Student');
-      }
-    );
-    this.getSupervisionGroupFromNest();
+  removeStudent(_id: any) {
+    return this.http.delete(`${JackalNestAPI.SupervisionGroup}/${_id}`);
   }
 
   getStudents() {
+    console.log(this.supervisionGroup);
     return of(this.supervisionGroup.students);
   }
   getSingleStudent(_id: string) {
-    return this.supervisionGroup.students.find((student) => student.uniqueID === _id);
+    return this.supervisionGroup.students.find(
+      student => student.uniqueID === _id
+    );
   }
 
-  getSupervisionGroupFromNest() {
-    console.log(this._supervisor);
-    this.subscription = this.http
-      .get(`${JackalNestAPI.SupervisionGroup}/${this._supervisor.uniqueID}`)
-      .subscribe((group) => {
-        console.warn(group);
-        this.supervisionGroup = group as SupervisionGroup;
-        if (!group) {
-          // Create new profile if not in database
-          this.http.post(
-            `${JackalNestAPI.SupervisionGroup}/supervisor`,
-            this._supervisor
-          );
-        }
-      });
+  getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
+    console.log(this.supervisorService.supervisor);
+    return this.http.get<SupervisionGroup>(
+      `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
+    );
   }
 
   getSupervisionGroup() {
     return this.supervisionGroup;
   }
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 }
 
 export interface Student {
@@ -116,8 +71,8 @@ export interface SupervisionGroup {
 }
 
 export interface Supervisor {
-  displayName: string;
-  email: string;
+  displayName?: string;
+  email?: string;
   uniqueID?: string;
-  location: string;
+  location?: string;
 }

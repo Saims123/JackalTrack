@@ -29,6 +29,10 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ToastrModule } from 'ngx-toastr';
+import { SupervisionService } from './services/supervision/supervision.service';
+import { SupervisorService } from './services/supervision/supervisor.service';
+import { GraphService } from './services/graph/graph.service';
+import { AuthService } from './services/auth/auth.service';
 
 
 
@@ -59,7 +63,8 @@ import { ToastrModule } from 'ngx-toastr';
     MaterialModule,
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
-      authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
+      authority:
+        'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
       postLogoutRedirectUri: window.location.origin
     }),
     CalendarModule.forRoot({
@@ -70,7 +75,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [SupervisionService, GraphService],
   entryComponents: [
     TimeslotConfirmationDialog,
     TimeslotSupervisorComponent,

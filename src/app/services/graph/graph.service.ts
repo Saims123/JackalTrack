@@ -53,17 +53,26 @@ export class GraphService {
       );
     }
   }
-  async getMe(): Promise<User> {
-    try {
-      let result = await this.graphClient.api('/me').get();
-      return result;
-    } catch (error) {
-      this.toastService.error(
-        JSON.stringify(error, null, 2),
-        'Profile Retrival error',
-        { timeOut: 10000, progressBar: true }
-      );
-    }
+  getMe(): Observable<User> {
+    return Observable.fromPromise(
+      this.graphClient
+        .api('/me')
+        .get()
+        .then(user => {
+          try {
+            return user;
+          } catch (err) {
+            this.toastService.error(
+              JSON.stringify(err, null, 2),
+              'Profile Retrival error',
+              { timeOut: 10000, progressBar: true }
+            );
+          }
+        })
+        .then(user => {
+          return user;
+        })
+    );
   }
 
   async getEventsOnCurrentWeek(): Promise<Event[]> {

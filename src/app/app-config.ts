@@ -1,5 +1,5 @@
 export const JackaLConfig = {
-  JackalNestURL : 'http://localhost:5000/api',
+  JackalNestURL : 'http://localhost:40030',
   JackalTrackURL: 'https://...'
 }
 export const JackalNestAPI = {

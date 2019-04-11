@@ -7,6 +7,7 @@ import {
   SupervisionService,
   Student
 } from 'src/app/services/supervision/supervision.service';
+import { SupervisorService } from 'src/app/services/supervision/supervisor.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -18,13 +19,19 @@ export class TimetableSupervisorComponent implements OnInit {
   students: Student[] = [];
   constructor(
     private timeslotService: TimeslotService,
-    private supervision: SupervisionService
+    private supervision: SupervisionService,
+    private supervisor: SupervisorService
   ) {}
 
   ngOnInit() {
-    this.supervision.getStudents().subscribe(student => {
-      this.timeslotService.bookTimeslot(1, student[0]);
+    this.supervisor.getSupervisor().subscribe(supervisor => {
+      this.supervision
+        .getSupervisionGroupFromNest(supervisor.uniqueID)
+        .subscribe((group: any) => {
+          this.timeslotService.bookTimeslot(1, group.students[0]);
+        });
     });
+
     this.timeslots = this.timeslotService.getTimeslots();
     this.students = this.timeslotService.getStudentsNotBookedSlots();
   }
