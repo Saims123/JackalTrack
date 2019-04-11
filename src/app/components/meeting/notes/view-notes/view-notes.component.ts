@@ -10,7 +10,7 @@ import {
   MeetingNote,
   StudentNotes
 } from 'src/app/services/meeting-notes/meeting-notes.service';
-import { Student } from 'src/app/services/supervision.service';
+import { Student } from 'src/app/services/supervision/supervision.service';
 
 @Component({
   selector: 'view-meeting-notes',

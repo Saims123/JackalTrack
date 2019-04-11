@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { MaterialModule } from './modules/material-design.module';
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from './services/auth/oauth';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -56,7 +54,6 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     NgbModule,
     AppRoutingModule,
     MaterialModule,
@@ -70,7 +67,8 @@ import { ToastrModule } from 'ngx-toastr';
       useFactory: adapterFactory
     }),
     NgScrollbarModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   entryComponents: [

@@ -6,7 +6,7 @@ import {
 import {
   SupervisionService,
   Student
-} from 'src/app/services/supervision.service';
+} from 'src/app/services/supervision/supervision.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -23,7 +23,7 @@ export class TimetableSupervisorComponent implements OnInit {
 
   ngOnInit() {
     this.supervision.getStudents().subscribe(student => {
-      this.timeslotService.bookTimeslot(1, student[1]);
+      this.timeslotService.bookTimeslot(1, student[0]);
     });
     this.timeslots = this.timeslotService.getTimeslots();
     this.students = this.timeslotService.getStudentsNotBookedSlots();

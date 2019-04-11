@@ -23,7 +23,7 @@ import * as moment from 'moment';
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
-import { SupervisionService } from '../../../services/supervision.service';
+import { SupervisionService } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
@@ -54,7 +54,7 @@ export class TimeslotSupervisorComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    public studentService: SupervisionService,
+    public supervisionGroupService: SupervisionService,
     public graphService: GraphService,
     public dialog: MatDialog,
     private toastService: ToastrService,
@@ -62,13 +62,12 @@ export class TimeslotSupervisorComponent implements OnInit {
     private router: Router
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
-    this.studentService
-      .getStudents()
-      .subscribe(students => (this.studentNo = students.length));
   }
 
   ngOnInit(): void {
     this.importMicrosoftEvents();
+    this.supervisionGroupService.getStudents()
+      .subscribe((students) => this.studentNo = students.length);
   }
 
   importMicrosoftEvents() {

@@ -73,7 +73,7 @@ private async getUser(): Promise<User> {
   const graphUser = await graphClient.api('/me').get();
   let user = new User();
   user.displayName = graphUser.displayName;
-  user.email = graphUser.mail || graphUser.userPrincipalName;
+  user.mail = graphUser.mail || graphUser.userPrincipalName;
 
   return user;
 }

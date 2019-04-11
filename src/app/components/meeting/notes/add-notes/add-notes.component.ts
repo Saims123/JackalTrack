@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import {
   Student,
   SupervisionService
-} from 'src/app/services/supervision.service';
+} from 'src/app/services/supervision/supervision.service';
 import * as moment from 'moment';
 import { TodoList, MeetingNote, MeetingNotesService } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,8 +33,8 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     private route: Router
   ) {
     this.routeSub = this.routes.params.subscribe(params => {
-      console.log(this.supervisionService.getStudent(String(params.id)));
-      this.student = this.supervisionService.getStudent(params.id);
+      console.log(this.supervisionService.getSingleStudent(String(params.id)));
+      this.student = this.supervisionService.getSingleStudent(params.id);
       console.warn(this.student);
     });
   }

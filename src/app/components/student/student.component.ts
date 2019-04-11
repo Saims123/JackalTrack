@@ -2,22 +2,19 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   SupervisionService,
   Student
-} from '../../services/supervision.service';
+} from '../../services/supervision/supervision.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Subscription, of } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import {
   debounceTime,
   tap,
-  switchMap,
-  finalize,
-  startWith,
-  distinctUntilChanged,
-  catchError
+  distinctUntilChanged
 } from 'rxjs/operators';
 import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { AddStudentConfirmationComponent } from './dialogbox/add-student-confirm.component';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -43,7 +40,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   filteredStudents: Student[] = [];
   isLoading = false;
   constructor(
-    public studentService: SupervisionService,
+    public supervisionService: SupervisionService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private toastService: ToastrService,
@@ -64,14 +61,7 @@ export class StudentComponent implements OnInit, OnDestroy {
       .subscribe(users => {
         this.graphService
           .getUsers(users)
-          .subscribe(
-            res => (
-              (this.filteredStudents = res),
-              debounceTime(100),
-              (this.isLoading = false)
-            )
-          );
-
+          .subscribe(res => (this.filteredStudents = res, this.isLoading = false))
       });
 
     this.refreshStudentList();
@@ -87,7 +77,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(state => {
       if (state) {
-        this.studentService.removeStudent(student.id);
+        this.supervisionService.removeStudent(student.id);
         this.refreshStudentList();
         this.toastService.success(
           `Successfully deleted ${student.displayName}`,
@@ -98,10 +88,10 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   refreshStudentList(): void {
-    this.dataSubscription = this.studentService
-      .getStudents()
-      .subscribe(students => (this.dataSource.data = [...students]));
-    this.dataSource.sort = this.sort;
+    // this.dataSubscription = this.supervisionService
+    //   .getStudents()
+    //   .subscribe(students => (this.dataSource.data = [...students]));
+    // this.dataSource.sort = this.sort;
   }
 
   addStudent() {
@@ -115,7 +105,17 @@ export class StudentComponent implements OnInit, OnDestroy {
       email: selectedStudent.mail
     };
 
-    this.studentService.addStudent(newStudent);
+    const dialogRef = this.dialog.open(AddStudentConfirmationComponent, {
+      data: newStudent
+    });
+    dialogRef.afterClosed().subscribe(state => {
+      if (state) {
+        this.supervisionService.addStudent(newStudent);
+        this.refreshStudentList();
+      }
+    });
+
+    this.supervisionService.addStudent(newStudent);
     console.log(newStudent);
     this.refreshStudentList();
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SupervisionService, Student } from '../supervision.service';
+import { SupervisionService, Student } from '../supervision/supervision.service';
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +76,7 @@ export class MeetingNotesService {
       }
     ];
 
-    this.addMeetingNoteToStudent(this.students[1], mockNote);
+    this.addMeetingNoteToStudent(this.students[0], mockNote);
   }
 }
 

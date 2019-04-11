@@ -6,9 +6,11 @@
     "\\src\\app\\components",
     "\\src\\app\\components\\login",
     "\\src\\app\\components\\meeting",
-    "\\src\\app\\components\\meeting\\notes",
-    "\\src\\app\\components\\meeting\\notes\\add-notes"
+    "\\src\\app\\components\\student",
+    "\\src\\app\\modules",
+    "\\src\\app\\services",
+    "\\src\\app\\services\\auth"
   ],
-  "SelectedNode": "\\src\\app\\components\\login\\login.component.spec.ts",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

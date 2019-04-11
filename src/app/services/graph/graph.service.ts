@@ -4,9 +4,10 @@ import { Event } from './event';
 import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
 import { from, Observable, of } from 'rxjs';
-import { Student } from '../supervision.service';
+import { Student } from '../supervision/supervision.service';
 import { tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../auth/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,10 +53,10 @@ export class GraphService {
       );
     }
   }
-  async getMe(): Promise<any> {
+  async getMe(): Promise<User> {
     try {
       let result = await this.graphClient.api('/me').get();
-      return result.value;
+      return result;
     } catch (error) {
       this.toastService.error(
         JSON.stringify(error, null, 2),
