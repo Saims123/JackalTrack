@@ -5,7 +5,11 @@ import {
   SupervisionService
 } from 'src/app/services/supervision/supervision.service';
 import * as moment from 'moment';
-import { TodoList, MeetingNote, MeetingNotesService } from 'src/app/services/meeting-notes/meeting-notes.service';
+import {
+  TodoList,
+  MeetingNote,
+  MeetingNotesService
+} from 'src/app/services/meeting-notes/meeting-notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-notes',
@@ -32,16 +36,19 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     private meetingNoteService: MeetingNotesService,
     private route: Router
   ) {
-    this.routeSub = this.routes.params.subscribe(params => {
-      console.log(this.supervisionService.getSingleStudent(String(params.id)));
-      this.supervisionService.getSingleStudent(params.id).subscribe(student => this.student = student);
-      console.warn(this.student);
-    });
+    this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit() {
     // Default behaviour, create a template task for further use
     this.generateNewTask();
+    this.routeSub = this.routes.params.subscribe(params => {
+      console.log(this.supervisionService.getSingleStudent(String(params.id)));
+      this.supervisionService
+        .getSingleStudent(params.id)
+        .subscribe(student => (this.student = student));
+      console.warn(this.student);
+    });
   }
 
   generateNewTask() {
@@ -61,8 +68,14 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(note) {
-    this.meetingNote = {created: this.createdDateTime, notes: note, todoList: this.todoList};
-    this.meetingNoteService.addMeetingNoteToStudent(this.student, [this.meetingNote]);
+    this.meetingNote = {
+      created: this.createdDateTime,
+      notes: note,
+      todoList: this.todoList
+    };
+    this.meetingNoteService.addMeetingNoteToStudent(this.student, [
+      this.meetingNote
+    ]);
     console.warn(this.meetingNote);
     this.route.navigate(['/meeting/notes']);
   }

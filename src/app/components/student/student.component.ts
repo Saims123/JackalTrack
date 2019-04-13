@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import {
   SupervisionService,
   Student,
@@ -30,56 +36,38 @@ export class StudentComponent implements OnInit, OnDestroy {
   studentsForm: FormGroup;
   options: Student[] = [];
 
-  courses = ['Software Engineering', 'Computing', 'Business In Computing', 'Forensics'];
+  courses = [
+    'Software Engineering',
+    'Computing',
+    'Business In Computing',
+    'Forensics'
+  ];
   filteredStudents: Student[] = [];
   isLoading = false;
   constructor(
     public supervisorService: SupervisorService,
     public supervisionService: SupervisionService,
-    private dialog: MatDialog,
+    private deleteDialog: MatDialog,
+    private addDialog: MatDialog,
     private fb: FormBuilder,
     private toastService: ToastrService,
     private graphService: GraphService,
     private changeDetectorRefs: ChangeDetectorRef
   ) {
     this.dataSource = new MatTableDataSource();
-    this.supervisorService.experiment();
     this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit() {
     this.subscribeToStudentSearch();
-    this.getSupervisionGroupData();
   }
 
   displayFn(user?: Student): string | undefined {
     return user ? user.displayName : undefined;
   }
 
-  removeStudent(student: Student): void {
-    const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
-      data: student
-    });
-    deleteDialogRef.afterClosed().subscribe(state => {
-      if (!state) {
-        this.supervisionService.removeStudent(student.uniqueID).subscribe(
-          (res: any) => {
-            this.toastService.success(
-              `Successfully deleted ${student.displayName}`,
-              'Delete Student'
-            ),
-              this.getSupervisionGroupData();
-          },
-          err => {
-            this.toastService.error(err.message, 'Delete Student');
-          }
-        );
-      }
-    });
-  }
-
   getSupervisionGroupData(): void {
-    this.supervisorService.supervisor.subscribe(data => {
+    this.supervisionService.supervisionGroup.subscribe(data => {
       (this.dataSource.data = data[0].students),
         (this.supervisor = data[0].supervisor),
         (this.dataSource.sort = this.sort),
@@ -99,26 +87,53 @@ export class StudentComponent implements OnInit, OnDestroy {
       email: selectedStudent.mail
     };
 
-    const dialogRef = this.dialog.open(AddStudentConfirmationComponent, {
-      data: newStudent
-    });
-    dialogRef.afterClosed().subscribe(state => {
+    const addStudentDialog = this.addDialog.open(
+      AddStudentConfirmationComponent,
+      { data: newStudent }
+    );
+    this.changeDetectorRefs.markForCheck();
+    addStudentDialog.afterClosed().subscribe(state => {
       if (state) {
         this.supervisionService.addStudent(newStudent).subscribe(
           res => {
-            this.changeDetectorRefs.detectChanges();
-            this.toastService.success(
-              `Successfully added ${newStudent.displayName} under your supervision`,
-              'Add Student'
-            );
-            this.studentsForm.get('userInput').reset();
-            this.studentsForm.get('courseInput').reset();
+            console.log(res),
+              this.toastService.success(
+                `Successfully added ${
+                  newStudent.displayName
+                } under your supervision`,
+                'Add Student'
+              ),
+              this.getSupervisionGroupData()
           },
           err => {
             this.toastService.error(err.message, 'Add Student');
           }
         );
-        this.getSupervisionGroupData();
+      }
+    });
+  }
+
+  removeStudent(student: Student): void {
+    const deleteDialogRef = this.deleteDialog.open(DeleteConfirmationDialog, {
+      data: student
+    });
+    this.changeDetectorRefs.markForCheck();
+
+    deleteDialogRef.afterClosed().subscribe(state => {
+      console.log(state);
+      if (state) {
+        this.supervisionService.removeStudent(student.uniqueID).subscribe(
+          (res: any) => {
+            this.toastService.success(
+              `Successfully deleted ${student.displayName}`,
+              'Delete Student'
+            ),
+              this.getSupervisionGroupData();
+          },
+          err => {
+            this.toastService.error(err.message, 'Delete Student');
+          }
+        );
       }
     });
   }
@@ -138,7 +153,9 @@ export class StudentComponent implements OnInit, OnDestroy {
       .subscribe(users => {
         this.graphService
           .getUsers(users)
-          .subscribe(res => ((this.filteredStudents = res), (this.isLoading = false)));
+          .subscribe(
+            res => ((this.filteredStudents = res), (this.isLoading = false))
+          );
       });
   }
   ngOnDestroy(): void {

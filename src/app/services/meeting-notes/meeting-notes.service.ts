@@ -7,15 +7,14 @@ import { Observable, of } from 'rxjs';
 })
 export class MeetingNotesService implements OnInit {
   notes: MeetingNote[] = [];
-  students: Observable<Student[]>;
+  students: Student[] = [];
   studentNotes: StudentNotes[] = [];
   constructor(public supervisionService: SupervisionService) {
     this.supervisionService.getSupervisionGroup();
   }
   ngOnInit(): void {
     this.supervisionService.supervisionGroup.subscribe(group => {
-      this.students = of(group.students);
-      console.log(this.students);
+      this.students = group[0].students;
     });
   }
   addMeetingNoteToStudent(_student: Student, _notes: MeetingNote[]) {

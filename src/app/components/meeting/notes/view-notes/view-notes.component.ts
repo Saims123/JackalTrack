@@ -3,7 +3,8 @@ import {
   OnInit,
   Input,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   MeetingNotesService,
@@ -20,7 +21,10 @@ import { Student } from 'src/app/services/supervision/supervision.service';
 export class ViewNotesComponent implements OnInit, OnChanges {
   @Input() public student: Student;
   meetingNotes: MeetingNote[] = [];
-  constructor(private noteService: MeetingNotesService) {}
+  constructor(
+    private noteService: MeetingNotesService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.noteService.initiateMockData();
@@ -35,9 +39,10 @@ export class ViewNotesComponent implements OnInit, OnChanges {
       });
     });
     console.log(this.meetingNotes);
+    this.cdr.detectChanges();
   }
 
-  revealChanges(data, data2){
+  revealChanges(data, data2) {
     console.log(data, data2);
   }
 }

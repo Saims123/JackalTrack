@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
-import { finalize, takeUntil, debounceTime } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import {
   ceilToNearest,
@@ -25,7 +25,6 @@ import { ToastrService } from 'ngx-toastr';
 import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 import { SupervisionService } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
-import { SupervisorService } from 'src/app/services/supervision/supervisor.service';
 
 @Component({
   selector: 'app-timeslot-supervisor',
@@ -61,13 +60,15 @@ export class TimeslotSupervisorComponent implements OnInit {
     private toastService: ToastrService,
     public timeslotService: TimeslotService,
     private router: Router,
-    private supervisor: SupervisorService
+    private supervisionService: SupervisionService
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
+    this.importMicrosoftEvents();
+    this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit(): void {
-    this.importMicrosoftEvents();
+    this.supervisionService.supervisionGroup.subscribe(group => this.studentNo = group[0].students.length);
   }
 
   importMicrosoftEvents() {

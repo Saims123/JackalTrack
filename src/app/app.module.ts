@@ -33,6 +33,7 @@ import { SupervisionService } from './services/supervision/supervision.service';
 import { SupervisorService } from './services/supervision/supervisor.service';
 import { GraphService } from './services/graph/graph.service';
 import { AuthService } from './services/auth/auth.service';
+import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
 
 
 
@@ -54,7 +55,8 @@ import { AuthService } from './services/auth/auth.service';
     ViewNotesComponent,
     AttendanceButtonComponent,
     AddStudentConfirmationComponent,
-    AttendanceTrackingComponent
+    AttendanceTrackingComponent,
+    BookingTimeslotComponent
   ],
   imports: [
     BrowserModule,

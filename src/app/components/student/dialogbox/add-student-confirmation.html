@@ -3,7 +3,7 @@
 <p>Are you sure you want to add {{data.displayName}}?</p>
 <small>{{data.displayName}} will be sent an invitation email!</small>
 </div>
-<div mat-dialog-actions style="display: block; float: right;">
-  <button mat-button color="warn" [mat-dialog-close]="false" (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
   <button mat-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
 </div>
