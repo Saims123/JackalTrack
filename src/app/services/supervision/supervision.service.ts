@@ -1,56 +1,50 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
-import { ToastrService } from 'ngx-toastr';
 import { GraphService } from '../graph/graph.service';
-import { SupervisorService } from './supervisor.service';
+import { mergeMap, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class SupervisionService implements OnInit, OnDestroy {
-  supervisionGroup: SupervisionGroup;
+  supervisionGroup: Observable<SupervisionGroup>;
   subscription: any;
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient, private graphService: GraphService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  getSupervisionGroup() {
+    this.supervisionGroup = this.graphService
+      .getMe()
+      .pipe(mergeMap(supervisor => this.getSupervisionGroupFromNest(supervisor.id)));
   }
 
-  addStudent(_supervisor,_student: Student) {
-    return this.http.post(`${JackalNestAPI.SupervisionGroup}/student`, {
-      supervisor: _supervisor,
-      student: _student
-    });
+  addStudent(_student: Student) {
+    return this.supervisionGroup.pipe(
+      mergeMap(group =>
+        this.http.post(`${JackalNestAPI.SupervisionGroup}/student`, {
+          supervisor: group[0].supervisor as Supervisor,
+          student: _student
+        })
+      )
+    );
   }
 
   removeStudent(_id: any) {
     return this.http.delete(`${JackalNestAPI.SupervisionGroup}/${_id}`);
   }
 
-  getStudents() {
-    console.log(this.supervisionGroup);
-    return of(this.supervisionGroup.students);
-  }
   getSingleStudent(_id: string) {
-    return this.supervisionGroup.students.find(
-      student => student.uniqueID === _id
-    );
+    return this.supervisionGroup.map((group) => group.students.find(student => student.uniqueID === _id));
   }
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
     console.log(_id);
-    return this.http.get<SupervisionGroup>(
-      `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
-    );
+    return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`);
   }
 
-  getSupervisionGroup() {
-    return this.supervisionGroup;
-  }
   ngOnDestroy() {}
 }
 

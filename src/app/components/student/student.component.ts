@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import {
   SupervisionService,
   Student,
-  SupervisionGroup
+  Supervisor
 } from '../../services/supervision/supervision.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Subscription, of, pipe } from 'rxjs';
@@ -24,18 +24,13 @@ export class StudentComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['displayName', 'email', 'course', 'Actions'];
   dataSource: MatTableDataSource<Student>;
   dataSubscription: Subscription;
-  supervisionGroup: SupervisionGroup;
+  supervisor: Supervisor;
   newStudentControl = new FormControl();
-
+  isLoaded = false;
   studentsForm: FormGroup;
   options: Student[] = [];
 
-  courses = [
-    'Software Engineering',
-    'Computing',
-    'Business In Computing',
-    'Forensics'
-  ];
+  courses = ['Software Engineering', 'Computing', 'Business In Computing', 'Forensics'];
   filteredStudents: Student[] = [];
   isLoading = false;
   constructor(
@@ -44,22 +39,17 @@ export class StudentComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private toastService: ToastrService,
-    private graphService: GraphService
+    private graphService: GraphService,
+    private changeDetectorRefs: ChangeDetectorRef
   ) {
     this.dataSource = new MatTableDataSource();
     this.supervisorService.experiment();
+    this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit() {
     this.subscribeToStudentSearch();
-    this.refreshStudentList();
-    console.log('Witness : ', this.supervisorService.supervisor);
-    this.supervisorService.supervisor.subscribe(data => {
-      console.warn('Conclusion : ', data),
-        (this.dataSource.data = data[0].students),
-        console.warn('AfterMath :', this.dataSource.data);
-    });
-    this.dataSource.sort = this.sort;
+    this.getSupervisionGroupData();
   }
 
   displayFn(user?: Student): string | undefined {
@@ -67,42 +57,35 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   removeStudent(student: Student): void {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+    const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
       data: student
     });
-    dialogRef.afterClosed().subscribe(state => {
-      if (state) {
+    deleteDialogRef.afterClosed().subscribe(state => {
+      if (!state) {
         this.supervisionService.removeStudent(student.uniqueID).subscribe(
           (res: any) => {
             this.toastService.success(
               `Successfully deleted ${student.displayName}`,
               'Delete Student'
-            );
-            this.dataSource = res.student.students;
+            ),
+              this.getSupervisionGroupData();
           },
           err => {
-            this.toastService.error(err.message, 'Delete Student');          }
+            this.toastService.error(err.message, 'Delete Student');
+          }
         );
       }
     });
   }
 
-  refreshStudentList(): void {
-    // this.supervisionService
-    //   .getSupervisionGroupFromNest(this.supervisorService.supervisor.uniqueID)
-    //   .subscribe(
-    //     (group: SupervisionGroup) => (
-    //       (this.supervisionGroup = group),
-    //       console.warn('What: ', group),
-    //       (this.dataSource.data = this.supervisionGroup.students)
-    //     ),
-    //     err => {
-    //       console.error('Unable to refresh Student', err);
-    //     },
-    //     () => {
-    //       console.log('Final Step ', this.dataSource.data);
-    //     }
-    //   );
+  getSupervisionGroupData(): void {
+    this.supervisorService.supervisor.subscribe(data => {
+      (this.dataSource.data = data[0].students),
+        (this.supervisor = data[0].supervisor),
+        (this.dataSource.sort = this.sort),
+        (this.isLoaded = true),
+        this.changeDetectorRefs.detectChanges();
+    });
   }
 
   addStudent() {
@@ -121,27 +104,23 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(state => {
       if (state) {
-        this.supervisionService.addStudent(null, newStudent).subscribe(
+        this.supervisionService.addStudent(newStudent).subscribe(
           res => {
-            console.log(res);
+            this.changeDetectorRefs.detectChanges();
             this.toastService.success(
-              `Successfully added ${
-                newStudent.displayName
-              } under your supervision`,
+              `Successfully added ${newStudent.displayName} under your supervision`,
               'Add Student'
             );
+            this.studentsForm.get('userInput').reset();
+            this.studentsForm.get('courseInput').reset();
           },
           err => {
             this.toastService.error(err.message, 'Add Student');
           }
         );
-        this.refreshStudentList();
+        this.getSupervisionGroupData();
       }
     });
-    this.refreshStudentList();
-
-    this.studentsForm.get('userInput').reset();
-    this.studentsForm.get('courseInput').reset();
   }
 
   subscribeToStudentSearch() {
@@ -159,12 +138,9 @@ export class StudentComponent implements OnInit, OnDestroy {
       .subscribe(users => {
         this.graphService
           .getUsers(users)
-          .subscribe(
-            res => ((this.filteredStudents = res), (this.isLoading = false))
-          );
+          .subscribe(res => ((this.filteredStudents = res), (this.isLoading = false)));
       });
   }
-
   ngOnDestroy(): void {
     // this.dataSubscription.unsubscribe();
   }

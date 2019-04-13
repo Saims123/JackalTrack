@@ -34,7 +34,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   ) {
     this.routeSub = this.routes.params.subscribe(params => {
       console.log(this.supervisionService.getSingleStudent(String(params.id)));
-      this.student = this.supervisionService.getSingleStudent(params.id);
+      this.supervisionService.getSingleStudent(params.id).subscribe(student => this.student = student);
       console.warn(this.student);
     });
   }
