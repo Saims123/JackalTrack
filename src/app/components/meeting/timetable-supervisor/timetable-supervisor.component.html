@@ -3,8 +3,9 @@
     Timetable
   </h1>
   <button color="primary" [routerLink]="['/timeslot']" mat-button>
-    Create new Timeslot
+    Create Timeslot
   </button>
+  <button mat-button color="warn">Delete timeslot</button>
 </div>
 
   <div *ngIf="timeslots.length > 0; else noData;" class="timetable-grid">
@@ -16,9 +17,9 @@
           <h5>{{ ts.endTime }}</h5>
         </div>
         <div class="student-slot">
-          <h5 *ngIf="!ts.student; else student">Not Booked</h5>
-          <ng-template #student>
-            <h5>{{ ts.student.displayName }}</h5>
+          <h5 *ngIf="ts.bookedBy.displayName === null; else bookedBy">Not Booked</h5>
+          <ng-template #bookedBy>
+            <h5>{{ ts.bookedBy.displayName }}</h5>
           </ng-template>
         </div>
       </div>
@@ -26,8 +27,8 @@
   </div>
 
   <h1 class="mat-h1" style="text-align: center; padding-top: 10px;">Students not booked</h1>
-  <div *ngIf="timeslots.length > 0; else noData;" class="mat-card-list">
-    <mat-card color="accent" *ngFor="let student of students">
+  <div *ngIf="students; else noData;" class="mat-card-list">
+    <mat-card color="accent" *ngFor="let student of studentsNotBooked">
       <mat-card-header>
         <mat-card-title> {{ student.displayName }}</mat-card-title>
         <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>

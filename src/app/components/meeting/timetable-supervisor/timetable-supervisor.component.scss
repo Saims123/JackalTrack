@@ -1,33 +1,37 @@
-.timetable{
+.timetable {
   flex-grow: 1;
   flex-wrap: wrap;
-  .available-time{
+  .available-time {
     border: 1px black solid;
     display: block;
   }
-  .timeslot{
+  .timeslot {
     display: block;
   }
-  .student-slot{
+  .student-slot {
     border-top: 1px black dotted;
   }
 }
-.timetable-grid{
+.timetable-grid {
   display: inline-flex;
-      width: 100%;
-      text-align: center;
-        margin: 0 auto;
-        width: 90%;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
 }
 
-:host{
+:host {
   text-align: start;
 }
-.mat-card-list{
+.mat-card-list {
   display: flex;
-  mat-card{
+  flex-wrap: wrap;
+
+  text-align: center;
+  mat-card {
     width: 25%;
     display: block;
-    margin: 10px;
+    margin: 20px auto;
+    flex-shrink: 1;
   }
 }

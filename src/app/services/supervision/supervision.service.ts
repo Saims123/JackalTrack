@@ -50,10 +50,10 @@ export class SupervisionService implements OnInit, OnDestroy {
 
 export interface Student {
   displayName: string;
-  email: string;
-  course: string;
+  email ?: string;
+  course ?: string;
   id?: any;
-  uniqueID?: string;
+  uniqueID: string;
 }
 
 export interface SupervisionGroup {

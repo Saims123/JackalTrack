@@ -45,8 +45,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   isLoading = false;
   constructor(
     public supervisionService: SupervisionService,
-    private deleteDialog: MatDialog,
-    private addDialog: MatDialog,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private toastService: ToastrService,
     private graphService: GraphService,
@@ -86,12 +85,12 @@ export class StudentComponent implements OnInit, OnDestroy {
       email: selectedStudent.mail
     };
 
-    const addStudentDialog = this.addDialog.open(
-      AddStudentConfirmationComponent,
-      { data: newStudent }
-    );
+    const addStudentDialog = this.dialog.open(AddStudentConfirmationComponent, {
+      data: newStudent
+    });
     this.changeDetectorRefs.detectChanges();
-    addStudentDialog.afterClosed().subscribe(state => {
+
+    addStudentDialog.afterClosed().pipe(tap(() => debounceTime(300))).subscribe(state => {
       if (state) {
         this.supervisionService.addStudent(newStudent).subscribe(
           res => {
@@ -100,7 +99,7 @@ export class StudentComponent implements OnInit, OnDestroy {
                 newStudent.displayName
               } under your supervision`,
               'Add Student'
-            ),
+            , {onActivateTick: true}),
               this.getSupervisionGroupData();
           },
           err => {
@@ -112,11 +111,9 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   removeStudent(student: Student): void {
-    const deleteDialogRef = this.deleteDialog.open(DeleteConfirmationDialog, {
+    const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
       data: student
     });
-    this.changeDetectorRefs.markForCheck();
-
     deleteDialogRef.afterClosed().subscribe(state => {
       console.log(state);
       if (state) {
@@ -143,16 +140,15 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
     this.studentsForm
       .get('userInput')
-      .valueChanges.pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        tap(() => (this.isLoading = true))
-      )
+      .valueChanges.pipe(debounceTime(350))
       .subscribe(users => {
         this.graphService
           .getUsers(users)
           .subscribe(
-            res => ((this.filteredStudents = res), (this.isLoading = false))
+            res => (
+              (this.filteredStudents = res),
+              this.changeDetectorRefs.detectChanges()
+            )
           );
       });
   }

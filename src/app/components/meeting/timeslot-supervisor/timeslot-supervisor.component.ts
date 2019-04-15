@@ -68,7 +68,9 @@ export class TimeslotSupervisorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.supervisionService.supervisionGroup.subscribe(group => this.studentNo = group[0].students.length);
+    this.supervisionService.supervisionGroup.subscribe(
+      group => (this.studentNo = group[0].students.length)
+    );
   }
 
   importMicrosoftEvents() {
@@ -102,15 +104,19 @@ export class TimeslotSupervisorComponent implements OnInit {
     console.log(this.meetingStartDate, this.meetingEndDate, _location);
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
       data: {
-        start: this.meetingStartDate,
-        end: this.meetingEndDate,
-        location: _location,
+        meetingPeriod: {
+          start: this.meetingStartDate,
+          end: this.meetingEndDate,
+          location: _location
+        },
         timeslots: this.getNewTimeslots()
       }
     });
-    dialogRef.afterClosed().subscribe(timeslots => {
-      if (timeslots) {
-        this.timeslotService.addNewTimeslot(timeslots).subscribe(data => console.log(data));
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.timeslotService
+          .addNewTimeslot(data.timeslots, data.meetingPeriod)
+          .subscribe(data => console.log(data));
         this.router.navigate(['meeting/timetable']);
         this.toastService.success(
           'Timeslot creation',
@@ -120,12 +126,8 @@ export class TimeslotSupervisorComponent implements OnInit {
     });
   }
 
-  test(data) {
-    console.log(data);
-  }
-
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
-
+  // Considering to split this as child component in future
   startDragToCreate(
     segment: DayViewHourSegment,
     mouseDownEvent: MouseEvent,

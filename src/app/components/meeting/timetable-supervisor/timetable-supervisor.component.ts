@@ -5,7 +5,8 @@ import {
 } from 'src/app/services/timeslots/timeslot.service';
 import {
   SupervisionService,
-  Student
+  Student,
+  SupervisionGroup
 } from 'src/app/services/supervision/supervision.service';
 
 @Component({
@@ -16,6 +17,7 @@ import {
 export class TimetableSupervisorComponent implements OnInit {
   timeslots: Timeslot[] = [];
   students: Student[] = [];
+  studentsNotBooked: Student[] = [];
   constructor(
     private timeslotService: TimeslotService,
     private supervisionService: SupervisionService,
@@ -30,11 +32,34 @@ export class TimetableSupervisorComponent implements OnInit {
       .subscribe((timeslots: Timeslot[]) => {
         this.timeslots = timeslots;
         this.cdr.detectChanges();
+        this.findStudentsNotBooked();
+        console.warn(this.timeslots);
       });
-    this.students = this.timeslotService.getStudentsNotBookedSlots();
+  }
 
+  findStudentsNotBooked() {
+    // DT : Could be improved with third party advanced filtering system using lambda
+    let students: Student[] = [];
     this.supervisionService.supervisionGroup.subscribe(
-      group => (this.students = group.students)
+      (group: SupervisionGroup) => {
+        this.studentsNotBooked = group[0].students;
+        group[0].students.forEach(student => {
+          this.timeslots.forEach(timeslot => {
+            if (student.uniqueID === timeslot.bookedBy.uniqueID) {
+              students.push(student);
+            }
+          });
+        });
+        students.forEach(student => {
+          this.studentsNotBooked.splice(
+            this.studentsNotBooked.indexOf(student),
+            1
+          );
+        });
+        console.log('Filter : ', this.studentsNotBooked);
+        this.students = students;
+        this.cdr.detectChanges();
+      }
     );
   }
 }
