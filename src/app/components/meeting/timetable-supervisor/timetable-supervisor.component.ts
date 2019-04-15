@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   TimeslotService,
   Timeslot
@@ -7,7 +7,6 @@ import {
   SupervisionService,
   Student
 } from 'src/app/services/supervision/supervision.service';
-import { SupervisorService } from 'src/app/services/supervision/supervisor.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -19,13 +18,23 @@ export class TimetableSupervisorComponent implements OnInit {
   students: Student[] = [];
   constructor(
     private timeslotService: TimeslotService,
-    private supervision: SupervisionService,
-    private supervisor: SupervisorService
-  ) {}
+    private supervisionService: SupervisionService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.supervisionService.getSupervisionGroup();
+  }
 
   ngOnInit() {
-
-    this.timeslots = this.timeslotService.getTimeslots();
+    this.timeslotService
+      .getSupervisorTimeslotsFromNest()
+      .subscribe((timeslots: Timeslot[]) => {
+        this.timeslots = timeslots;
+        this.cdr.detectChanges();
+      });
     this.students = this.timeslotService.getStudentsNotBookedSlots();
+
+    this.supervisionService.supervisionGroup.subscribe(
+      group => (this.students = group.students)
+    );
   }
 }

@@ -38,8 +38,8 @@
 <form [formGroup]="studentsForm">
 <h1 class="mat-h1" style="margin: 10px;">Add students</h1>
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-    <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-    <ng-container *ngIf="!isLoading">
+    <!-- Prosponed feature until lifecycle is fixed <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option> -->
+    <ng-container>
       <mat-option *ngFor="let student of filteredStudents" [value]="student">
         <span>{{ student.displayName }}</span>
         <span> | email: {{student.mail}}</span>

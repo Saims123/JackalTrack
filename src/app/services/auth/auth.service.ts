@@ -4,7 +4,6 @@ import { User } from './user';
 import {OAuthSettings} from './oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Router } from '@angular/router';
-import { SupervisorService } from '../supervision/supervisor.service';
 @Injectable({
   providedIn: 'root'
 })

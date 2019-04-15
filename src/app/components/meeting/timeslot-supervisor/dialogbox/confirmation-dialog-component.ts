@@ -33,7 +33,8 @@ export class TimeslotConfirmationDialog {
       this.timeslots.push({
         day: moment(event.start).format('ddd'),
         startTime: moment(event.start).format('HH:mm'),
-        endTime: moment(event.end).format('HH:mm')
+        endTime: moment(event.end).format('HH:mm'),
+        bookedBy: {uniqueID: null, displayName: null}
       });
     });
   }
@@ -49,9 +50,9 @@ interface Data {
   timeslots: any[];
 }
 
-
 interface Timeslot {
   day: string;
   startTime: string;
   endTime: string;
+  bookedBy?: { uniqueID: string; displayName: string };
 }

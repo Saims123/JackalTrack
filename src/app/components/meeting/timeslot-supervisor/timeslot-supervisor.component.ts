@@ -110,7 +110,7 @@ export class TimeslotSupervisorComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(timeslots => {
       if (timeslots) {
-        this.timeslotService.initiateNewTimeslot(timeslots);
+        this.timeslotService.addNewTimeslot(timeslots).subscribe(data => console.log(data));
         this.router.navigate(['meeting/timetable']);
         this.toastService.success(
           'Timeslot creation',

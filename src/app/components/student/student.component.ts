@@ -18,7 +18,6 @@ import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 import { GraphService } from 'src/app/services/graph/graph.service';
 import { AddStudentConfirmationComponent } from './dialogbox/add-student-confirm.component';
-import { SupervisorService } from 'src/app/services/supervision/supervisor.service';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -45,7 +44,6 @@ export class StudentComponent implements OnInit, OnDestroy {
   filteredStudents: Student[] = [];
   isLoading = false;
   constructor(
-    public supervisorService: SupervisorService,
     public supervisionService: SupervisionService,
     private deleteDialog: MatDialog,
     private addDialog: MatDialog,
@@ -60,6 +58,7 @@ export class StudentComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToStudentSearch();
+    this.getSupervisionGroupData();
   }
 
   displayFn(user?: Student): string | undefined {
@@ -91,19 +90,18 @@ export class StudentComponent implements OnInit, OnDestroy {
       AddStudentConfirmationComponent,
       { data: newStudent }
     );
-    this.changeDetectorRefs.markForCheck();
+    this.changeDetectorRefs.detectChanges();
     addStudentDialog.afterClosed().subscribe(state => {
       if (state) {
         this.supervisionService.addStudent(newStudent).subscribe(
           res => {
-            console.log(res),
-              this.toastService.success(
-                `Successfully added ${
-                  newStudent.displayName
-                } under your supervision`,
-                'Add Student'
-              ),
-              this.getSupervisionGroupData()
+            this.toastService.success(
+              `Successfully added ${
+                newStudent.displayName
+              } under your supervision`,
+              'Add Student'
+            ),
+              this.getSupervisionGroupData();
           },
           err => {
             this.toastService.error(err.message, 'Add Student');
@@ -146,7 +144,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentsForm
       .get('userInput')
       .valueChanges.pipe(
-        debounceTime(300),
+        debounceTime(200),
         distinctUntilChanged(),
         tap(() => (this.isLoading = true))
       )
