@@ -16,7 +16,9 @@ export class SupervisionService implements OnInit, OnDestroy {
   getSupervisionGroup() {
     this.supervisionGroup = this.graphService
       .getMe()
-      .pipe(mergeMap(supervisor => this.getSupervisionGroupFromNest(supervisor.id)));
+      .pipe(
+        mergeMap(supervisor => this.getSupervisionGroupFromNest(supervisor.id))
+      );
   }
 
   addStudent(_student: Student) {
@@ -26,6 +28,13 @@ export class SupervisionService implements OnInit, OnDestroy {
           supervisor: group[0].supervisor as Supervisor,
           student: _student
         })
+      ),
+      tap(_ =>
+        this.graphService.sentEmail(
+          [_student.email],
+          'Final year Project-TEST : JackalTrack Invitation',
+          `Hi ${_student.displayName}, \n ${welcomeMessage}`
+        )
       )
     );
   }
@@ -40,7 +49,9 @@ export class SupervisionService implements OnInit, OnDestroy {
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
     console.log(_id);
-    return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`);
+    return this.http.get<SupervisionGroup>(
+      `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
+    );
   }
 
   ngOnDestroy() {}
@@ -48,8 +59,8 @@ export class SupervisionService implements OnInit, OnDestroy {
 
 export interface Student {
   displayName: string;
-  email ?: string;
-  course ?: string;
+  email?: string;
+  course?: string;
   id?: any;
   uniqueID: string;
 }
@@ -65,3 +76,10 @@ export interface Supervisor {
   uniqueID?: string;
   location?: string;
 }
+
+export const welcomeMessage = `You have been added to JackalTrack for supervision for your Final year project.
+Access link : https://i7467177.bucomputing.uk/
+
+-THIS IS FOR TESTING PURPOSES ONLY-
+
+`;

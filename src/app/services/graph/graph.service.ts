@@ -130,13 +130,13 @@ export class GraphService {
     return userObservable;
   }
 
-  sentEmail(email: string[], _subject: string, _content: string) {
+  sentEmail(emailAddress: string[], _subject: string, _content: string) {
     const mail = {
       subject: _subject,
       toRecipients: [
         {
           emailAddress: {
-            address: email
+            address: emailAddress
           }
         }
       ],
