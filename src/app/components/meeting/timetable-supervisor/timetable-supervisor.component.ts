@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   TimeslotService,
-  Timeslot
+  Timeslot,
+  TimeslotPeriod,
+  MeetingPeriod
 } from 'src/app/services/timeslots/timeslot.service';
 import {
   SupervisionService,
@@ -16,6 +18,7 @@ import {
 })
 export class TimetableSupervisorComponent implements OnInit {
   timeslots: Timeslot[] = [];
+  meetingPeriod: MeetingPeriod;
   students: Student[] = [];
   studentsNotBooked: Student[] = [];
   constructor(
@@ -29,12 +32,17 @@ export class TimetableSupervisorComponent implements OnInit {
   ngOnInit() {
     this.timeslotService
       .getSupervisorTimeslotsFromNest()
-      .subscribe((timeslots: Timeslot[]) => {
-        this.timeslots = timeslots;
+      .subscribe((timeslotPeriods: TimeslotPeriod) => {
+        this.timeslots = timeslotPeriods.timeslots;
+        this.meetingPeriod = timeslotPeriods.meetingPeriod;
         this.cdr.detectChanges();
         this.findStudentsNotBooked();
         console.warn(this.timeslots);
       });
+  }
+
+  deleteCurrentTimeslot() {
+    this.timeslotService.deleteCurrentTimeslots();
   }
 
   findStudentsNotBooked() {

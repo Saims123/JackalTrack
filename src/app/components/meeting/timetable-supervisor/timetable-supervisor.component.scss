@@ -13,13 +13,15 @@
   }
 }
 .timetable-grid {
-  display: inline-flex;
+  display: flex;
   width: 100%;
   text-align: center;
   margin: 0 auto;
-  width: 90%;
+  width: 95vw;
 }
-
+.period {
+  text-align: start;
+}
 :host {
   text-align: start;
 }

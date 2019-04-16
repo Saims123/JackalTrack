@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  NgZone
 } from '@angular/core';
 import {
   SupervisionService,
@@ -49,7 +50,8 @@ export class StudentComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private toastService: ToastrService,
     private graphService: GraphService,
-    private changeDetectorRefs: ChangeDetectorRef
+    private changeDetectorRefs: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {
     this.dataSource = new MatTableDataSource();
     this.supervisionService.getSupervisionGroup();
@@ -88,9 +90,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     const addStudentDialog = this.dialog.open(AddStudentConfirmationComponent, {
       data: newStudent
     });
-    this.changeDetectorRefs.detectChanges();
-
-    addStudentDialog.afterClosed().pipe(tap(() => debounceTime(300))).subscribe(state => {
+    addStudentDialog.afterClosed().subscribe(state => {
       if (state) {
         this.supervisionService.addStudent(newStudent).subscribe(
           res => {
@@ -98,8 +98,9 @@ export class StudentComponent implements OnInit, OnDestroy {
               `Successfully added ${
                 newStudent.displayName
               } under your supervision`,
-              'Add Student'
-            , {onActivateTick: true}),
+              'Add Student',
+              { onActivateTick: true }
+            ),
               this.getSupervisionGroupData();
           },
           err => {
@@ -111,26 +112,37 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   removeStudent(student: Student): void {
-    const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
-      data: student
-    });
-    deleteDialogRef.afterClosed().subscribe(state => {
-      console.log(state);
-      if (state) {
-        this.supervisionService.removeStudent(student.uniqueID).subscribe(
-          (res: any) => {
-            this.toastService.success(
-              `Successfully deleted ${student.displayName}`,
-              'Delete Student'
-            ),
-              this.getSupervisionGroupData();
-          },
-          err => {
-            this.toastService.error(err.message, 'Delete Student');
-          }
-        );
-      }
-    });
+        this.ngZone.run(_ => {
+          const deleteDialogRef = this.dialog.open(
+            DeleteConfirmationDialog,
+            {
+              data: student
+            }
+          );
+
+          deleteDialogRef.afterClosed().subscribe(state => {
+            console.log(state);
+            if (state) {
+              this.supervisionService
+                .removeStudent(student.uniqueID)
+                .subscribe(
+                  (res: any) => {
+                    this.toastService.success(
+                      `Successfully deleted ${student.displayName}`,
+                      'Delete Student'
+                    ),
+                      this.getSupervisionGroupData();
+                  },
+                  err => {
+                    this.toastService.error(
+                      err.message,
+                      'Delete Student'
+                    );
+                  }
+                );
+            }
+          });
+        });
   }
 
   subscribeToStudentSearch() {

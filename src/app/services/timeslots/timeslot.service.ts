@@ -30,6 +30,18 @@ export class TimeslotService implements OnInit {
     });
   }
 
+  deleteCurrentTimeslots() {
+    return this.supervisionService.supervisionGroup.pipe(
+      mergeMap(group =>
+        this.http.delete(
+          `${JackalNestAPI.Timeslots}/supervisor/${
+            group[0].supervisor.uniqueID
+          }`
+        )
+      )
+    );
+  }
+
   getSupervisorTimeslotsFromNest() {
     return this.supervisionService.supervisionGroup.pipe(
       mergeMap(group =>
@@ -73,4 +85,9 @@ export interface MeetingPeriod {
   start: Date;
   end: Date;
   location: string;
+}
+
+export interface TimeslotPeriod {
+  timeslots: Timeslot[];
+  meetingPeriod: MeetingPeriod;
 }

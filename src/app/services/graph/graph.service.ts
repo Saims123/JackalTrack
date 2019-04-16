@@ -8,6 +8,8 @@ import { Student } from '../supervision/supervision.service';
 import { tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../auth/user';
+import { MeetingPeriod, Timeslot } from '../timeslots/timeslot.service';
+enum MicrosoftDay { Monday = 'Mon', Tuesday = 'Tue', Wednesday = 'Wed', Thursday = 'Thu', Friday = 'Fri', Saturday = 'Sat', Sunday = 'Sun'}
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +51,7 @@ export class GraphService {
       this.toastService.error(
         JSON.stringify(error, null, 2),
         'Events Retrival error',
-        { timeOut: 10000, progressBar: true }
+        { timeOut: 20000, progressBar: true }
       );
     }
   }
@@ -65,7 +67,7 @@ export class GraphService {
             this.toastService.error(
               JSON.stringify(err, null, 2),
               'Profile Retrival error',
-              { timeOut: 10000, progressBar: true }
+              { timeOut: 20000, progressBar: true }
             );
           }
         })
@@ -95,7 +97,7 @@ export class GraphService {
       this.toastService.error(
         JSON.stringify(error, null, 2),
         'Calendar Retrival error',
-        { timeOut: 10000, progressBar: true }
+        { timeOut: 20000, progressBar: true }
       );
     }
   }
@@ -116,7 +118,7 @@ export class GraphService {
             this.toastService.error(
               JSON.stringify(error, null, 2),
               'Users Retrival error',
-              { timeOut: 10000, progressBar: true }
+              { timeOut: 20000, progressBar: true }
             );
           }
           return res;
@@ -128,7 +130,7 @@ export class GraphService {
     return userObservable;
   }
 
-  sentEmailToStudents(email: string[], _subject: string, _content: string) {
+  sentEmail(email: string[], _subject: string, _content: string) {
     const mail = {
       subject: _subject,
       toRecipients: [
@@ -149,7 +151,7 @@ export class GraphService {
       this.toastService.error(
         JSON.stringify(error, null, 2),
         'Unable to send email to students',
-        { timeOut: 10000, progressBar: true }
+        { timeOut: 20000, progressBar: true }
       );
     }
   }
@@ -157,9 +159,11 @@ export class GraphService {
     email: string,
     _subject: string,
     _content: string,
-    location: string
+    location: string,
+    _period: MeetingPeriod,
+    _timeslot: Timeslot
   ) {
-    const timeslot = {
+    const event = {
       subject: _subject,
       body: {
         contentType: 'HTML',
@@ -177,12 +181,12 @@ export class GraphService {
         pattern: {
           type: 'weekly',
           interval: 1,
-          daysOfWeek: ['Monday']
+          daysOfWeek: [MicrosoftDay[_timeslot.day]]
         },
         range: {
           type: 'endDate',
-          startDate: '2017-09-04',
-          endDate: '2017-12-31'
+          startDate: _period.start,
+          endDate: _period.end
         }
       },
       location: {
@@ -199,7 +203,7 @@ export class GraphService {
     };
 
     try {
-      this.graphClient.api('me/events').post(timeslot);
+      this.graphClient.api('me/events').post(event);
     } catch (error) {
       this.toastService.error(
         JSON.stringify(error, null, 2),

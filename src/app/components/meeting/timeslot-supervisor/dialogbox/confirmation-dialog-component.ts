@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
 import { Timeslot } from 'src/app/services/timeslots/timeslot.service';
@@ -17,15 +17,12 @@ import { Timeslot } from 'src/app/services/timeslots/timeslot.service';
 export class TimeslotConfirmationDialog {
   timeslots: Timeslot[] = [];
   constructor(
+    public cdr: ChangeDetectorRef,
     public dialogRef: MatDialogRef<TimeslotConfirmationDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.data.meetingPeriod.start = moment
-      .utc(this.data.meetingPeriod.start)
-      .format('ddd DD MMMM YYYY');
-    this.data.meetingPeriod.end = moment
-      .utc(this.data.meetingPeriod.end)
-      .format('ddd DD MMMM YYYY');
+    this.data.meetingPeriod.start = moment.utc(this.data.meetingPeriod.start);
+    this.data.meetingPeriod.end = moment.utc(this.data.meetingPeriod.end);
     this.sortData();
   }
 
@@ -37,8 +34,8 @@ export class TimeslotConfirmationDialog {
     this.data.timeslots.forEach(event => {
       this.timeslots.push({
         day: moment(event.start).format('ddd'),
-        startTime: moment(event.start).format('HH:mm'),
-        endTime: moment(event.end).format('HH:mm'),
+        startTime: moment(event.start).toJSON(),
+        endTime: moment(event.end).toJSON(),
         bookedBy: { uniqueID: null, displayName: null }
       });
     });

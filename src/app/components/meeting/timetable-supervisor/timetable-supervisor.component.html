@@ -8,16 +8,27 @@
   <button mat-button color="warn">Delete timeslot</button>
 </div>
 
-  <div *ngIf="timeslots.length > 0; else noData;" class="timetable-grid">
+<div *ngIf="timeslots.length > 0; else noData">
+  <div class="mat-body">
+    <h2 class="mat-3">Meeting Period</h2>
+    <h3 class="mat-4">
+      {{ meetingPeriod.start | date: 'EEE  dd MMM yyyy' }} -
+      {{ meetingPeriod.end | date: 'EEE  dd MMM yyyy' }}
+    </h3>
+    <h3 class="mat-4">At : {{ meetingPeriod.location }}</h3>
+  </div>
+  <div class="timetable-grid">
     <div class="timetable" *ngFor="let ts of timeslots; let i = index">
       <div class="available-time">
         <h4>{{ ts.day }}</h4>
         <div class="timeslot">
-          <h5>{{ ts.startTime }}</h5>
-          <h5>{{ ts.endTime }}</h5>
+          <h5>{{ ts.startTime | date: 'HH:mm' }}</h5>
+          <h5>{{ ts.endTime | date: 'HH:mm' }}</h5>
         </div>
         <div class="student-slot">
-          <h5 *ngIf="ts.bookedBy.displayName === null; else bookedBy">Not Booked</h5>
+          <h5 *ngIf="ts.bookedBy.displayName === null; else bookedBy">
+            Not Booked
+          </h5>
           <ng-template #bookedBy>
             <h5>{{ ts.bookedBy.displayName }}</h5>
           </ng-template>
@@ -25,25 +36,28 @@
       </div>
     </div>
   </div>
+</div>
 
-  <h1 class="mat-h1" style="text-align: center; padding-top: 10px;">Students not booked</h1>
-  <div *ngIf="students; else noData;" class="mat-card-list">
-    <mat-card color="accent" *ngFor="let student of studentsNotBooked">
-      <mat-card-header>
-        <mat-card-title> {{ student.displayName }}</mat-card-title>
-        <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>
-      </mat-card-header>
-      <a href="mailto:{{ student.email }}?subject=Timeslot booking reminder"
-        >Remind</a
-      >
-    </mat-card>
-  </div>
+<h1 class="mat-h1" style="text-align: center; padding-top: 10px;">
+  Students not booked
+</h1>
+<div *ngIf="studentsNotBooked.length > 0; else noData" class="mat-card-list">
+  <mat-card color="accent" *ngFor="let student of studentsNotBooked">
+    <mat-card-header>
+      <mat-card-title> {{ student.displayName }}</mat-card-title>
+      <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>
+    </mat-card-header>
+    <a href="mailto:{{ student.email }}?subject=Timeslot booking reminder"
+      >Remind</a
+    >
+  </mat-card>
+</div>
 
 <attendance-button></attendance-button>
 
 <ng-template #noData>
   <mat-card>
-  <mat-icon>info</mat-icon>
-  My my such empty, please create a new schedule.
+    <mat-icon>info</mat-icon>
+    My my such empty, please create a new schedule.
   </mat-card>
 </ng-template>
