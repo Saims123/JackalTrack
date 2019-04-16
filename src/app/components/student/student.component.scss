@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+  text-align: left;
+  td,
+  th {
+    font-size: 14px;
+    width: 25%;
+    padding: 10px;
+  }
+
+}
+
+:host{
+  width: auto;
+}
+
+
+
+.mat-elevation-z8{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.field{
+  padding: 10px;
+}
+
+mat-icon{
+  font-size: 36px;
+}

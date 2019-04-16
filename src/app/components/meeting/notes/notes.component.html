@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="side">
+    <h3>Students</h3>
+    <div class="student-cards">
+      <mat-nav-list *ngFor="let student of students">
+        <mat-list-item (click)="selectStudentOnClick(student)" [class.selected]="student === selectedStudent">
+          <b>{{ student.displayName }}</b>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h3>Meeting notes</h3>
+    <ng-scrollbar>
+    <button mat-button color="primary" [routerLink]="['./new/student', selectedStudent?.uniqueID]">
+      <mat-icon>add</mat-icon>
+      New notes
+    </button>
+      <view-meeting-notes [student]="selectedStudent"> </view-meeting-notes>
+    </ng-scrollbar>
+
+  </div>
+</div>

@@ -1,0 +1,24 @@
+ .disable-hover {
+   pointer-events: none;
+ }
+ mwl-calendar-week-view {
+   @import "../../../../../node_modules/angular-calendar/css/angular-calendar.css";
+  }
+section{
+  margin: 0 auto;
+  user-select: none;
+  margin-top: 10px;
+}
+
+
+.mat-elevation-z8 {
+  margin: 0 auto;
+  width: 80%;
+}
+mat-form-field{
+  padding: 10px;
+}
+
+.form-control{
+  padding: 50px;
+}

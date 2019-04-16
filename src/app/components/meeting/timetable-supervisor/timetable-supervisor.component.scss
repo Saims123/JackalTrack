@@ -1,0 +1,39 @@
+.timetable {
+  flex-grow: 1;
+  flex-wrap: wrap;
+  .available-time {
+    border: 1px black solid;
+    display: block;
+  }
+  .timeslot {
+    display: block;
+  }
+  .student-slot {
+    border-top: 1px black dotted;
+  }
+}
+.timetable-grid {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 95vw;
+}
+.period {
+  text-align: start;
+}
+:host {
+  text-align: start;
+}
+.mat-card-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  text-align: center;
+  mat-card {
+    width: 25%;
+    display: block;
+    margin: 20px auto;
+    flex-shrink: 1;
+  }
+}

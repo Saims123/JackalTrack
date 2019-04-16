@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  min-width: 100%;
+  display: flex;
+  text-align: start;
+  .side {
+    padding: 20px;
+    flex: 1;
+    background-color: #cfd8dc;
+
+    height: 100%;
+    border-radius: 25px;
+  }
+  .notes {
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 5px;
+    flex: 3;
+  }
+  mat-list-item{
+    background-color: #D1C4E9; border-radius:10px;
+  }
+}
+
+.selected {
+  background-color: #90A4AE !important;
+}
+ng-scrollbar{
+  max-height: 80vh;
+}

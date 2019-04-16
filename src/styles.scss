@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
+/* @import "../node_modules/angular-calendar/css/angular-calendar.css"; */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+   @import "~bootstrap/scss/bootstrap.scss";
+   @import '~ngx-toastr/toastr-bs4-alert';
+
+html{
+      height: 100%;
+      body{
+        height: inherit;
+      }
+}

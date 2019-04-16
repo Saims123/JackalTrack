@@ -1,0 +1,28 @@
+div {
+  align-content: stretch;
+  text-align: center;
+  display: inline-block;
+}
+img{
+  display: inline-block;
+  height: 300px;
+  width: 375px;
+}
+
+.container {
+  text-align: center;
+  place-content: center;
+  display: inline-flex;
+  padding: 20px;
+  margin-top: 50px;
+  background-color: antiquewhite;
+  border-radius: 25px;
+  }
+:host{
+  display: block;
+}
+
+.login-button{
+  width: 50%;
+  height: 20%;
+}
