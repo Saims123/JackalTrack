@@ -27,7 +27,7 @@
       </button>
 
       <button [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Students</button>
-      <button *ngIf="!isSupervisor" [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Supervisor</button>
+      <button *ngIf="isSupervisor" [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Supervisor</button>
 
     </div>
 

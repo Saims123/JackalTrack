@@ -20,7 +20,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   student: Student;
   todoList: TodoList[] = [];
   meetingNote: MeetingNote;
-  createdDateTime = moment.utc().toLocaleString();
+  createdDateTime = moment.utc().toJSON();
   routeSub: any;
 
   meetingNotesForm = this.fb.group({
@@ -46,7 +46,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
       console.log(this.supervisionService.getSingleStudent(String(params.id)));
       this.supervisionService
         .getSingleStudent(params.id)
-        .subscribe(student => (this.student = student));
+        .subscribe((group: any) => (this.student = group.student));
       console.warn(this.student);
     });
   }
@@ -77,6 +77,11 @@ export class AddNotesComponent implements OnInit, OnDestroy {
       this.meetingNote
     ]);
     console.warn(this.meetingNote);
-    this.route.navigate(['/meeting/notes']);
+    this.goBack();
+  }
+
+  goBack() {
+        this.route.navigate(['/meeting/notes']);
+
   }
 }

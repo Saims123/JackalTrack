@@ -1,5 +1,5 @@
 <form class="form-group" novalidate>
-  <mat-card>
+  <mat-card *ngIf="student">
     <mat-card-header>
       <mat-card-title>New Meeting Note</mat-card-title>
       <mat-card-subtitle>Student : {{ student.displayName }}</mat-card-subtitle>
@@ -47,7 +47,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button color="secondary">Cancel</button>
+      <button mat-raised-button color="secondary" (click)="goBack()">Cancel</button>
       <button mat-raised-button color="primary" type="submit" (click)="onSubmit(notes.value)">
         Create Note
       </button>

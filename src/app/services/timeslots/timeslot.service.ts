@@ -45,12 +45,14 @@ export class TimeslotService implements OnInit {
   getSupervisorTimeslotsFromNest() {
     return this.supervisionService.supervisionGroup.pipe(
       mergeMap(group =>
-        this.http.get(
-          `${JackalNestAPI.Timeslots}/supervisor/${
-            group[0].supervisor.uniqueID
-          }`
-        )
+        this.getTimeslotsViaSupervisorID(group[0].supervisor.uniqueID)
       )
+    );
+  }
+
+  getTimeslotsViaSupervisorID(supervisorID) {
+    return this.http.get(
+      `${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`
     );
   }
   addNewTimeslot(_timeslot: Timeslot[], _meetingPeriod: MeetingPeriod) {

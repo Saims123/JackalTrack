@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
 
 @Component({
   selector: 'app-booking-timeslot',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingTimeslotComponent implements OnInit {
 
-  constructor() { }
+  constructor(public timeslotService: TimeslotService) { }
 
   ngOnInit() {
+    this.timeslotService.getSupervisorTimeslotsFromNest();
   }
 
 }

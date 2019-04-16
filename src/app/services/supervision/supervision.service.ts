@@ -9,8 +9,6 @@ import { mergeMap, tap } from 'rxjs/operators';
 })
 export class SupervisionService implements OnInit, OnDestroy {
   supervisionGroup: Observable<SupervisionGroup>;
-  subscription: any;
-
   constructor(private http: HttpClient, private graphService: GraphService) {}
 
   ngOnInit() {}
@@ -37,7 +35,7 @@ export class SupervisionService implements OnInit, OnDestroy {
   }
 
   getSingleStudent(_id: string) {
-    return this.supervisionGroup.map((group) => group.students.find(student => student.uniqueID === _id));
+    return this.http.get(`${JackalNestAPI.SupervisionGroup}/student/${_id}`);
   }
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {

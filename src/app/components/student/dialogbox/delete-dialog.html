@@ -2,7 +2,7 @@
 <div mat-dialog-content>
 <p>Are you sure you want to delete {{data.displayName}}?</p>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions style="display: block; float: right;">
   <button mat-button color="warn" matDialogClose (click)="onNoClick()">Cancel</button>
   <button mat-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>Delete</button>
 </div>
