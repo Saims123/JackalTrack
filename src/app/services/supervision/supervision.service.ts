@@ -31,9 +31,10 @@ export class SupervisionService implements OnInit, OnDestroy {
       ),
       tap(_ =>
         this.graphService.sentEmail(
-          [_student.email],
+          _student.email,
           'Final year Project-TEST : JackalTrack Invitation',
-          `Hi ${_student.displayName}, \n ${welcomeMessage}`
+          `<h3>Hi ${_student.displayName},</h3>
+          \n ${welcomeMessage}`
         )
       )
     );
@@ -53,6 +54,8 @@ export class SupervisionService implements OnInit, OnDestroy {
       `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
     );
   }
+
+
 
   ngOnDestroy() {}
 }

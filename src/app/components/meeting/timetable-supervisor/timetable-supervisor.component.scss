@@ -31,9 +31,8 @@
 
   text-align: center;
   mat-card {
-    width: 25%;
-    display: block;
-    margin: 20px auto;
-    flex-shrink: 1;
+    max-width: 25vw;
+    margin: 0 auto;
+    flex: 1;
   }
 }

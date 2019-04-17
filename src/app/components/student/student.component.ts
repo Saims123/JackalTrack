@@ -152,7 +152,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     });
     this.studentsForm
       .get('userInput')
-      .valueChanges.pipe(debounceTime(350))
+      .valueChanges.pipe(debounceTime(200))
       .subscribe(users => {
         this.graphService
           .getUsers(users)
