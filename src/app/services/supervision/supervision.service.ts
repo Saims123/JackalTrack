@@ -30,13 +30,13 @@ export class SupervisionService implements OnInit, OnDestroy {
         })
       ),
       tap(_ =>
-        this.graphService.sentEmail(
-          _student.email,
-          'Final year Project-TEST : JackalTrack Invitation',
-          `<h3>Hi ${_student.displayName},</h3>
-          \n ${welcomeMessage}`
-        )
-      )
+        // this.graphService.sentEmail(
+        //   _student.email,
+        //   'Final year Project-TEST : JackalTrack Invitation',
+        //   `<h3>Hi ${_student.displayName},</h3>
+        //   \n ${welcomeMessage}`
+        // )
+     {} )
     );
   }
 
@@ -64,6 +64,7 @@ export interface Student {
   displayName: string;
   email?: string;
   course?: string;
+  projectTitle ?: string;
   id?: any;
   uniqueID: string;
 }
@@ -80,7 +81,8 @@ export interface Supervisor {
   location?: string;
 }
 
-export const welcomeMessage = `You have been added to JackalTrack for supervision for your Final year project.
+export const welcomeMessage = `
+You have been added to JackalTrack for supervision for your Final year project.
 Access link : https://i7467177.bucomputing.uk/
 
 -THIS IS FOR TESTING PURPOSES ONLY-

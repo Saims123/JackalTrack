@@ -21,7 +21,8 @@ export class BookingTimeslotComponent implements OnInit {
     public timeslotService: TimeslotService,
     private graphService: GraphService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.updateTimeslotInformation();
@@ -35,11 +36,20 @@ export class BookingTimeslotComponent implements OnInit {
   }
 
   bookTimeslot(selectedTimeslot) {
-    this.timeslotService.bookTimeslot(selectedTimeslot, this.student).subscribe(_ => {
-          this.updateTimeslotInformation();
-
-    });
+    this.timeslotService
+      .bookTimeslot(selectedTimeslot, this.student)
+      .subscribe(_ => {
+        this.updateTimeslotInformation();
+      });
+  }
+  unbookAllTimeslot() {
     console.log('I AM CLICKED');
+
+    this.timeslotService
+      .unbookTimeslots(this.student)
+      .subscribe(_ =>
+        this.updateTimeslotInformation()
+      );
   }
 
   updateTimeslotInformation() {
@@ -48,12 +58,14 @@ export class BookingTimeslotComponent implements OnInit {
       .pipe(
         tap(me => {
           this.student = {
-            displayName : me.displayName,
-            uniqueID : me.id,
+            displayName: me.displayName,
+            uniqueID: me.id,
             email: me.mail
           };
         }),
-        mergeMap(student => this.timeslotService.getTimeslotsViaSupervisorID(student.id))
+        mergeMap(student =>
+          this.timeslotService.getTimeslotsViaSupervisorID(student.id)
+        )
       )
       .subscribe((data: any) => {
         (this.group = data), (this.timeslotGroup = data);

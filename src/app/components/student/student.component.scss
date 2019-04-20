@@ -10,19 +10,16 @@ table {
 
 }
 
-:host{
-  width: auto;
-}
-
-
-
 .mat-elevation-z8{
   margin: 0 auto;
   width: 80%;
 }
 
 .field{
-  padding: 10px;
+  margin: 10px;
+  .projectTitleInput {
+    width: 300px;
+  }
 }
 
 mat-icon{
