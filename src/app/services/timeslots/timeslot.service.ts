@@ -6,7 +6,7 @@ import {
 } from '../supervision/supervision.service';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -55,6 +55,9 @@ export class TimeslotService implements OnInit {
       `${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`
     );
   }
+  getTimeslotsViaStudentID(supervisorID) {
+    return this.http.get(`${JackalNestAPI.Timeslots}/student/${supervisorID}`);
+  }
   addNewTimeslot(_timeslot: Timeslot[], _meetingPeriod: MeetingPeriod) {
     return this.supervisionService.supervisionGroup.pipe(
       mergeMap(group =>
@@ -62,18 +65,40 @@ export class TimeslotService implements OnInit {
           `${JackalNestAPI.Timeslots}/supervisor/${
             group[0].supervisor.uniqueID
           }`,
-          { timeslots: _timeslot, meetingPeriod: _meetingPeriod }
+          {
+            timeslots: _timeslot,
+            meetingPeriod: _meetingPeriod
+          }
         )
       )
     );
   }
-  bookTimeslot(timeslot: Timeslot, student: Student) {
-    const index = this.timeslots.findIndex(ts => ts.bookedBy !== student);
+  unbookTimeslots(_student: Student) {
+    return this.supervisionService.supervisionGroup.pipe(
+      tap(_ => {
+        console.warn('I was triggered');
+      }),
+      mergeMap(group =>
+        this.http.put(
+          `${JackalNestAPI.Timeslots}/booking/cancel/student/${
+            _student.uniqueID
+          }`,
+          {
+            supervisor: { uniqueID: group[0].supervisor.uniqueID }
+          }
+        )
+      )
+    );
+  }
 
-    // if (index < 0) {
-    //   this.timeslots.find(ts => ts === timeslot).student = student;
-    //   // Send success message
-    // }
+  bookTimeslot(_timeslot: Timeslot, _student: Student) {
+    return this.http.put(
+      `${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`,
+      {
+        student: _student,
+        timeslot: _timeslot
+      }
+    );
   }
 }
 

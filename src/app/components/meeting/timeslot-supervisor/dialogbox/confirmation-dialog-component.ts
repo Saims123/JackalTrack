@@ -33,9 +33,9 @@ export class TimeslotConfirmationDialog {
 
     this.data.timeslots.forEach(event => {
       this.timeslots.push({
-        day: moment(event.start).format('ddd'),
-        startTime: moment(event.start).toJSON(),
-        endTime: moment(event.end).toJSON(),
+        day: moment(event.startTime).format('ddd'),
+        startTime: moment(event.startTime).toJSON(),
+        endTime: moment(event.endTime).toJSON(),
         bookedBy: { uniqueID: null, displayName: null }
       });
     });

@@ -10,6 +10,7 @@ import { AddNotesComponent } from '../components/meeting/notes/add-notes/add-not
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { NotesComponent } from '../components/meeting/notes/notes.component';
 import { AttendanceTrackingComponent } from '../components/progress/attendance-tracking/attendance-tracking.component';
+import { BookingTimeslotComponent } from '../components/meeting/booking-timeslot/booking-timeslot.component';
 
 const routes: Routes = [
   { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
@@ -38,6 +39,11 @@ const routes: Routes = [
   {
     path: 'progress/attendance',
     component: AttendanceTrackingComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'meeting/timeslots/booking',
+    component: BookingTimeslotComponent,
     canActivate: [MsalGuard]
   },
 

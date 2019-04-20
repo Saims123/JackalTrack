@@ -105,8 +105,8 @@ export class TimeslotSupervisorComponent implements OnInit {
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
       data: {
         meetingPeriod: {
-          start: this.meetingStartDate,
-          end: this.meetingEndDate,
+          startTime: this.meetingStartDate,
+          endTime: this.meetingEndDate,
           location: _location
         },
         timeslots: this.getNewTimeslots()

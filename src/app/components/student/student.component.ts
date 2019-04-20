@@ -12,9 +12,9 @@ import {
   Supervisor
 } from '../../services/supervision/supervision.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
-import { Subscription, of, pipe } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 import { GraphService } from 'src/app/services/graph/graph.service';
@@ -27,9 +27,15 @@ import { AddStudentConfirmationComponent } from './dialogbox/add-student-confirm
 })
 export class StudentComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['displayName', 'email', 'course', 'Actions'];
+  displayedColumns: string[] = [
+    'displayName',
+    'email',
+    'projectTitle',
+    'course',
+    'Actions'
+  ];
   dataSource: MatTableDataSource<Student>;
-  dataSubscription: Subscription;
+  studentSubscription: Subscription;
   supervisor: Supervisor;
   newStudentControl = new FormControl();
   isLoaded = false;
@@ -58,8 +64,16 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initiateStudentForm();
     this.subscribeToStudentSearch();
     this.getSupervisionGroupData();
+  }
+  initiateStudentForm() {
+    this.studentsForm = this.fb.group({
+      userInput: null,
+      courseInput: null,
+      projectTitleInput: null
+    });
   }
 
   displayFn(user?: Student): string | undefined {
@@ -67,108 +81,122 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   getSupervisionGroupData(): void {
-    this.supervisionService.supervisionGroup.subscribe(data => {
-      (this.dataSource.data = data[0].students),
-        (this.supervisor = data[0].supervisor),
-        (this.dataSource.sort = this.sort),
-        (this.isLoaded = true),
-        this.changeDetectorRefs.detectChanges();
-    });
+    this.studentSubscription = this.supervisionService.supervisionGroup.subscribe(
+      data => {
+        (this.dataSource.data = data[0].students),
+          (this.supervisor = data[0].supervisor),
+          (this.dataSource.sort = this.sort),
+          (this.isLoaded = true),
+          this.changeDetectorRefs.detectChanges();
+      }
+    );
   }
 
   addStudent() {
-    const selectedStudent = this.studentsForm.get('userInput').value;
-    const courseName = this.studentsForm.get('courseInput').value;
+    let newStudent = this.setSelectedStudent();
+    this.ngZone.run(_ => {
+      const addStudentDialog = this.dialog.open(
+        AddStudentConfirmationComponent,
+        {
+          data: newStudent
+        }
+      );
 
-    let newStudent: Student = {
-      uniqueID: selectedStudent.id,
-      course: courseName,
-      displayName: selectedStudent.displayName,
-      email: selectedStudent.mail
-    };
-
-    const addStudentDialog = this.dialog.open(AddStudentConfirmationComponent, {
-      data: newStudent
-    });
-    addStudentDialog.afterClosed().subscribe(state => {
-      if (state) {
-        this.supervisionService.addStudent(newStudent).subscribe(
-          res => {
-            this.toastService.success(
-              `Successfully added ${
-                newStudent.displayName
-              } under your supervision`,
-              'Add Student',
-              { onActivateTick: true }
-            ),
-              this.getSupervisionGroupData();
-          },
-          err => {
-            this.toastService.error(err.message, 'Add Student');
-          }
-        );
-      }
+      addStudentDialog.afterClosed().subscribe(state => {
+        if (state) {
+          this.supervisionService.addStudent(newStudent).subscribe(
+            res => {
+              this.toastService.success(
+                `Successfully added ${
+                  newStudent.displayName
+                } under your supervision`,
+                'Add Student',
+                { onActivateTick: true }
+              ),
+                this.getSupervisionGroupData();
+              this.resetStudentForm();
+            },
+            err => {
+              this.toastService.error(err.message, 'Add Student', {
+                onActivateTick: true
+              });
+            }
+          );
+        }
+      });
     });
   }
 
   removeStudent(student: Student): void {
-        this.ngZone.run(_ => {
-          const deleteDialogRef = this.dialog.open(
-            DeleteConfirmationDialog,
-            {
-              data: student
+    this.ngZone.run(_ => {
+      const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
+        data: student
+      });
+
+      deleteDialogRef.afterClosed().subscribe(state => {
+        console.log(state);
+        if (state) {
+          this.supervisionService.removeStudent(student.uniqueID).subscribe(
+            (res: any) => {
+              this.toastService.success(
+                `Successfully deleted ${student.displayName}`,
+                'Delete Student'
+              ),
+                this.getSupervisionGroupData();
+            },
+            err => {
+              this.toastService.error(err.message, 'Delete Student');
             }
           );
-
-          deleteDialogRef.afterClosed().subscribe(state => {
-            console.log(state);
-            if (state) {
-              this.supervisionService
-                .removeStudent(student.uniqueID)
-                .subscribe(
-                  (res: any) => {
-                    this.toastService.success(
-                      `Successfully deleted ${student.displayName}`,
-                      'Delete Student'
-                    ),
-                      this.getSupervisionGroupData();
-                  },
-                  err => {
-                    this.toastService.error(
-                      err.message,
-                      'Delete Student'
-                    );
-                  }
-                );
-            }
-          });
-        });
+        }
+      });
+    });
   }
 
   subscribeToStudentSearch() {
-    this.studentsForm = this.fb.group({
-      userInput: null,
-      courseInput: null
-    });
     this.studentsForm
       .get('userInput')
-      .valueChanges.pipe(debounceTime(350))
+      .valueChanges.pipe(
+        tap(_ => {
+          this.isLoading = true;
+        }),
+        debounceTime(200),
+        distinctUntilChanged()
+      )
       .subscribe(users => {
         this.graphService
           .getUsers(users)
           .subscribe(
             res => (
               (this.filteredStudents = res),
+              (this.isLoading = false),
               this.changeDetectorRefs.detectChanges()
             )
           );
       });
   }
-  ngOnDestroy(): void {
-    // this.dataSubscription.unsubscribe();
-  }
-}
+  setSelectedStudent() {
+    const _selectedStudent = this.studentsForm.get('userInput').value;
+    const _courseName = this.studentsForm.get('courseInput').value;
+    const _projectTitle = this.studentsForm.get('projectTitleInput').value;
 
-interface Option {
-  name: string;
+    const newStudent: Student = {
+      uniqueID: _selectedStudent.id,
+      course: _courseName,
+      projectTitle: _projectTitle,
+      displayName: _selectedStudent.displayName,
+      email: _selectedStudent.mail
+    };
+    console.log(_selectedStudent);
+    return newStudent;
+  }
+
+  resetStudentForm() {
+    this.studentsForm.get('userInput').reset();
+    this.studentsForm.get('courseInput').reset();
+    this.studentsForm.get('projectTitleInput').reset();
+  }
+  ngOnDestroy(): void {
+    this.studentSubscription.unsubscribe();
+  }
 }

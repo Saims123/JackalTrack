@@ -3,13 +3,19 @@ import { Client } from '@microsoft/microsoft-graph-client';
 import { Event } from './event';
 import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
-import { from, Observable, of } from 'rxjs';
-import { Student } from '../supervision/supervision.service';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../auth/user';
 import { MeetingPeriod, Timeslot } from '../timeslots/timeslot.service';
-enum MicrosoftDay { Monday = 'Mon', Tuesday = 'Tue', Wednesday = 'Wed', Thursday = 'Thu', Friday = 'Fri', Saturday = 'Sat', Sunday = 'Sun'}
+enum MicrosoftDay {
+  Monday = 'Mon',
+  Tuesday = 'Tue',
+  Wednesday = 'Wed',
+  Thursday = 'Thu',
+  Friday = 'Fri',
+  Saturday = 'Sat',
+  Sunday = 'Sun'
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -130,7 +136,7 @@ export class GraphService {
     return userObservable;
   }
 
-  sentEmail(emailAddress: string[], _subject: string, _content: string) {
+  sentEmail(emailAddress: string, _subject: string, _content: string) {
     const mail = {
       subject: _subject,
       toRecipients: [
@@ -145,6 +151,8 @@ export class GraphService {
         contentType: 'html'
       }
     };
+    console.log(mail);
+
     try {
       this.graphClient.api('me/sendMail').post({ message: mail });
     } catch (error) {
@@ -155,7 +163,8 @@ export class GraphService {
       );
     }
   }
-  sendTimeslotEventToStudent(
+
+  sendTimeslotEventToStudents(
     email: string,
     _subject: string,
     _content: string,
@@ -170,11 +179,11 @@ export class GraphService {
         content: _content
       },
       start: {
-        dateTime: '2017-09-04T12:00:00',
+        dateTime: _timeslot.startTime,
         timeZone: 'UTC'
       },
       end: {
-        dateTime: '2017-09-04T14:00:00',
+        dateTime: _timeslot.endTime,
         timeZone: 'UTC'
       },
       recurrence: {

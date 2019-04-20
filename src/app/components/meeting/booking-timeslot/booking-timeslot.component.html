@@ -1,4 +1,32 @@
 <h1 class="mat-h1" style="text-align: center;">Booking Timeslot</h1>
 
-<h2 class="mat-h2">Free slots <mat-divider [inset]="true"></mat-divider></h2>
+<mat-card class="booking-card" *ngIf="timeslotGroup">
 
+  <mat-card-content>
+    <div class="mat-body">
+      <h2 class="mat-h1">Meeting Period</h2>
+      <h3 class="mat-h2">
+        {{ timeslotGroup.meetingPeriod.start | date: 'EEE  dd MMM yyyy' }} -
+        {{ timeslotGroup.meetingPeriod.end | date: 'EEE  dd MMM yyyy' }}
+      </h3>
+      <h3 class="mat-h2">At : {{ timeslotGroup.meetingPeriod.location }}</h3>
+    </div>
+
+    <div class="grid-list" *ngFor="let timeslot of timeslotGroup.timeslots">
+      <h3>{{ timeslot.day }}</h3>
+      <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>
+      <h4>{{ timeslot.endTime | date: 'HH:mm' }}</h4>
+      <button
+        mat-fab
+        color="primary"
+        [disabled]="checkIfBooked(timeslot.bookedBy)"
+        (click)="bookTimeslot(timeslot)"
+      >
+        Book
+      </button>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="unbookAllTimeslot()">Reset booking</button>
+  </mat-card-actions>
+</mat-card>
