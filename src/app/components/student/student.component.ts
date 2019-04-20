@@ -93,34 +93,37 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   addStudent() {
-    const _courseName = this.studentsForm.get('courseInput').value;
-    const _projectTitle = this.studentsForm.get('projectTitleInput').value;
-
     let newStudent = this.setSelectedStudent();
+    this.ngZone.run(_ => {
+      const addStudentDialog = this.dialog.open(
+        AddStudentConfirmationComponent,
+        {
+          data: newStudent
+        }
+      );
 
-    const addStudentDialog = this.dialog.open(AddStudentConfirmationComponent, {
-      data: newStudent
-    });
-    addStudentDialog.afterClosed().subscribe(state => {
-      if (state) {
-        this.supervisionService.addStudent(newStudent).subscribe(
-          res => {
-            this.toastService.success(
-              `Successfully added ${
-                newStudent.displayName
-              } under your supervision`,
-              'Add Student',
-              { onActivateTick: true }
-            ),
-              this.getSupervisionGroupData();
-          },
-          err => {
-            this.toastService.error(err.message, 'Add Student', {
-              onActivateTick: true
-            });
-          }
-        );
-      }
+      addStudentDialog.afterClosed().subscribe(state => {
+        if (state) {
+          this.supervisionService.addStudent(newStudent).subscribe(
+            res => {
+              this.toastService.success(
+                `Successfully added ${
+                  newStudent.displayName
+                } under your supervision`,
+                'Add Student',
+                { onActivateTick: true }
+              ),
+                this.getSupervisionGroupData();
+              this.resetStudentForm();
+            },
+            err => {
+              this.toastService.error(err.message, 'Add Student', {
+                onActivateTick: true
+              });
+            }
+          );
+        }
+      });
     });
   }
 
@@ -174,14 +177,24 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
   setSelectedStudent() {
     const _selectedStudent = this.studentsForm.get('userInput').value;
+    const _courseName = this.studentsForm.get('courseInput').value;
+    const _projectTitle = this.studentsForm.get('projectTitleInput').value;
 
     const newStudent: Student = {
       uniqueID: _selectedStudent.id,
-      course: _selectedStudent,
+      course: _courseName,
+      projectTitle: _projectTitle,
       displayName: _selectedStudent.displayName,
       email: _selectedStudent.mail
     };
+    console.log(_selectedStudent);
     return newStudent;
+  }
+
+  resetStudentForm() {
+    this.studentsForm.get('userInput').reset();
+    this.studentsForm.get('courseInput').reset();
+    this.studentsForm.get('projectTitleInput').reset();
   }
   ngOnDestroy(): void {
     this.studentSubscription.unsubscribe();

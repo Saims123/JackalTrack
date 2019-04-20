@@ -7,7 +7,15 @@ import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../auth/user';
 import { MeetingPeriod, Timeslot } from '../timeslots/timeslot.service';
-enum MicrosoftDay { Monday = 'Mon', Tuesday = 'Tue', Wednesday = 'Wed', Thursday = 'Thu', Friday = 'Fri', Saturday = 'Sat', Sunday = 'Sun'}
+enum MicrosoftDay {
+  Monday = 'Mon',
+  Tuesday = 'Tue',
+  Wednesday = 'Wed',
+  Thursday = 'Thu',
+  Friday = 'Fri',
+  Saturday = 'Sat',
+  Sunday = 'Sun'
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -171,11 +179,11 @@ export class GraphService {
         content: _content
       },
       start: {
-        dateTime: '2017-09-04T12:00:00',
+        dateTime: _timeslot.startTime,
         timeZone: 'UTC'
       },
       end: {
-        dateTime: '2017-09-04T14:00:00',
+        dateTime: _timeslot.endTime,
         timeZone: 'UTC'
       },
       recurrence: {

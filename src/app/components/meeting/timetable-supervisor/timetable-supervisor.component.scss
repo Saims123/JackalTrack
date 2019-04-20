@@ -31,8 +31,11 @@
 
   text-align: center;
   mat-card {
-    max-width: 25vw;
-    margin: 0 auto;
-    flex: 1;
+    margin: 10px;
+
   }
+}
+.meeting-period {
+  margin : 0 auto;
+  text-align: center;
 }
