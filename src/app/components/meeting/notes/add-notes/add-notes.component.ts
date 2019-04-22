@@ -8,6 +8,7 @@ import {
   MeetingNotesService
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-notes',
@@ -16,7 +17,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddNotesComponent implements OnInit, OnDestroy {
   student: Student;
-  studentID: string;
   todoList: TodoList[] = [];
   newMeetingNote: MeetingNote;
   createdDateTime = moment.utc().toJSON();
@@ -41,14 +41,13 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Default behaviour, create a template task for further use
     this.generateNewTask();
-    this.routeSub = this.routes.params.subscribe(params => {
-      this.studentID = String(params.id);
-      console.log(this.supervisionService.getSingleStudent(String(params.id)));
-      this.supervisionService
-        .getSingleStudent(params.id)
-        .subscribe((group: any) => (this.student = group.student));
-      console.warn(this.student);
+    let studentGroup =  this.routes.params.pipe(
+      mergeMap(param => this.supervisionService.getSingleStudent(param.id))
+    );
+    studentGroup.subscribe((group: any) => {
+      this.student = (group.student);
     });
+    this.routeSub = studentGroup;
   }
 
   generateNewTask() {
@@ -74,7 +73,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
       todoList: this.todoList
     };
     this.meetingNoteService
-      .addMeetingNoteToStudent(this.studentID, this.newMeetingNote)
+      .addMeetingNoteToStudent(this.student.uniqueID, this.newMeetingNote)
       .subscribe(_ => {
         console.warn(this.student, this.newMeetingNote);
         this.goBack();

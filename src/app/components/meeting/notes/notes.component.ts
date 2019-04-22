@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { SupervisionService, Student } from 'src/app/services/supervision/supervision.service';
-import {
-  MeetingNotesService} from 'src/app/services/meeting-notes/meeting-notes.service';
+
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -15,7 +14,6 @@ export class NotesComponent implements OnInit {
   students: Observable<Student[]>;
   constructor(
     public supervisionService: SupervisionService,
-    public meetingNoteService: MeetingNotesService,
     public cdr: ChangeDetectorRef,
     public router: Router,
     public ngZone: NgZone

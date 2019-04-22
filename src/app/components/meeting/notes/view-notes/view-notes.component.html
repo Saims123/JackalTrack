@@ -1,10 +1,11 @@
+<ng-container  *ngIf="meetingNotesLength > 0 else noData;">
 <mat-card *ngFor="let notes of (meetingNotes| async)">
   <mat-card-header>
     <div class="actions-button">
       <mat-card-title> {{ notes.title }}</mat-card-title>
       <mat-card-subtitle> {{ notes.created }}</mat-card-subtitle>
     </div>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="editMeetingNote(notes)">
       <mat-icon>edit_mode</mat-icon>
     </button>
 
@@ -33,3 +34,12 @@
 
   </mat-card-content>
 </mat-card>
+</ng-container>
+
+<ng-template #noData>
+  <mat-card>
+    <mat-icon>info</mat-icon>
+    My my such empty, please create a new meeting note.
+  </mat-card>
+</ng-template>
+

@@ -4,8 +4,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ChangeDetectorRef,
-  NgZone
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   MeetingNotesService,
@@ -13,6 +12,7 @@ import {
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'view-meeting-notes',
@@ -22,21 +22,19 @@ import { Observable } from 'rxjs';
 export class ViewNotesComponent implements OnInit, OnChanges {
   @Input() public student: Student;
   meetingNotes: Observable<MeetingNote[]>;
+  meetingNotesLength = 0;
   constructor(
     private meetingNoteService: MeetingNotesService,
-    private cdr: ChangeDetectorRef  ) {}
+    private cdr: ChangeDetectorRef,
+    private router: Router) {}
 
   ngOnInit() {
-    this.getMeetingNotesFromNest();
-    this.meetingNotes.subscribe(data => {
-      console.log(data);
-    });
   }
 
   ngOnChanges(sc: SimpleChanges) {
     this.getMeetingNotesFromNest();
     this.meetingNotes.subscribe(data => {
-      console.log(data[0], 'Current value');
+      this.meetingNotesLength = data.length;
       this.cdr.detectChanges();
     });
   }
@@ -46,6 +44,10 @@ export class ViewNotesComponent implements OnInit, OnChanges {
       this.getMeetingNotesFromNest();
       this.cdr.detectChanges();
     });
+  }
+
+  editMeetingNote(_note) {
+    this.router.navigate(['meeting/notes/edit/student/', this.student.uniqueID, 'created' ,_note.created]);
   }
 
   getMeetingNotesFromNest() {
