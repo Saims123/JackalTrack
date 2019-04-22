@@ -4,14 +4,15 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  NgZone
 } from '@angular/core';
 import {
   MeetingNotesService,
-  MeetingNote,
-  StudentNotes
+  MeetingNote
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'view-meeting-notes',
@@ -20,26 +21,35 @@ import { Student } from 'src/app/services/supervision/supervision.service';
 })
 export class ViewNotesComponent implements OnInit, OnChanges {
   @Input() public student: Student;
-  meetingNotes: MeetingNote[] = [];
+  meetingNotes: Observable<MeetingNote[]>;
   constructor(
-    private noteService: MeetingNotesService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private meetingNoteService: MeetingNotesService,
+    private cdr: ChangeDetectorRef  ) {}
 
   ngOnInit() {
-    this.noteService.initiateMockData();
+    this.getMeetingNotesFromNest();
+    this.meetingNotes.subscribe(data => {
+      console.log(data);
+    });
   }
 
   ngOnChanges(sc: SimpleChanges) {
-    this.meetingNotes = [];
-    console.log(sc);
-    this.noteService.getStudentNotes(this.student).forEach(student => {
-      student.meetingNotes.forEach(notes => {
-        this.meetingNotes.push(notes);
-      });
+    this.getMeetingNotesFromNest();
+    this.meetingNotes.subscribe(data => {
+      console.log(data[0], 'Current value');
+      this.cdr.detectChanges();
     });
-    console.log(this.meetingNotes);
-    this.cdr.detectChanges();
+  }
+
+  deleteMeetingNote(selectedNote) {
+    this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
+      this.getMeetingNotesFromNest();
+      this.cdr.detectChanges();
+    });
+  }
+
+  getMeetingNotesFromNest() {
+      this.meetingNotes = this.meetingNoteService.getStudentNotes(this.student);
   }
 
   revealChanges(data, data2) {

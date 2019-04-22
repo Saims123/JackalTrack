@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {
-  Student,
-  SupervisionService
-} from 'src/app/services/supervision/supervision.service';
+import { Student, SupervisionService } from 'src/app/services/supervision/supervision.service';
 import * as moment from 'moment';
 import {
   TodoList,
@@ -11,6 +8,7 @@ import {
   MeetingNotesService
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-add-notes',
   templateUrl: './add-notes.component.html',
@@ -18,8 +16,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddNotesComponent implements OnInit, OnDestroy {
   student: Student;
+  studentID: string;
   todoList: TodoList[] = [];
-  meetingNote: MeetingNote;
+  newMeetingNote: MeetingNote;
   createdDateTime = moment.utc().toJSON();
   routeSub: any;
 
@@ -43,6 +42,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     // Default behaviour, create a template task for further use
     this.generateNewTask();
     this.routeSub = this.routes.params.subscribe(params => {
+      this.studentID = String(params.id);
       console.log(this.supervisionService.getSingleStudent(String(params.id)));
       this.supervisionService
         .getSingleStudent(params.id)
@@ -68,20 +68,20 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(note) {
-    this.meetingNote = {
+    this.newMeetingNote = {
       created: this.createdDateTime,
       notes: note,
       todoList: this.todoList
     };
-    this.meetingNoteService.addMeetingNoteToStudent(this.student, [
-      this.meetingNote
-    ]);
-    console.warn(this.meetingNote);
-    this.goBack();
+    this.meetingNoteService
+      .addMeetingNoteToStudent(this.studentID, this.newMeetingNote)
+      .subscribe(_ => {
+        console.warn(this.student, this.newMeetingNote);
+        this.goBack();
+      });
   }
 
   goBack() {
-        this.route.navigate(['/meeting/notes']);
-
+    this.route.navigate(['/meeting/notes']);
   }
 }

@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SupervisionService } from './services/supervision/supervision.service';
 import { GraphService } from './services/graph/graph.service';
 import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
+import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
 
 
 
@@ -54,7 +55,8 @@ import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/
     AttendanceButtonComponent,
     AddStudentConfirmationComponent,
     AttendanceTrackingComponent,
-    BookingTimeslotComponent
+    BookingTimeslotComponent,
+    EditNotesComponent
   ],
   imports: [
     BrowserModule,

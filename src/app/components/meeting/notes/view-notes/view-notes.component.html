@@ -1,4 +1,4 @@
-<mat-card *ngFor="let notes of meetingNotes">
+<mat-card *ngFor="let notes of (meetingNotes| async)">
   <mat-card-header>
     <div class="actions-button">
       <mat-card-title> {{ notes.title }}</mat-card-title>
@@ -8,7 +8,7 @@
       <mat-icon>edit_mode</mat-icon>
     </button>
 
-    <button mat-icon-button>
+    <button mat-icon-button (click)="deleteMeetingNote(notes)">
       <mat-icon>delete_forever</mat-icon>
     </button>
   </mat-card-header>
@@ -28,5 +28,8 @@
   <mat-card-header>
     <mat-card-title>Notes</mat-card-title>
   </mat-card-header>
-  <mat-card-content>{{ notes.notes }}</mat-card-content>
+  <mat-card-content>
+    <p style="white-space: pre-wrap;" [innerHTML]="notes.notes"></p>
+
+  </mat-card-content>
 </mat-card>
