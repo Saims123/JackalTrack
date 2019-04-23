@@ -26,32 +26,36 @@ export class ViewNotesComponent implements OnInit, OnChanges {
   constructor(
     private meetingNoteService: MeetingNotesService,
     private cdr: ChangeDetectorRef,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(sc: SimpleChanges) {
     this.getMeetingNotesFromNest();
-    this.meetingNotes.subscribe(data => {
-      this.meetingNotesLength = data.length;
-      this.cdr.detectChanges();
-    });
   }
 
   deleteMeetingNote(selectedNote) {
     this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
       this.getMeetingNotesFromNest();
-      this.cdr.detectChanges();
     });
   }
 
   editMeetingNote(_note) {
-    this.router.navigate(['meeting/notes/edit/student/', this.student.uniqueID, 'created' ,_note.created]);
+    this.router.navigate([
+      'meeting/notes/edit/student/',
+      this.student.uniqueID,
+      'created',
+      _note.created
+    ]);
   }
 
   getMeetingNotesFromNest() {
-      this.meetingNotes = this.meetingNoteService.getStudentNotes(this.student);
+    this.meetingNotes = this.meetingNoteService.getStudentNotes(this.student);
+    this.meetingNotes.subscribe(data => {
+      this.meetingNotesLength = data.length;
+      this.cdr.detectChanges();
+    });
   }
 
   revealChanges(data, data2) {

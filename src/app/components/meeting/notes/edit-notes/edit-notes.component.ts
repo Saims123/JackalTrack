@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { mergeMap, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-edit-notes',
   templateUrl: './edit-notes.component.html',
@@ -28,7 +29,8 @@ export class EditNotesComponent implements OnInit {
     private supervisionService: SupervisionService,
     private meetingNoteService: MeetingNotesService,
     private location: Location,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastrService
   ) {
     this.supervisionService.getSupervisionGroup();
   }
@@ -47,7 +49,7 @@ export class EditNotesComponent implements OnInit {
         .subscribe(note => {
           this.notes = note.notes;
           this.todoList = note.todoList;
-          console.warn(note, this.notes)
+          console.warn(note, this.notes);
         });
     });
     this.cdr.detectChanges();
@@ -75,9 +77,18 @@ export class EditNotesComponent implements OnInit {
     };
     this.meetingNoteService
       .updateMeetingNoteToStudent(this.student.uniqueID, this.newMeetingNote)
-      .subscribe(_ => {
-        this.goBack();
-      });
+      .subscribe(
+        _ => {
+          this.toastService.success('Successfully updated meeting note!', 'Update Meeting note');
+          this.goBack();
+        },
+        error => {
+          this.toastService.success(
+            'Failed to updated meeting note!\n' + error,
+            'Update Meeting note'
+          );
+        }
+      );
   }
 
   goBack() {
