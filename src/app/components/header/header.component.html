@@ -1,7 +1,7 @@
 <mat-toolbar color="accent">
   <mat-toolbar-row class="mainNav">
     <div class="logo" [routerLink]="['/dashboard']">
-      <img src="assets/logo/jackal2.png">
+      <img src="assets/logo/jackal2.png" />
       <span>JackalTrack</span>
     </div>
 
@@ -14,11 +14,14 @@
 
       <mat-menu #appMeeting="matMenu">
         <button mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
-        <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">Timeslot Booking</button>
+        <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">
+          Timeslot Booking
+        </button>
         <button mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
+        <button mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
       </mat-menu>
 
-      <button mat-button matBadge=0>Actions</button>
+      <button mat-button matBadge="0">Actions</button>
       <button mat-button [matMenuTriggerFor]="appMeeting">
         Meetings
       </button>
@@ -27,17 +30,20 @@
         Progress
       </button>
 
-      <button [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Students</button>
-      <button *ngIf="isSupervisor" [routerLink]="['/student']" [queryParams]="{debug: true}" mat-button>Supervisor</button>
-
+      <button [routerLink]="['/student']" mat-button>
+        Students
+      </button>
     </div>
 
-
     <div *ngIf="authService.isAuth" class="avatar">
-        <span> Hi {{authService.user?.displayName }}!</span>
+      <span> Hi {{ authService.user?.displayName }}!</span>
 
       <mat-menu #appAvatar="matMenu">
-      <p *ngIf="authService.isAuth">{{authService.user?.mail}}</p>
+        <div style="margin: 5px;">
+          <p class="mat-h4" *ngIf="authService.isAuth">{{ authService.user?.mail }}</p>
+          <p class="mat-h4" *ngIf="authService.isAuth">Role : {{ authService.user?.jobTitle }}</p>
+        </div>
+
         <mat-divider></mat-divider>
         <button (click)="signOut()" mat-menu-item>Logout</button>
       </mat-menu>
@@ -48,5 +54,9 @@
     </div>
   </mat-toolbar-row>
 
-<mat-progress-bar *ngIf="!authService.isTokenReady" color="warn" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar
+    *ngIf="!authService.isTokenReady"
+    color="warn"
+    mode="indeterminate"
+  ></mat-progress-bar>
 </mat-toolbar>

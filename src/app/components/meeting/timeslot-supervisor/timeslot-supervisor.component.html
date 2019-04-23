@@ -3,8 +3,8 @@
     <mat-card-header style="text-align: initial;">
       <mat-card-title>Meeting Time period</mat-card-title>
       <mat-card-subtitle
-        >Specify the period you will be supervising the students and location,
-        along with timeslots</mat-card-subtitle
+        >Specify the period you will be supervising the students and location, along with
+        timeslots</mat-card-subtitle
       >
     </mat-card-header>
     <mat-card-content>
@@ -19,12 +19,8 @@
             required
             (dateChange)="meetingStartDate = $event.value"
           />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="startPicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #startPicker>
-          </mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker> </mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
@@ -37,11 +33,8 @@
             required
             (dateChange)="meetingEndDate = $event.value"
           />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="endPicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #endPicker ></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
@@ -54,15 +47,16 @@
           color="primary"
           matBadge="{{ getNewTimeslots().length }}"
           matBadgeColor="accent"
-          (click)="openDialog(location.value)">
+          (click)="openDialog(location.value)"
+        >
           <mat-icon>schedule</mat-icon>
           Schedule
         </button>
       </form>
 
       <mat-card *ngIf="studentNo > getNewTimeslots().length"
-        ><mat-icon>info</mat-icon>You have {{ studentNo }} students, please
-        create {{ studentNo }} slots</mat-card
+        ><mat-icon>info</mat-icon>You have {{ studentNo }} students, please create
+        {{ studentNo }} slots</mat-card
       >
     </mat-card-content>
   </mat-card>

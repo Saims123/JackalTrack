@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isSupervisor = false;
+  profile: any;
   constructor(
     public authService: AuthService,
     public graphService: GraphService,
@@ -21,8 +22,9 @@ export class HeaderComponent implements OnInit {
   async signIn(): Promise<void> {
     await this.authService.signIn().then(() => {
       this.graphService.getMe()
-        .subscribe(data => {
-          if (data.jobTitle !== 'Student') {
+        .subscribe(user => {
+          this.profile = user;
+          if (user.jobTitle !== 'Student') {
             this.isSupervisor = true;
           }
         });

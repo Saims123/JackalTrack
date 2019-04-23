@@ -12,12 +12,12 @@
 
   <div class="notes">
     <h3>Meeting notes</h3>
-    <ng-scrollbar>
-    <button mat-button color="primary" [routerLink]="['./new/student', selectedStudent?.uniqueID]">
+    <ng-scrollbar *ngIf="selectedStudent">
+    <button *ngIf="selectedStudent" mat-button color="primary" (click)="createNewNote()">
       <mat-icon>add</mat-icon>
       New notes
     </button>
-      <view-meeting-notes [student]="selectedStudent"> </view-meeting-notes>
+      <view-meeting-notes  [student]="selectedStudent"> </view-meeting-notes>
     </ng-scrollbar>
 
   </div>

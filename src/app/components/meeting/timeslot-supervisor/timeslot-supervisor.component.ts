@@ -13,16 +13,12 @@ import { DayViewHourSegment, EventColor } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
-import {
-  ceilToNearest,
-  floorToNearest,
-  CustomEventTitleFormatter
-} from './ng-calendar-utilities';
+import { ceilToNearest, floorToNearest, CustomEventTitleFormatter } from './ng-calendar-utilities';
 import * as moment from 'moment';
 
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
 import { ToastrService } from 'ngx-toastr';
-import { TimeslotService } from 'src/app/services/timeslots/timeslot.service';
+import { TimeslotService, Timeslot } from 'src/app/services/timeslots/timeslot.service';
 import { SupervisionService } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
@@ -99,23 +95,40 @@ export class TimeslotSupervisorComponent implements OnInit {
   getNewTimeslots() {
     return this.events.filter(event => event.title === 'New Timeslot');
   }
+//  Consider moving to Timeslot Service for simplicity and code sanity sake
+  getConvertedTimeslots() {
+    const timeslots: Timeslot[] = [];
+    this.getNewTimeslots().forEach(timeslot => {
+      timeslots.push({
+        day: moment(timeslot.start)
+          .format('DDD')
+          .toString(),
+        startTime: moment(timeslot.start).toJSON(),
+        endTime: moment(timeslot.end).toJSON()
+      });
+    });
+    return timeslots.sort((timeslotA, timeslotB) => {
+      return moment(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
+    });
+  }
 
   openDialog(_location) {
-    console.log(this.meetingStartDate, this.meetingEndDate, _location);
+    const timeslotGroup = {
+      meetingPeriod: {
+        start: this.meetingStartDate,
+        end: this.meetingEndDate,
+        location: _location
+      },
+      timeslots: this.getConvertedTimeslots()
+    };
+
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
-      data: {
-        meetingPeriod: {
-          startTime: this.meetingStartDate,
-          endTime: this.meetingEndDate,
-          location: _location
-        },
-        timeslots: this.getNewTimeslots()
-      }
+      data: timeslotGroup
     });
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
         this.timeslotService
-          .addNewTimeslot(data.timeslots, data.meetingPeriod)
+          .addNewTimeslot(timeslotGroup.timeslots, timeslotGroup.meetingPeriod)
           .subscribe(data => console.log(data));
         this.router.navigate(['meeting/timetable']);
         this.toastService.success(
@@ -183,16 +196,11 @@ export class TimeslotSupervisorComponent implements OnInit {
         takeUntil(fromEvent(document, 'mouseup'))
       )
       .subscribe((mouseMoveEvent: MouseEvent) => {
-        const minutesDiff = ceilToNearest(
-          mouseMoveEvent.clientY - segmentPosition.top,
-          30
-        );
+        const minutesDiff = ceilToNearest(mouseMoveEvent.clientY - segmentPosition.top, 30);
 
         const daysDiff =
-          floorToNearest(
-            mouseMoveEvent.clientX - segmentPosition.left,
-            segmentPosition.width
-          ) / segmentPosition.width;
+          floorToNearest(mouseMoveEvent.clientX - segmentPosition.left, segmentPosition.width) /
+          segmentPosition.width;
 
         const newEnd = addDays(addMinutes(segment.date, minutesDiff), daysDiff);
         if (newEnd > segment.date && newEnd < endOfView) {

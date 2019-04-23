@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   OnChanges,
   SimpleChanges,
@@ -12,37 +11,59 @@ import {
   StudentNotes
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { DeleteNoteConfirmationDialog } from '../dialogbox/delete-dialog-component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'view-meeting-notes',
   templateUrl: './view-notes.component.html',
   styleUrls: ['./view-notes.component.scss']
 })
-export class ViewNotesComponent implements OnInit, OnChanges {
+export class ViewNotesComponent implements OnChanges {
   @Input() public student: Student;
-  meetingNotes: MeetingNote[] = [];
+  meetingNotes: Observable<MeetingNote[]>;
+  meetingNotesLength = 0;
   constructor(
-    private noteService: MeetingNotesService,
-    private cdr: ChangeDetectorRef
+    private meetingNoteService: MeetingNotesService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastService: ToastrService
   ) {}
 
-  ngOnInit() {
-    this.noteService.initiateMockData();
-  }
-
   ngOnChanges(sc: SimpleChanges) {
-    this.meetingNotes = [];
-    console.log(sc);
-    this.noteService.getStudentNotes(this.student).forEach(student => {
-      student.meetingNotes.forEach(notes => {
-        this.meetingNotes.push(notes);
-      });
-    });
-    console.log(this.meetingNotes);
-    this.cdr.detectChanges();
+    this.getMeetingNotesFromNest();
   }
 
-  revealChanges(data, data2) {
-    console.log(data, data2);
+  deleteMeetingNote(selectedNote: MeetingNote) {
+    const addDeleteDialog = this.dialog.open(DeleteNoteConfirmationDialog, {data : {}});
+    addDeleteDialog.afterClosed().subscribe(state => {
+      if (state) {
+        this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
+          this.toastService.success('Successfully deleted meeting note', 'Delete Meeting Note');
+          this.getMeetingNotesFromNest();
+        });
+      }
+    });
+  }
+
+  editMeetingNote(selectedNote: MeetingNote) {
+    this.router.navigate([
+      'meeting/notes/edit/student/',
+      this.student.uniqueID,
+      'created',
+      selectedNote.created
+    ]);
+  }
+
+  getMeetingNotesFromNest() {
+    this.meetingNotes = this.meetingNoteService.getStudentNotes(this.student);
+    this.meetingNotes.subscribe(data => {
+      this.meetingNotesLength = data.length;
+      this.cdr.detectChanges();
+    });
   }
 }

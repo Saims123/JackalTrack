@@ -32,6 +32,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { SupervisionService } from './services/supervision/supervision.service';
 import { GraphService } from './services/graph/graph.service';
 import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
+import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
+import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
+import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
 
 
 
@@ -53,8 +56,11 @@ import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/
     ViewNotesComponent,
     AttendanceButtonComponent,
     AddStudentConfirmationComponent,
+    DeleteNoteConfirmationDialog,
     AttendanceTrackingComponent,
-    BookingTimeslotComponent
+    BookingTimeslotComponent,
+    EditNotesComponent,
+    NotesStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,8 @@ import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/
     TimeslotConfirmationDialog,
     TimeslotSupervisorComponent,
     DeleteConfirmationDialog,
-    AddStudentConfirmationComponent
+    AddStudentConfirmationComponent,
+    DeleteNoteConfirmationDialog
   ],
   bootstrap: [AppComponent]
 })

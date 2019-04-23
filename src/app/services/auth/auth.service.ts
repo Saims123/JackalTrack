@@ -13,7 +13,7 @@ public isTokenReady: boolean;
 public user: User;
   constructor(private msalService: MsalService, private router: Router) {
     this.isAuth = false;
-    this. isTokenReady = null;
+    this. isTokenReady = true;
     this.user = null;
     this.isAuth = this.msalService.getUser() != null;
     this.getUser().then((user) => {this.user = user; console.warn(this.user); });

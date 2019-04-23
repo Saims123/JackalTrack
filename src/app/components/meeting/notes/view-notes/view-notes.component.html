@@ -1,32 +1,41 @@
-<mat-card *ngFor="let notes of meetingNotes">
-  <mat-card-header>
-    <div class="actions-button">
-      <mat-card-title> {{ notes.title }}</mat-card-title>
-      <mat-card-subtitle> {{ notes.created }}</mat-card-subtitle>
-    </div>
-    <button mat-icon-button>
-      <mat-icon>edit_mode</mat-icon>
-    </button>
+<ng-container *ngIf="meetingNotesLength > 0; else noData">
+  <mat-card *ngFor="let notes of (meetingNotes | async)">
+    <mat-card-header>
+      <div class="actions-button">
+        <mat-card-title> {{ notes.created | date: 'EEEE dd MMM yyyy hh:mm a' }}</mat-card-title>
+      </div>
+      <button mat-icon-button (click)="editMeetingNote(notes)">
+        <mat-icon>edit_mode</mat-icon>
+      </button>
 
-    <button mat-icon-button>
-      <mat-icon>delete_forever</mat-icon>
-    </button>
-  </mat-card-header>
+      <button mat-icon-button (click)="deleteMeetingNote(notes)">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-selection-list color="primary" *ngFor="let list of notes.todoList">
+        <mat-list-option
+          [checkboxPosition]="'before'"
+          (change)="(list.completed != list.completed)"
+          [selected]="list.completed"
+        >
+          {{ list.task }}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
 
+    <mat-card-header>
+      <mat-card-title>Notes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p style="white-space: pre-wrap;" [innerHTML]="notes.notes"></p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
 
-    <mat-card-title>Checklist</mat-card-title>
-
-  <mat-card-content>
-    <mat-selection-list color="primary" #test *ngFor="let list of notes.todoList">
-      <mat-list-option [checkboxPosition]="'before'" (change)="(list.completed != list.completed)"
-      (click)="revealChanges(notes)" [selected]="list.completed">
-        {{ list.task }}
-      </mat-list-option>
-    </mat-selection-list>
-  </mat-card-content>
-
-  <mat-card-header>
-    <mat-card-title>Notes</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>{{ notes.notes }}</mat-card-content>
-</mat-card>
+<ng-template #noData>
+  <mat-card>
+    <mat-icon>info</mat-icon>
+    My my such empty, please create a new meeting note.
+  </mat-card>
+</ng-template>
