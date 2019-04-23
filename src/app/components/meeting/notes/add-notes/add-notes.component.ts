@@ -7,8 +7,9 @@ import {
   MeetingNote,
   MeetingNotesService
 } from 'src/app/services/meeting-notes/meeting-notes.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { mergeMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-notes',
@@ -33,7 +34,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     private routes: ActivatedRoute,
     private supervisionService: SupervisionService,
     private meetingNoteService: MeetingNotesService,
-    private route: Router
+    private location: Location
   ) {
     this.supervisionService.getSupervisionGroup();
   }
@@ -81,6 +82,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.route.navigate(['/meeting/notes']);
+    this.location.back();
   }
 }

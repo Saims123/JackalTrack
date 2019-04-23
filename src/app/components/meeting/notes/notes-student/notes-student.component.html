@@ -1,0 +1,13 @@
+<h2 class="mat-h2">Meeting Notes - Student View</h2>
+
+  <div class="notes">
+    <ng-scrollbar *ngIf="student">
+    <h3>Meeting notes</h3>
+    <button *ngIf="student" mat-button color="primary" (click)="createNewNote()">
+      <mat-icon>add</mat-icon>
+      New notes
+    </button>
+    <view-meeting-notes [student]="student"> </view-meeting-notes>
+    </ng-scrollbar>
+
+  </div>

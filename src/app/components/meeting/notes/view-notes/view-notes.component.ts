@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   OnChanges,
   SimpleChanges,
@@ -23,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './view-notes.component.html',
   styleUrls: ['./view-notes.component.scss']
 })
-export class ViewNotesComponent implements OnInit, OnChanges {
+export class ViewNotesComponent implements OnChanges {
   @Input() public student: Student;
   meetingNotes: Observable<MeetingNote[]>;
   meetingNotesLength = 0;
@@ -34,8 +33,6 @@ export class ViewNotesComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private toastService: ToastrService
   ) {}
-
-  ngOnInit() {}
 
   ngOnChanges(sc: SimpleChanges) {
     this.getMeetingNotesFromNest();

@@ -12,6 +12,7 @@ import { NotesComponent } from '../components/meeting/notes/notes.component';
 import { AttendanceTrackingComponent } from '../components/progress/attendance-tracking/attendance-tracking.component';
 import { BookingTimeslotComponent } from '../components/meeting/booking-timeslot/booking-timeslot.component';
 import { EditNotesComponent } from '../components/meeting/notes/edit-notes/edit-notes.component';
+import { NotesStudentComponent } from '../components/meeting/notes/notes-student/notes-student.component';
 
 const routes: Routes = [
   { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
@@ -31,8 +32,17 @@ const routes: Routes = [
     component: NotesComponent,
     canActivate: [MsalGuard]
   },
+  {
+    path: 'meeting/student/notes',
+    component: NotesStudentComponent,
+    canActivate: [MsalGuard]
+  },
   { path: 'meeting/notes/new/student/:id', component: AddNotesComponent, canActivate: [MsalGuard] },
-  { path: 'meeting/notes/edit/student/:id/created/:createdDate', component: EditNotesComponent, canActivate: [MsalGuard] },
+  {
+    path: 'meeting/notes/edit/student/:id/created/:createdDate',
+    component: EditNotesComponent,
+    canActivate: [MsalGuard]
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

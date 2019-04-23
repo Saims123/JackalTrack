@@ -13,10 +13,10 @@ export class NotesComponent implements OnInit {
   selectedStudent: Student;
   students: Observable<Student[]>;
   constructor(
-    public supervisionService: SupervisionService,
-    public cdr: ChangeDetectorRef,
-    public router: Router,
-    public ngZone: NgZone
+    private supervisionService: SupervisionService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private ngZone: NgZone
   ) {
     this.supervisionService.getSupervisionGroup();
   }
@@ -33,7 +33,7 @@ export class NotesComponent implements OnInit {
       });
   }
 
-  createNewNote(){
+  createNewNote() {
     this.ngZone.run(_ => {
       this.router.navigate(['meeting/notes/new/student/', this.selectedStudent.uniqueID]);
     });

@@ -34,6 +34,7 @@ import { GraphService } from './services/graph/graph.service';
 import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
 import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
 import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
+import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
 
 
 
@@ -58,7 +59,8 @@ import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogb
     DeleteNoteConfirmationDialog,
     AttendanceTrackingComponent,
     BookingTimeslotComponent,
-    EditNotesComponent
+    EditNotesComponent,
+    NotesStudentComponent
   ],
   imports: [
     BrowserModule,
