@@ -39,7 +39,11 @@
       <span> Hi {{ authService.user?.displayName }}!</span>
 
       <mat-menu #appAvatar="matMenu">
-        <p *ngIf="authService.isAuth">{{ authService.user?.mail }}</p>
+        <div style="margin: 5px;">
+          <p class="mat-h4" *ngIf="authService.isAuth">{{ authService.user?.mail }}</p>
+          <p class="mat-h4" *ngIf="authService.isAuth">Role : {{ authService.user?.jobTitle }}</p>
+        </div>
+
         <mat-divider></mat-divider>
         <button (click)="signOut()" mat-menu-item>Logout</button>
       </mat-menu>
