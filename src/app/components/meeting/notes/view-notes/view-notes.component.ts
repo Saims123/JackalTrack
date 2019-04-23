@@ -8,11 +8,15 @@ import {
 } from '@angular/core';
 import {
   MeetingNotesService,
-  MeetingNote
+  MeetingNote,
+  StudentNotes
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { DeleteNoteConfirmationDialog } from '../dialogbox/delete-dialog-component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'view-meeting-notes',
@@ -26,7 +30,9 @@ export class ViewNotesComponent implements OnInit, OnChanges {
   constructor(
     private meetingNoteService: MeetingNotesService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private toastService: ToastrService
   ) {}
 
   ngOnInit() {}
@@ -35,18 +41,24 @@ export class ViewNotesComponent implements OnInit, OnChanges {
     this.getMeetingNotesFromNest();
   }
 
-  deleteMeetingNote(selectedNote) {
-    this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
-      this.getMeetingNotesFromNest();
+  deleteMeetingNote(selectedNote: MeetingNote) {
+    const addDeleteDialog = this.dialog.open(DeleteNoteConfirmationDialog, {data : {}});
+    addDeleteDialog.afterClosed().subscribe(state => {
+      if (state) {
+        this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
+          this.toastService.success('Successfully deleted meeting note', 'Delete Meeting Note');
+          this.getMeetingNotesFromNest();
+        });
+      }
     });
   }
 
-  editMeetingNote(_note) {
+  editMeetingNote(selectedNote: MeetingNote) {
     this.router.navigate([
       'meeting/notes/edit/student/',
       this.student.uniqueID,
       'created',
-      _note.created
+      selectedNote.created
     ]);
   }
 
@@ -56,9 +68,5 @@ export class ViewNotesComponent implements OnInit, OnChanges {
       this.meetingNotesLength = data.length;
       this.cdr.detectChanges();
     });
-  }
-
-  revealChanges(data, data2) {
-    console.log(data, data2);
   }
 }

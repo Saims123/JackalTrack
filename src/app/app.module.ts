@@ -33,6 +33,7 @@ import { SupervisionService } from './services/supervision/supervision.service';
 import { GraphService } from './services/graph/graph.service';
 import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
 import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
+import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
 
 
 
@@ -54,6 +55,7 @@ import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-n
     ViewNotesComponent,
     AttendanceButtonComponent,
     AddStudentConfirmationComponent,
+    DeleteNoteConfirmationDialog,
     AttendanceTrackingComponent,
     BookingTimeslotComponent,
     EditNotesComponent
@@ -82,7 +84,8 @@ import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-n
     TimeslotConfirmationDialog,
     TimeslotSupervisorComponent,
     DeleteConfirmationDialog,
-    AddStudentConfirmationComponent
+    AddStudentConfirmationComponent,
+    DeleteNoteConfirmationDialog
   ],
   bootstrap: [AppComponent]
 })
