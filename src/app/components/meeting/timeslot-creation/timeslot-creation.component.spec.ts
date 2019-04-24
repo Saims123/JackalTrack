@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimeslotSupervisorComponent } from './timeslot-supervisor.component';
+import { TimeslotCreationComponent } from './timeslot-creation.component';
 
 describe('TimeslotSupervisorComponent', () => {
-  let component: TimeslotSupervisorComponent;
-  let fixture: ComponentFixture<TimeslotSupervisorComponent>;
+  let component: TimeslotCreationComponent;
+  let fixture: ComponentFixture<TimeslotCreationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeslotSupervisorComponent ]
+      declarations: [ TimeslotCreationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimeslotSupervisorComponent);
+    fixture = TestBed.createComponent(TimeslotCreationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

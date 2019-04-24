@@ -12,9 +12,9 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { StudentComponent } from './components/student/student.component';
 import { ErrorComponent } from './components/error/error.component';
-import { TimeslotSupervisorComponent } from './components/meeting/timeslot-supervisor/timeslot-supervisor.component';
+import { TimeslotCreationComponent } from './components/meeting/timeslot-creation/timeslot-creation.component';
 import { HomeComponent } from './components/home/home.component';
-import { TimeslotConfirmationDialog } from './components/meeting/timeslot-supervisor/dialogbox/confirmation-dialog-component';
+import { TimeslotConfirmationDialog } from './components/meeting/timeslot-creation/dialogbox/confirmation-dialog-component';
 import { TimetableSupervisorComponent } from './components/meeting/timetable-supervisor/timetable-supervisor.component';
 import { NotesComponent } from './components/meeting/notes/notes.component';
 import { AddNotesComponent } from './components/meeting/notes/add-notes/add-notes.component';
@@ -45,7 +45,7 @@ import { NotesStudentComponent } from './components/meeting/notes/notes-student/
     HeaderComponent,
     ErrorComponent,
     StudentComponent,
-    TimeslotSupervisorComponent,
+    TimeslotCreationComponent,
     HomeComponent,
     TimeslotConfirmationDialog,
     DeleteConfirmationDialog,
@@ -84,7 +84,7 @@ import { NotesStudentComponent } from './components/meeting/notes/notes-student/
   providers: [SupervisionService, GraphService],
   entryComponents: [
     TimeslotConfirmationDialog,
-    TimeslotSupervisorComponent,
+    TimeslotCreationComponent,
     DeleteConfirmationDialog,
     AddStudentConfirmationComponent,
     DeleteNoteConfirmationDialog

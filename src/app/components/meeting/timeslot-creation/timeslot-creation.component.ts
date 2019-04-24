@@ -23,9 +23,9 @@ import { SupervisionService } from '../../../services/supervision/supervision.se
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
-  selector: 'app-timeslot-supervisor',
-  templateUrl: './timeslot-supervisor.component.html',
-  styleUrls: ['./timeslot-supervisor.component.scss'],
+  selector: 'app-timeslot-creation',
+  templateUrl: './timeslot-creation.component.html',
+  styleUrls: ['./timeslot-creation.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -35,7 +35,7 @@ import { GraphService } from '../../../services/graph/graph.service';
     }
   ]
 })
-export class TimeslotSupervisorComponent implements OnInit {
+export class TimeslotCreationComponent implements OnInit {
   viewDate = new Date();
   minDate = new Date();
   events: CalendarEvent[] = [];
@@ -65,7 +65,7 @@ export class TimeslotSupervisorComponent implements OnInit {
 
   ngOnInit(): void {
     this.supervisionService.supervisionGroup.subscribe(
-      group => (this.studentNo = group[0].students.length)
+      group => ((this.studentNo = group[0].students.length), this.cdr.detectChanges())
     );
   }
 
@@ -95,7 +95,7 @@ export class TimeslotSupervisorComponent implements OnInit {
   getNewTimeslots() {
     return this.events.filter(event => event.title === 'New Timeslot');
   }
-//  Consider moving to Timeslot Service for simplicity and code sanity sake
+  //  Consider moving to Timeslot Service for simplicity and code sanity sake
   getConvertedTimeslots() {
     const timeslots: Timeslot[] = [];
     this.getNewTimeslots().forEach(timeslot => {

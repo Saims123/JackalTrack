@@ -29,7 +29,8 @@ export class NotesComponent implements OnInit {
         })
       )
       .subscribe(_group => {
-        (this.students = _group[0].students), this.cdr.detectChanges();
+        this.students = _group[0].students,
+        this.cdr.detectChanges();
       });
   }
 

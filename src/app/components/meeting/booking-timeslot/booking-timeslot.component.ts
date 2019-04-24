@@ -7,7 +7,7 @@ import {
 import { SupervisionGroup, Student } from 'src/app/services/supervision/supervision.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
 import { mergeMap, tap } from 'rxjs/operators';
-import { TimeslotConfirmationDialog } from '../timeslot-supervisor/dialogbox/confirmation-dialog-component';
+import { TimeslotConfirmationDialog } from '../timeslot-creation/dialogbox/confirmation-dialog-component';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
