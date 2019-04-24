@@ -55,8 +55,8 @@ export class TimeslotService implements OnInit {
       `${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`
     );
   }
-  getTimeslotsViaStudentID(supervisorID) {
-    return this.http.get(`${JackalNestAPI.Timeslots}/student/${supervisorID}`);
+  getTimeslotsViaStudentID(studenrID) {
+    return this.http.get(`${JackalNestAPI.Timeslots}/student/${studenrID}`);
   }
   addNewTimeslot(_timeslot: Timeslot[], _meetingPeriod: MeetingPeriod) {
     return this.supervisionService.supervisionGroup.pipe(

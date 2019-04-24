@@ -1,6 +1,6 @@
 <h1 class="mat-h1" style="text-align: center;">Booking Timeslot</h1>
 
-<mat-card class="booking-card" *ngIf="timeslotGroup">
+<mat-card class="booking-card" *ngIf="timeslotGroup?.timeslots.length > 0">
 
   <mat-card-content>
     <div class="mat-body">
@@ -30,3 +30,11 @@
     <button mat-button color="primary" (click)="unbookAllTimeslot()">Reset booking</button>
   </mat-card-actions>
 </mat-card>
+
+<ng-container *ngIf="isError">
+<h2>Unable to display timeslot information</h2>
+</ng-container>
+
+<ng-container *ngIf="timeslotGroup?.timeslots.length === 0">
+<h2>Currently Timeslot are not scheduled, contact your supervisor to create one</h2>
+</ng-container>
