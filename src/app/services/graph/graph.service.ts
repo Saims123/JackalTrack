@@ -7,14 +7,14 @@ import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../auth/user';
 import { MeetingPeriod, Timeslot } from '../timeslots/timeslot.service';
-enum MicrosoftDay {
-  Monday = 'Mon',
-  Tuesday = 'Tue',
-  Wednesday = 'Wed',
-  Thursday = 'Thu',
-  Friday = 'Fri',
-  Saturday = 'Sat',
-  Sunday = 'Sun'
+enum MicrosoftDay { // Needed as Graph API only accept whole word
+  Mon = 'Monday',
+  Tue = 'Tuesday',
+  Wed = 'Wednesday',
+  Thu = 'Thursday',
+  Fri = 'Friday',
+  Sat = 'Saturday',
+  Sun = 'Sunday'
 }
 @Injectable({
   providedIn: 'root'
@@ -152,7 +152,12 @@ export class GraphService {
       });
     }
   }
-  sentEmailWithCC(emailAddress: string, _subject: string, _content: string, ccEmailAddress: string) {
+  sentEmailWithCC(
+    emailAddress: string,
+    _subject: string,
+    _content: string,
+    ccEmailAddress: string
+  ) {
     const mail = {
       subject: _subject,
       toRecipients: [
@@ -190,11 +195,11 @@ export class GraphService {
         content: _content
       },
       start: {
-        dateTime: _timeslot.startTime,
+        dateTime: moment(_timeslot.startTime).format('YYYY-MM-DDTHH:mm:ss'),
         timeZone: 'UTC'
       },
       end: {
-        dateTime: _timeslot.endTime,
+        dateTime: moment(_timeslot.endTime).format('YYYY-MM-DDTHH:mm:ss'),
         timeZone: 'UTC'
       },
       recurrence: {
@@ -205,8 +210,8 @@ export class GraphService {
         },
         range: {
           type: 'endDate',
-          startDate: _period.start,
-          endDate: _period.end
+          startDate: moment(_period.start).format('YYYY-MM-DD'),
+          endDate: moment(_period.end).format('YYYY-MM-DD')
         }
       },
       location: {
@@ -223,12 +228,29 @@ export class GraphService {
     };
 
     try {
-      this.graphClient.api('me/events').post(event);
+      this.graphClient
+        .api('me/events')
+        .post(event)
+        .then(() => {
+          this.toastService.success(
+            `Successfully send ICS to ${studentEmail}`,
+            'Timeslot ICS for Student',
+            { timeOut: 10000, progressBar: true, onActivateTick: true }
+          );
+        })
+        .catch(error => {
+          this.toastService.error(
+            ` Unable to send ICS to ${studentEmail}
+            ${error.message}`,
+            'Timeslot ICS for Student',
+            { timeOut: 20000, progressBar: true, onActivateTick: true }
+          );
+        });
     } catch (error) {
       this.toastService.error(
         JSON.stringify(error, null, 2),
         'Unable to send timeslots to students',
-        { timeOut: 10000, progressBar: true, onActivateTick: true }
+        { timeOut: 20000, progressBar: true, onActivateTick: true }
       );
     }
   }
