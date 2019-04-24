@@ -31,6 +31,7 @@
           </h5>
           <ng-template #bookedBy>
             <h5>{{ ts.bookedBy.displayName }}</h5>
+            <button *ngIf="!ts?.sendICS" (click)="sendICS(ts)"mat-button>Send ISC</button>
           </ng-template>
         </div>
       </div>

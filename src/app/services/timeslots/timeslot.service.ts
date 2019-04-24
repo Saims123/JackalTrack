@@ -16,44 +16,32 @@ export class TimeslotService implements OnInit {
   students: Student[] = [];
   studentsNotBooked: Observable<Student[]>;
   supervisor: Supervisor;
-  constructor(
-    private supervisionService: SupervisionService,
-    private http: HttpClient
-  ) {
+  constructor(private supervisionService: SupervisionService, private http: HttpClient) {
     this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit() {
     this.supervisionService.supervisionGroup.subscribe(group => {
-      (this.students = group[0].students),
-        (this.supervisor = group[0].supervisor);
+      (this.students = group[0].students), (this.supervisor = group[0].supervisor);
     });
   }
 
   deleteCurrentTimeslots() {
     return this.supervisionService.supervisionGroup.pipe(
       mergeMap(group =>
-        this.http.delete(
-          `${JackalNestAPI.Timeslots}/supervisor/${
-            group[0].supervisor.uniqueID
-          }`
-        )
+        this.http.delete(`${JackalNestAPI.Timeslots}/supervisor/${group[0].supervisor.uniqueID}`)
       )
     );
   }
 
   getSupervisorTimeslotsFromNest() {
     return this.supervisionService.supervisionGroup.pipe(
-      mergeMap(group =>
-        this.getTimeslotsViaSupervisorID(group[0].supervisor.uniqueID)
-      )
+      mergeMap(group => this.getTimeslotsViaSupervisorID(group[0].supervisor.uniqueID))
     );
   }
 
   getTimeslotsViaSupervisorID(supervisorID) {
-    return this.http.get(
-      `${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`
-    );
+    return this.http.get(`${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`);
   }
   getTimeslotsViaStudentID(studenrID) {
     return this.http.get(`${JackalNestAPI.Timeslots}/student/${studenrID}`);
@@ -61,15 +49,10 @@ export class TimeslotService implements OnInit {
   addNewTimeslot(_timeslot: Timeslot[], _meetingPeriod: MeetingPeriod) {
     return this.supervisionService.supervisionGroup.pipe(
       mergeMap(group =>
-        this.http.post(
-          `${JackalNestAPI.Timeslots}/supervisor/${
-            group[0].supervisor.uniqueID
-          }`,
-          {
-            timeslots: _timeslot,
-            meetingPeriod: _meetingPeriod
-          }
-        )
+        this.http.post(`${JackalNestAPI.Timeslots}/supervisor/${group[0].supervisor.uniqueID}`, {
+          timeslots: _timeslot,
+          meetingPeriod: _meetingPeriod
+        })
       )
     );
   }
@@ -79,26 +62,25 @@ export class TimeslotService implements OnInit {
         console.warn('I was triggered');
       }),
       mergeMap(group =>
-        this.http.put(
-          `${JackalNestAPI.Timeslots}/booking/cancel/student/${
-            _student.uniqueID
-          }`,
-          {
-            supervisor: { uniqueID: group[0].supervisor.uniqueID }
-          }
-        )
+        this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {
+          supervisor: { uniqueID: group[0].supervisor.uniqueID }
+        })
       )
     );
   }
-
+  updateTimeslot(_timeslot: Timeslot, supervisorID) {
+        return this.http.put(
+          `${JackalNestAPI.Timeslots}/timeslot/update/supervisor/${supervisorID}`,
+          {
+            timeslot: _timeslot
+          }
+        );
+  }
   bookTimeslot(_timeslot: Timeslot, _student: Student) {
-    return this.http.put(
-      `${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`,
-      {
-        student: _student,
-        timeslot: _timeslot
-      }
-    );
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`, {
+      student: _student,
+      timeslot: _timeslot
+    });
   }
 }
 
@@ -107,6 +89,7 @@ export interface Timeslot {
   startTime: string;
   endTime: string;
   bookedBy?: Student;
+  sendICS ?: boolean;
 }
 export interface MeetingPeriod {
   start: Date;

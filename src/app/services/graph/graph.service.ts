@@ -21,10 +21,7 @@ enum MicrosoftDay {
 })
 export class GraphService {
   private graphClient: Client;
-  constructor(
-    private authService: AuthService,
-    private toastService: ToastrService
-  ) {
+  constructor(private authService: AuthService, private toastService: ToastrService) {
     this.graphClient = Client.init({
       authProvider: async done => {
         let token = await this.authService.getAccessToken().catch(reason => {
@@ -35,11 +32,10 @@ export class GraphService {
           done(null, token);
         } else {
           done('Could not get an access token', null);
-          this.toastService.error(
-            'Authentication Failure',
-            'Could not get an access token',
-            { timeOut: 10000, progressBar: true }
-          );
+          this.toastService.error('Authentication Failure', 'Could not get an access token', {
+            timeOut: 10000,
+            progressBar: true
+          });
         }
       }
     });
@@ -54,11 +50,10 @@ export class GraphService {
       return result.value;
     } catch (error) {
       console.warn('Could not get events', JSON.stringify(error, null, 2));
-      this.toastService.error(
-        JSON.stringify(error, null, 2),
-        'Events Retrival error',
-        { timeOut: 20000, progressBar: true }
-      );
+      this.toastService.error(JSON.stringify(error, null, 2), 'Events Retrival error', {
+        timeOut: 20000,
+        progressBar: true
+      });
     }
   }
   getMe(): Observable<User> {
@@ -70,11 +65,10 @@ export class GraphService {
           try {
             return user;
           } catch (err) {
-            this.toastService.error(
-              JSON.stringify(err, null, 2),
-              'Profile Retrival error',
-              { timeOut: 20000, progressBar: true }
-            );
+            this.toastService.error(JSON.stringify(err, null, 2), 'Profile Retrival error', {
+              timeOut: 20000,
+              progressBar: true
+            });
           }
         })
         .then(user => {
@@ -93,18 +87,15 @@ export class GraphService {
 
     try {
       let result = await this.graphClient
-        .api(
-          `/me/calendarview?startdatetime=${startOfWeek}&enddatetime=${endOfWeek}`
-        )
+        .api(`/me/calendarview?startdatetime=${startOfWeek}&enddatetime=${endOfWeek}`)
         .select(['subject', 'start', 'end'])
         .get();
       return result.value;
     } catch (error) {
-      this.toastService.error(
-        JSON.stringify(error, null, 2),
-        'Calendar Retrival error',
-        { timeOut: 20000, progressBar: true }
-      );
+      this.toastService.error(JSON.stringify(error, null, 2), 'Calendar Retrival error', {
+        timeOut: 20000,
+        progressBar: true
+      });
     }
   }
 
@@ -121,11 +112,10 @@ export class GraphService {
           try {
             return res;
           } catch (error) {
-            this.toastService.error(
-              JSON.stringify(error, null, 2),
-              'Users Retrival error',
-              { timeOut: 20000, progressBar: true }
-            );
+            this.toastService.error(JSON.stringify(error, null, 2), 'Users Retrival error', {
+              timeOut: 20000,
+              progressBar: true
+            });
           }
           return res;
         })
@@ -151,24 +141,45 @@ export class GraphService {
         contentType: 'html'
       }
     };
-    console.log(mail);
 
     try {
       this.graphClient.api('me/sendMail').post({ message: mail });
     } catch (error) {
-      this.toastService.error(
-        JSON.stringify(error, null, 2),
-        'Unable to send email to students',
-        { timeOut: 20000, progressBar: true }
-      );
+      this.toastService.error(JSON.stringify(error, null, 2), 'Unable to send email to students', {
+        timeOut: 20000,
+        progressBar: true,
+        onActivateTick: true
+      });
     }
   }
+  sentEmailWithCC(emailAddress: string, _subject: string, _content: string, ccEmailAddress: string) {
+    const mail = {
+      subject: _subject,
+      toRecipients: [
+        {
+          emailAddress: {
+            address: emailAddress
+          }
+        }
+      ],
+      ccRecipients: [
+        {
+          emailAddress: {
+            address: ccEmailAddress
+          }
+        }
+      ],
 
-  sendTimeslotEventToStudents(
-    email: string,
+      body: {
+        content: _content,
+        contentType: 'html'
+      }
+    };
+  }
+  sendTimeslotEventToStudent(
+    studentEmail: string,
     _subject: string,
     _content: string,
-    location: string,
     _period: MeetingPeriod,
     _timeslot: Timeslot
   ) {
@@ -199,12 +210,12 @@ export class GraphService {
         }
       },
       location: {
-        displayName: location
+        displayName: _period.location
       },
       attendees: [
         {
           emailAddress: {
-            address: email
+            address: studentEmail
           },
           type: 'required'
         }
@@ -217,7 +228,7 @@ export class GraphService {
       this.toastService.error(
         JSON.stringify(error, null, 2),
         'Unable to send timeslots to students',
-        { timeOut: 10000, progressBar: true }
+        { timeOut: 10000, progressBar: true, onActivateTick: true }
       );
     }
   }

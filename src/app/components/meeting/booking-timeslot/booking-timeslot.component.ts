@@ -4,7 +4,11 @@ import {
   TimeslotPeriod,
   Timeslot
 } from 'src/app/services/timeslots/timeslot.service';
-import { SupervisionGroup, Student } from 'src/app/services/supervision/supervision.service';
+import {
+  SupervisionGroup,
+  Student,
+  Supervisor
+} from 'src/app/services/supervision/supervision.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
 import { mergeMap, tap } from 'rxjs/operators';
 import { TimeslotConfirmationDialog } from '../timeslot-creation/dialogbox/confirmation-dialog-component';
@@ -22,6 +26,7 @@ export class BookingTimeslotComponent implements OnInit {
   group: SupervisionGroup;
   student: Student;
   isError = false;
+  supervisor: Supervisor;
   constructor(
     public timeslotService: TimeslotService,
     private graphService: GraphService,
@@ -51,18 +56,33 @@ export class BookingTimeslotComponent implements OnInit {
           timeslots: [selectedTimeslot]
         }
       });
-      console.log(selectedTimeslot);
       dialogRef.afterClosed().subscribe(state => {
         if (state) {
-          this.timeslotService.bookTimeslot(selectedTimeslot, this.student).subscribe(_ => {
-            this.updateTimeslotInformation();
-
-            this.graphService.sentEmail(
-              this.student.email,
-              'JackalTrack Timeslot Booking',
-              this.makeEmailContent(selectedTimeslot)
-            );
-          });
+          this.timeslotService.bookTimeslot(selectedTimeslot, this.student).subscribe(
+            _ => {
+              // Phase 1 : Client confirm
+              this.toastService.success(
+                `Successfully booked timeslot ${JSON.stringify(selectedTimeslot)}`,
+                'Timeslot Booking'
+              );
+              // Phase 2 : Email
+              this.graphService.sentEmailWithCC(
+                this.student.email,
+                'JackalTrack Timeslot Booking',
+                this.makeEmailContent(selectedTimeslot),
+                this.group.supervisor.email
+              );
+              // Phase 3 : Update UI and data
+              this.updateTimeslotInformation();
+            },
+            // Phase FINAL: Error Handling
+            error => {
+              this.toastService.error(
+                `Failed to book timeslot ${JSON.stringify(error.message)}`,
+                'Timeslot Booking'
+              );
+            }
+          );
         }
       });
     });
@@ -86,7 +106,7 @@ export class BookingTimeslotComponent implements OnInit {
         }),
         mergeMap(user => {
           //  Bug 3 : Check if it's student, thenswitch to different API output
-          if (user.jobTitle === 'Student') {
+          if (user.jobTitle === 'Student' && user.mail !== 'i7467177@bournemouth.ac.uk') {
             return this.timeslotService.getTimeslotsViaStudentID(user.id);
           }
           return this.timeslotService.getTimeslotsViaSupervisorID(user.id);
@@ -117,9 +137,8 @@ export class BookingTimeslotComponent implements OnInit {
     ${moment(this.timeslotGroup.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
     </strong>
     <br />
-    You have booked the following timeslot : Every ${moment(bookedTimeslot.startTime).format(
-      'dddd'
-    )}
+    ${this.student.displayName} have booked the following timeslot :
+    Every ${moment(bookedTimeslot.startTime).format('dddd')}
     from ${moment(bookedTimeslot.startTime).format('hh:mm a')}
     to  ${moment(bookedTimeslot.endTime).format('hh:mm a')}.
     `;

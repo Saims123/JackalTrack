@@ -8,7 +8,8 @@ import {
 import {
   SupervisionService,
   Student,
-  SupervisionGroup
+  SupervisionGroup,
+  Supervisor
 } from 'src/app/services/supervision/supervision.service';
 
 @Component({
@@ -18,6 +19,7 @@ import {
 })
 export class TimetableSupervisorComponent implements OnInit {
   timeslots: Timeslot[] = [];
+  supervisor: Supervisor;
   meetingPeriod: MeetingPeriod;
   students: Student[] = [];
   studentsNotBooked: Student[] = [];
@@ -26,13 +28,13 @@ export class TimetableSupervisorComponent implements OnInit {
     private supervisionService: SupervisionService,
     private cdr: ChangeDetectorRef
   ) {
-    this.supervisionService.getSupervisionGroup();
   }
 
   ngOnInit() {
     this.timeslotService
       .getSupervisorTimeslotsFromNest()
-      .subscribe((timeslotPeriods: TimeslotPeriod) => {
+      .subscribe((timeslotPeriods: any) => {
+        this.supervisor = timeslotPeriods.supervisor,
         this.timeslots = timeslotPeriods.timeslots;
         this.meetingPeriod = timeslotPeriods.meetingPeriod;
         this.cdr.detectChanges();
@@ -42,6 +44,13 @@ export class TimetableSupervisorComponent implements OnInit {
 
   deleteCurrentTimeslot() {
     this.timeslotService.deleteCurrentTimeslots();
+  }
+
+  sendICS(data) {
+    this.
+
+    console.warn(data.sendICS = !data.sendICS, ' TO BE SEND AS ICS' , this.supervisor.uniqueID);
+
   }
 
   findStudentsNotBooked() {

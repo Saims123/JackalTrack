@@ -16,9 +16,7 @@ export class SupervisionService implements OnInit, OnDestroy {
   getSupervisionGroup() {
     this.supervisionGroup = this.graphService
       .getMe()
-      .pipe(
-        mergeMap(supervisor => this.getSupervisionGroupFromNest(supervisor.id))
-      );
+      .pipe(mergeMap(supervisor => this.getSupervisionGroupFromNest(supervisor.id)));
   }
 
   addStudent(_student: Student) {
@@ -30,13 +28,12 @@ export class SupervisionService implements OnInit, OnDestroy {
         })
       ),
       tap(_ =>
-        // this.graphService.sentEmail(
-        //   _student.email,
-        //   'Final year Project-TEST : JackalTrack Invitation',
-        //   `<h3>Hi ${_student.displayName},</h3>
-        //   \n ${welcomeMessage}`
-        // )
-     {} )
+        this.graphService.sentEmail(
+          _student.email,
+          'Final year Project-TEST : JackalTrack Invitation',
+          `<h3>Hi ${_student.displayName},</h3>
+          \n ${welcomeMessage}`)
+      )
     );
   }
 
@@ -50,12 +47,8 @@ export class SupervisionService implements OnInit, OnDestroy {
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
     console.log(_id);
-    return this.http.get<SupervisionGroup>(
-      `${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`
-    );
+    return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`);
   }
-
-
 
   ngOnDestroy() {}
 }
@@ -64,7 +57,7 @@ export interface Student {
   displayName: string;
   email?: string;
   course?: string;
-  projectTitle ?: string;
+  projectTitle?: string;
   id?: any;
   uniqueID: string;
 }
@@ -82,9 +75,11 @@ export interface Supervisor {
 }
 
 export const welcomeMessage = `
-You have been added to JackalTrack for supervision for your Final year project.
-Access link : https://i7467177.bucomputing.uk/
-
+<p>You have been added to JackalTrack for supervision for your Final year project.</p>
+<br />
+Access link : https://swaggalish.bucomputing.uk/
+<br />
+<strong>
 -THIS IS FOR TESTING PURPOSES ONLY-
-
+</strong>
 `;
