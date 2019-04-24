@@ -1,14 +1,9 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import {
   MeetingNotesService,
   MeetingNote,
-  StudentNotes
+  StudentNotes,
+  TodoList
 } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
 import { Observable } from 'rxjs';
@@ -26,6 +21,7 @@ export class ViewNotesComponent implements OnChanges {
   @Input() public student: Student;
   meetingNotes: Observable<MeetingNote[]>;
   meetingNotesLength = 0;
+  todoList: any[] = [];
   constructor(
     private meetingNoteService: MeetingNotesService,
     private cdr: ChangeDetectorRef,
@@ -36,10 +32,11 @@ export class ViewNotesComponent implements OnChanges {
 
   ngOnChanges(sc: SimpleChanges) {
     this.getMeetingNotesFromNest();
+    this.cdr.detectChanges();
   }
 
   deleteMeetingNote(selectedNote: MeetingNote) {
-    const addDeleteDialog = this.dialog.open(DeleteNoteConfirmationDialog, {data : {}});
+    const addDeleteDialog = this.dialog.open(DeleteNoteConfirmationDialog, { data: {} });
     addDeleteDialog.afterClosed().subscribe(state => {
       if (state) {
         this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
@@ -48,6 +45,18 @@ export class ViewNotesComponent implements OnChanges {
         });
       }
     });
+  }
+
+  updateToDoList(selectedNote: MeetingNote, selectedList) {
+    selectedNote.todoList.find(list => list === selectedList).completed = !selectedList.completed;
+    this.meetingNoteService
+      .updateTodolistToStudent(this.student.uniqueID, selectedNote, selectedNote.todoList)
+      .subscribe(_ => {
+        this.toastService.success(
+          'Successfully updated todolist for meeting note',
+          'Update Todolist'
+        );
+      });
   }
 
   editMeetingNote(selectedNote: MeetingNote) {
@@ -61,8 +70,8 @@ export class ViewNotesComponent implements OnChanges {
 
   getMeetingNotesFromNest() {
     this.meetingNotes = this.meetingNoteService.getStudentNotes(this.student);
-    this.meetingNotes.subscribe(data => {
-      this.meetingNotesLength = data.length;
+    this.meetingNotes.subscribe(notes => {
+      this.meetingNotesLength = notes.length;
       this.cdr.detectChanges();
     });
   }
