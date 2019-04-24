@@ -29,7 +29,7 @@ export class NotesComponent implements OnInit {
         })
       )
       .subscribe(_group => {
-        (this.students = _group[0].students), console.log(this.students), this.cdr.detectChanges();
+        (this.students = _group[0].students), this.cdr.detectChanges();
       });
   }
 
@@ -40,7 +40,6 @@ export class NotesComponent implements OnInit {
   }
 
   selectStudentOnClick(student: Student) {
-    console.log(student, this.selectedStudent);
     this.selectedStudent = student;
     this.cdr.detectChanges();
   }

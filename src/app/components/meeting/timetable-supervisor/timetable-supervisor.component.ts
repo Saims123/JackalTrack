@@ -37,7 +37,6 @@ export class TimetableSupervisorComponent implements OnInit {
         this.meetingPeriod = timeslotPeriods.meetingPeriod;
         this.cdr.detectChanges();
         this.findStudentsNotBooked();
-        console.warn(this.timeslots);
       });
   }
 
@@ -60,11 +59,9 @@ export class TimetableSupervisorComponent implements OnInit {
         });
         students.forEach(student => {
           this.studentsNotBooked.splice(
-            this.studentsNotBooked.indexOf(student),
-            1
+            this.studentsNotBooked.indexOf(student),1
           );
         });
-        console.log('Filter : ', this.studentsNotBooked);
         this.students = students;
         this.cdr.detectChanges();
       }

@@ -85,9 +85,10 @@ export class BookingTimeslotComponent implements OnInit {
           };
         }),
         mergeMap(user => {
-          // if (user.jobTitle === 'Student') {
-          //   return this.timeslotService.getTimeslotsViaStudentID(user.id);
-          // }
+          //  Bug 3 : Check if it's student, thenswitch to different API output
+          if (user.jobTitle === 'Student') {
+            return this.timeslotService.getTimeslotsViaStudentID(user.id);
+          }
           return this.timeslotService.getTimeslotsViaSupervisorID(user.id);
         })
       )
