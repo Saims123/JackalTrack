@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StudentComponent } from '../components/student/student.component';
 import { LoginComponent } from '../components/login/login.component';
 import { ErrorComponent } from '../components/error/error.component';
-import { TimeslotSupervisorComponent } from '../components/meeting/timeslot-supervisor/timeslot-supervisor.component';
+import { TimeslotCreationComponent } from '../components/meeting/timeslot-creation/timeslot-creation.component';
 import { MsalGuard } from '@azure/msal-angular/dist/msal-guard.service';
 import { TimetableSupervisorComponent } from '../components/meeting/timetable-supervisor/timetable-supervisor.component';
 import { AddNotesComponent } from '../components/meeting/notes/add-notes/add-notes.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'timeslot',
-    component: TimeslotSupervisorComponent,
+    component: TimeslotCreationComponent,
     canActivate: [MsalGuard]
   },
   {

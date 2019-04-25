@@ -28,11 +28,21 @@ export class MeetingNotesService {
     });
   }
 
+  updateTodolistToStudent(_studentID: string, _note: MeetingNote, todolist: any[]) {
+    return this.http.put(`${JackalNestAPI.MeetingNotes}/edit/${_studentID}`, {
+      created: _note.created,
+      todoList: todolist,
+      notes: _note.notes,
+      title: _note.title
+    });
+  }
   getStudentNotes(_student: Student): Observable<MeetingNote[]> {
     return this.http.get<MeetingNote[]>(`${JackalNestAPI.MeetingNotes}/${_student.uniqueID}`);
   }
   getOneStudentNote(_student: Student, _created: string): Observable<MeetingNote> {
-    return this.http.get<MeetingNote>(`${JackalNestAPI.MeetingNotes}/${_student.uniqueID}/${_created}`);
+    return this.http.get<MeetingNote>(
+      `${JackalNestAPI.MeetingNotes}/${_student.uniqueID}/${_created}`
+    );
   }
 
   deleteStudentNote(_student: Student, note: MeetingNote) {

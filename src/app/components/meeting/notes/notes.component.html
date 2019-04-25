@@ -13,7 +13,7 @@
   <div class="notes">
     <h3>Meeting notes</h3>
     <ng-scrollbar *ngIf="selectedStudent">
-    <button *ngIf="selectedStudent" mat-button color="primary" (click)="createNewNote()">
+    <button *ngIf="selectedStudent" class="add-note-button" mat-button color="primary" (click)="createNewNote()">
       <mat-icon>add</mat-icon>
       New notes
     </button>

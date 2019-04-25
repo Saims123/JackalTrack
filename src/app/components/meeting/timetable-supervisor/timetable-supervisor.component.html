@@ -18,19 +18,27 @@
   </div>
 
   <div class="timetable-grid">
-    <div class="timetable" *ngFor="let ts of timeslots; let i = index">
+    <div class="timetable" *ngFor="let timeslot of timeslots; let i = index">
       <div class="available-time">
-        <h4>{{ ts.day }}</h4>
+        <h3>{{ timeslot.day }}</h3>
         <div class="timeslot">
-          <h5>{{ ts.startTime | date: 'HH:mm' }}</h5>
-          <h5>{{ ts.endTime | date: 'HH:mm' }}</h5>
+          <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>
+          <h4>{{ timeslot.endTime | date: 'HH:mm' }}</h4>
         </div>
         <div class="student-slot">
-          <h5 *ngIf="ts.bookedBy.displayName === null; else bookedBy">
+          <h5 *ngIf="timeslot?.bookedBy.displayName === null; else bookedBy">
             Not Booked
           </h5>
           <ng-template #bookedBy>
-            <h5>{{ ts.bookedBy.displayName }}</h5>
+            <h5 style="font-size:20px;" class="mat-body-strong">{{ timeslot.bookedBy.displayName }}</h5>
+            <button
+              class="icsButton"
+              *ngIf="!timeslot.sendICS"
+              (click)="sendICS(timeslot)"
+              mat-raised-button
+              color="primary">
+              Send ISC
+            </button>
           </ng-template>
         </div>
       </div>
@@ -38,7 +46,9 @@
   </div>
 </div>
 
+
 <h1 class="mat-h1" style="text-align: center; padding-top: 10px;">
+  <mat-divider> </mat-divider>
   Students not booked
 </h1>
 <div *ngIf="studentsNotBooked.length > 0; else noData" class="mat-card-list">
@@ -47,13 +57,9 @@
       <mat-card-title> {{ student.displayName }}</mat-card-title>
       <mat-card-subtitle> {{ student.email }} </mat-card-subtitle>
     </mat-card-header>
-    <a href="mailto:{{ student.email }}?subject=Timeslot booking reminder"
-      >Remind</a
-    >
+    <a href="mailto:{{ student.email }}?subject=Timeslot booking reminder">Remind</a>
   </mat-card>
 </div>
-
-<attendance-button></attendance-button>
 
 <ng-template #noData>
   <mat-card>

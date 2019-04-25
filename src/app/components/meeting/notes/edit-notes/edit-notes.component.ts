@@ -49,7 +49,6 @@ export class EditNotesComponent implements OnInit {
         .subscribe(note => {
           this.notes = note.notes;
           this.todoList = note.todoList;
-          console.warn(note, this.notes);
         });
     });
     this.cdr.detectChanges();

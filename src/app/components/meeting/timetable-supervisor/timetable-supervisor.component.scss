@@ -1,5 +1,5 @@
 .timetable {
-  flex-grow: 1;
+  flex: 1;
   flex-wrap: wrap;
   .available-time {
     border: 1px black solid;
@@ -10,6 +10,9 @@
   }
   .student-slot {
     border-top: 1px black dotted;
+  }
+  .icsButton {
+    width: 80%;
   }
 }
 .timetable-grid {
@@ -28,14 +31,13 @@
 .mat-card-list {
   display: flex;
   flex-wrap: wrap;
-
   text-align: center;
   mat-card {
+    flex-shrink: 1;
     margin: 10px;
-
   }
 }
 .meeting-period {
-  margin : 0 auto;
+  margin: 0 auto;
   text-align: center;
 }

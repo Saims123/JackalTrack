@@ -43,13 +43,11 @@ signOut(): void {
 async getAccessToken(): Promise<string> {
   let result = await this.msalService.acquireTokenSilent(OAuthSettings.scopes)
     .catch((reason) => {
-      console.warn('Get token silently failed', JSON.stringify(reason, null, 2));
+      console.error('Get token silently failed', JSON.stringify(reason, null, 2));
       this.isTokenReady = false;
     });
 
-  // Temporary to display token in an error box
-  if (result) {console.log('Token acquired', result); this.isTokenReady = true;
-}
+  if (result) {this.isTokenReady = true;}
   return result;
 }
 

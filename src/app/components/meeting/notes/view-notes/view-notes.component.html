@@ -13,11 +13,12 @@
       </button>
     </mat-card-header>
     <mat-card-content>
-      <mat-selection-list color="primary" *ngFor="let list of notes.todoList">
+      <mat-selection-list #todoList color="primary" *ngFor="let list of notes.todoList">
         <mat-list-option
           [checkboxPosition]="'before'"
-          (change)="(list.completed != list.completed)"
+          (click)="updateToDoList(notes,list)"
           [selected]="list.completed"
+          [value]="list.completed"
         >
           {{ list.task }}
         </mat-list-option>

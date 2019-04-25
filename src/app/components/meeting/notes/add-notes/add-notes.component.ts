@@ -76,7 +76,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     this.meetingNoteService
       .addMeetingNoteToStudent(this.student.uniqueID, this.newMeetingNote)
       .subscribe(_ => {
-        console.warn(this.student, this.newMeetingNote);
         this.goBack();
       });
   }
