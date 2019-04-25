@@ -9,12 +9,13 @@ import {
   Student,
   Supervisor
 } from 'src/app/services/supervision/supervision.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
 import { mergeMap, tap } from 'rxjs/operators';
 import { TimeslotConfirmationDialog } from '../timeslot-creation/dialogbox/confirmation-dialog-component';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
+import { GraphService } from 'src/app/services/graph/graph.service';
 
 @Component({
   selector: 'app-booking-timeslot',
@@ -29,11 +30,12 @@ export class BookingTimeslotComponent implements OnInit {
   supervisor: Supervisor;
   constructor(
     public timeslotService: TimeslotService,
-    private graphService: GraphService,
+    private customMailService: CustomMailService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private ngZone: NgZone,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private graphService: GraphService
   ) {}
 
   ngOnInit() {
@@ -66,10 +68,10 @@ export class BookingTimeslotComponent implements OnInit {
                 'Timeslot Booking'
               );
               // Phase 2 : Email
-              this.graphService.sentEmailWithCC(
+              this.customMailService.sentEmailWithCC(
                 this.student.email,
                 'JackalTrack Timeslot Booking',
-                this.makeEmailContent(selectedTimeslot),
+                this.makeBookingEmailContent(selectedTimeslot),
                 this.group.supervisor.email
               );
               // Phase 3 : Update UI and data
@@ -127,7 +129,7 @@ export class BookingTimeslotComponent implements OnInit {
       );
   }
 
-  makeEmailContent(bookedTimeslot: Timeslot) {
+  makeBookingEmailContent(bookedTimeslot: Timeslot) {
     const message = `
     <h1>Timeslot Booking</h1>
     <strong>

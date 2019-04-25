@@ -10,8 +10,8 @@ import {
   SupervisionGroup,
   Supervisor
 } from 'src/app/services/supervision/supervision.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
 import { forkJoin, Subscription } from 'rxjs';
+import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -28,7 +28,7 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
     private timeslotService: TimeslotService,
     private supervisionService: SupervisionService,
     private cdr: ChangeDetectorRef,
-    private graphService: GraphService
+    private customMailService: CustomMailService
   ) {}
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
 
     const timeslotUpdate = this.timeslotService.updateTimeslot(timeslot, this.supervisor.uniqueID);
     const multiFork = forkJoin([student, timeslotUpdate]).subscribe((results: any) => {
-      this.graphService.sendTimeslotEventToStudent(
+      this.customMailService.sendTimeslotEventToStudent(
         results[0].student.email,
         'Project Meeting',
         'Final year project meeting timeslot',

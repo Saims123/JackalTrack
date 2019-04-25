@@ -4,12 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
 import { GraphService } from '../graph/graph.service';
 import { mergeMap, tap } from 'rxjs/operators';
+import { CustomMailService } from '../graph/custom-mail.service';
 @Injectable({
   providedIn: 'root'
 })
 export class SupervisionService implements OnInit, OnDestroy {
   supervisionGroup: Observable<SupervisionGroup>;
-  constructor(private http: HttpClient, private graphService: GraphService) {}
+  constructor(
+    private http: HttpClient,
+    private graphService: GraphService,
+    private customMailService: CustomMailService
+  ) {}
 
   ngOnInit() {}
 
@@ -28,11 +33,13 @@ export class SupervisionService implements OnInit, OnDestroy {
         })
       ),
       tap(_ =>
-        this.graphService.sentEmail(
-          _student.email,
-          'Final year Project-TEST : JackalTrack Invitation',
+        this.customMailService.sentEmail(
+          [_student.email],
+          'Final year Project-BETA : JackalTrack Invitation',
           `<h3>Hi ${_student.displayName},</h3>
-          \n ${welcomeMessage}`)
+          <br />
+           ${welcomeMessage}`
+        )
       )
     );
   }
@@ -76,7 +83,7 @@ export interface Supervisor {
 export const welcomeMessage = `
 <p>You have been added to JackalTrack for supervision for your Final year project.</p>
 <br />
-Access link : https://swaggalish.bucomputing.uk/
+Access link : https://i7467177.bucomputing.uk/
 <br />
 <strong>
 -THIS IS FOR TESTING PURPOSES ONLY-
