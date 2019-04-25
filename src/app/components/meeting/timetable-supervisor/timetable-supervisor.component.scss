@@ -11,7 +11,7 @@
   .student-slot {
     border-top: 1px black dotted;
   }
-  .icsButton{
+  .icsButton {
     width: 80%;
   }
 }
@@ -31,14 +31,13 @@
 .mat-card-list {
   display: flex;
   flex-wrap: wrap;
-
   text-align: center;
   mat-card {
+    flex-shrink: 1;
     margin: 10px;
-
   }
 }
 .meeting-period {
-  margin : 0 auto;
+  margin: 0 auto;
   text-align: center;
 }
