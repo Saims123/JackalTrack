@@ -65,7 +65,8 @@ export class BookingTimeslotComponent implements OnInit {
                 );
               }
             );
-          } else { // Edge case : Supervisor can self book an timeslot
+          } else {
+            // Edge case : Supervisor can self book an timeslot
             this.timeslotService.bookTimeslotAsSupervisor(selectedTimeslot, this.booker).subscribe(
               _ => {
                 this.confirmBooking(selectedTimeslot);
@@ -84,7 +85,15 @@ export class BookingTimeslotComponent implements OnInit {
     });
   }
   unbookAllTimeslot() {
-    this.timeslotService.unbookTimeslots(this.booker).subscribe(_ => this.updateTimeslotInformation());
+    if (this.isSupervisor) {
+      this.timeslotService
+        .unbookTimeslotsBySupervisor(this.booker)
+        .subscribe(_ => this.updateTimeslotInformation());
+    } else {
+      this.timeslotService
+        .unbookTimeslotsByStudent(this.booker)
+        .subscribe(_ => this.updateTimeslotInformation());
+    }
   }
 
   updateTimeslotInformation() {
