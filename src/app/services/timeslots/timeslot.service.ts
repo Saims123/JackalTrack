@@ -76,6 +76,8 @@ export class TimeslotService implements OnInit {
       timeslot: _timeslot
     });
   }
+  // Due to Mongoose and JackalNest backend finds the document uisng supervisor ID, it is needed to speerate the API
+  // into two seperate search parameters, redundancy could be resolved in future
   bookTimeslotAsSupervisor(_timeslot: Timeslot, _supervisor: Supervisor) {
     return this.http.put(`${JackalNestAPI.Timeslots}/booking/supervisor/${_supervisor.uniqueID}`, {
       student: _supervisor,

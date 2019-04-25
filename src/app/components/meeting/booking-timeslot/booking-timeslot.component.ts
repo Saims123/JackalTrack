@@ -65,7 +65,7 @@ export class BookingTimeslotComponent implements OnInit {
                 );
               }
             );
-          } else {
+          } else { // Edge case : Supervisor can self book an timeslot
             this.timeslotService.bookTimeslotAsSupervisor(selectedTimeslot, this.booker).subscribe(
               _ => {
                 this.confirmBooking(selectedTimeslot);
