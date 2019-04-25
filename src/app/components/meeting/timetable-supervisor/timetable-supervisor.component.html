@@ -26,12 +26,19 @@
           <h5>{{ timeslot.endTime | date: 'HH:mm' }}</h5>
         </div>
         <div class="student-slot">
-          <h5 *ngIf="timeslot.bookedBy.displayName === null; else bookedBy">
+          <h5 *ngIf="timeslot?.bookedBy.displayName === null; else bookedBy">
             Not Booked
           </h5>
           <ng-template #bookedBy>
-            <h5>{{ timeslot.bookedBy.displayName }}</h5>
-            <button  (click)="sendICS(timeslot)"mat-raised-button color="primary">Send ISC</button>
+            <h5 background="primary" class="mat-body-strong">{{ timeslot.bookedBy.displayName }}</h5>
+            <button
+              class="icsButton"
+              *ngIf="!timeslot.sendICS"
+              (click)="sendICS(timeslot)"
+              mat-raised-button
+              color="primary">
+              Send ISC
+            </button>
           </ng-template>
         </div>
       </div>

@@ -1,5 +1,5 @@
 .timetable {
-  flex-grow: 1;
+  flex: 1;
   flex-wrap: wrap;
   .available-time {
     border: 1px black solid;
@@ -10,6 +10,9 @@
   }
   .student-slot {
     border-top: 1px black dotted;
+  }
+  .icsButton{
+    width: 80%;
   }
 }
 .timetable-grid {

@@ -58,9 +58,6 @@ export class TimeslotService implements OnInit {
   }
   unbookTimeslots(_student: Student) {
     return this.supervisionService.supervisionGroup.pipe(
-      tap(_ => {
-        console.warn('I was triggered');
-      }),
       mergeMap(group =>
         this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {
           supervisor: { uniqueID: group[0].supervisor.uniqueID }

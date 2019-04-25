@@ -134,7 +134,6 @@ export class StudentComponent implements OnInit, OnDestroy {
       });
 
       deleteDialogRef.afterClosed().subscribe(state => {
-        console.log(state);
         if (state) {
           this.supervisionService.removeStudent(student.uniqueID).subscribe(
             (res: any) => {
@@ -187,7 +186,6 @@ export class StudentComponent implements OnInit, OnDestroy {
       displayName: _selectedStudent.displayName,
       email: _selectedStudent.mail
     };
-    console.log(_selectedStudent);
     return newStudent;
   }
 

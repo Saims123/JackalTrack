@@ -46,7 +46,6 @@ export class SupervisionService implements OnInit, OnDestroy {
   }
 
   getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
-    console.log(_id);
     return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`);
   }
 
