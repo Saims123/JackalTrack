@@ -66,16 +66,19 @@ export class TimeslotService implements OnInit {
     );
   }
   updateTimeslot(_timeslot: Timeslot, supervisorID) {
-        return this.http.put(
-          `${JackalNestAPI.Timeslots}/timeslot/update/supervisor/${supervisorID}`,
-          {
-            timeslot: _timeslot
-          }
-        );
+    return this.http.put(`${JackalNestAPI.Timeslots}/timeslot/update/supervisor/${supervisorID}`, {
+      timeslot: _timeslot
+    });
   }
-  bookTimeslot(_timeslot: Timeslot, _student: Student) {
+  bookTimeslotAsStudent(_timeslot: Timeslot, _student: Student) {
     return this.http.put(`${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`, {
       student: _student,
+      timeslot: _timeslot
+    });
+  }
+  bookTimeslotAsSupervisor(_timeslot: Timeslot, _supervisor: Supervisor) {
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/supervisor/${_supervisor.uniqueID}`, {
+      student: _supervisor,
       timeslot: _timeslot
     });
   }

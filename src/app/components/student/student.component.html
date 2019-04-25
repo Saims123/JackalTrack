@@ -42,32 +42,38 @@
   <form [formGroup]="studentsForm">
     <h1 class="mat-h1" style="margin: 10px;">Add students</h1>
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngIf="isLoading" class="is-loading"
-        ><mat-spinner diameter="50"></mat-spinner
-      ></mat-option>
+      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
       <ng-container *ngIf="!isLoading">
-        <mat-option  *ngFor="let student of filteredStudents" [value]="student">
+        <mat-option *ngFor="let student of filteredStudents" [value]="student">
           <span>{{ student.displayName }}</span>
         </mat-option>
       </ng-container>
     </mat-autocomplete>
 
-    <mat-form-field style="width: 300px; padding: 10px;">
+    <mat-form-field appearance="outline" style="width: 300px; padding: 10px;">
       <input
+        aria-label="Student Detail"
         matInput
         placeholder="Choose a student"
         [matAutocomplete]="auto"
         formControlName="userInput"
         (change)="setSelectedStudent()"
+        required
       />
     </mat-form-field>
 
-    <mat-form-field style="width: 300px; padding: 10px;">
-      <mat-label>Project Title</mat-label>
-      <input class="projectTitleInput" matInput placeholder="Title" formControlName="projectTitleInput" />
+    <mat-form-field appearance="outline" style="width: 300px; padding: 10px;">
+      <input
+        aria-label="Project Title"
+        class="projectTitleInput"
+        matInput
+        placeholder="Title"
+        formControlName="projectTitleInput"
+        required
+      />
     </mat-form-field>
 
-    <mat-form-field class="field">
+    <mat-form-field appearance="outline" class="field">
       <input
         type="text"
         placeholder="Course"
@@ -82,9 +88,10 @@
           {{ course }}
         </mat-option>
       </mat-autocomplete>
+      <mat-label>Course</mat-label>
     </mat-form-field>
 
-    <button mat-icon-button (click)="addStudent()">
+    <button mat-icon-button style="font-size: 24px;" (click)="addStudent()">
       <mat-icon>add_circle</mat-icon>
     </button>
   </form>
