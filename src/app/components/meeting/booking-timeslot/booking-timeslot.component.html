@@ -13,6 +13,7 @@
     </div>
 
     <div class="grid-list" *ngFor="let timeslot of timeslotGroup.timeslots">
+      <div [ngClass]="checkIfBookedBySelf(timeslot.bookedBy)">
       <h3>{{ timeslot.day }}</h3>
       <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>
       <h4>{{ timeslot.endTime | date: 'HH:mm' }}</h4>
@@ -24,6 +25,7 @@
       >
         Book
       </button>
+    </div>
     </div>
   </mat-card-content>
   <mat-card-actions>

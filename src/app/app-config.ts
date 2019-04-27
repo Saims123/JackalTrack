@@ -1,5 +1,5 @@
 export const JackaLConfig = {
-         JackalNestURL: 'http://localhost:40030',
+         JackalNestURL: 'https://i7467177.bucomputing.uk/node',
          JackalNestURLProd: 'https://i7467177.bucomputing.uk/node'
        };
 export const JackalNestAPI = {

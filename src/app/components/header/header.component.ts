@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
       this.graphService.getMe()
         .subscribe(user => {
           this.profile = user;
-          if (user.jobTitle !== 'Student') {
+          if ( user.mail === 'i7467177@bournemouth.ac.uk' || user.jobTitle !== 'Student') {
             this.isSupervisor = true;
           }
         });

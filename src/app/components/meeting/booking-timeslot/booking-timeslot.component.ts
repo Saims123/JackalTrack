@@ -41,6 +41,13 @@ export class BookingTimeslotComponent implements OnInit {
     return false;
   }
 
+  checkIfBookedBySelf(student) {
+    if (student.uniqueID === this.booker.uniqueID) {
+      return 'bookedBySelf';
+    }
+    return 'notBookedBySelf';
+  }
+
   bookTimeslot(selectedTimeslot) {
     this.ngZone.run(_ => {
       // Currently forcing the dialog component to run within Zone, so it's respondant to parent componet
