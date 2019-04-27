@@ -43,9 +43,9 @@ export class BookingTimeslotComponent implements OnInit {
 
   checkIfBookedBySelf(student) {
     if (student.uniqueID === this.booker.uniqueID) {
-      return 'bookedBySelf';
+      return true;
     }
-    return 'notBookedBySelf';
+    return false;
   }
 
   bookTimeslot(selectedTimeslot) {
