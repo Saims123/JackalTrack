@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build --prod --base-href https://i7467177.bucomputing.uk/",
     "test": "ng test",
+    "build-tsc": "ng build --prod --base-href https://i7467177.bucomputing.uk/ && cd ../jackalnest && npm run build",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
