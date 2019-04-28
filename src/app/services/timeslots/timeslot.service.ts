@@ -1,9 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import {
-  Student,
-  SupervisionService,
-  Supervisor
-} from '../supervision/supervision.service';
+import { Student, SupervisionService, Supervisor } from '../supervision/supervision.service';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
 import { mergeMap, tap } from 'rxjs/operators';
@@ -43,8 +39,9 @@ export class TimeslotService implements OnInit {
   getTimeslotsViaSupervisorID(supervisorID) {
     return this.http.get(`${JackalNestAPI.Timeslots}/supervisor/${supervisorID}`);
   }
-  getTimeslotsViaStudentID(studenrID) {
-    return this.http.get(`${JackalNestAPI.Timeslots}/student/${studenrID}`);
+
+  getTimeslotsViaStudentID(studentID) {
+    return this.http.get(`${JackalNestAPI.Timeslots}/student/${studentID}`);
   }
   addNewTimeslot(_timeslot: Timeslot[], _meetingPeriod: MeetingPeriod) {
     return this.supervisionService.supervisionGroup.pipe(
@@ -56,26 +53,31 @@ export class TimeslotService implements OnInit {
       )
     );
   }
-  unbookTimeslots(_student: Student) {
-    return this.supervisionService.supervisionGroup.pipe(
-      mergeMap(group =>
-        this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {
-          supervisor: { uniqueID: group[0].supervisor.uniqueID }
-        })
-      )
-    );
+  unbookTimeslotsByStudent(_student: Student) {
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {});
   }
+  unbookTimeslotsBySupervisor(_supervisor: Supervisor) {
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/supervisor/${_supervisor.uniqueID}`, {});
+  }
+
   updateTimeslot(_timeslot: Timeslot, supervisorID) {
-        return this.http.put(
-          `${JackalNestAPI.Timeslots}/timeslot/update/supervisor/${supervisorID}`,
-          {
-            timeslot: _timeslot
-          }
-        );
+    return this.http.put(`${JackalNestAPI.Timeslots}/timeslot/update/supervisor/${supervisorID}`, {
+      timeslot: _timeslot
+    });
   }
-  bookTimeslot(_timeslot: Timeslot, _student: Student) {
+
+  // Due to Mongoose and JackalNest backend finds the document using supervisor ID, it is needed to speerate the API
+  // into two seperate search parameters, redundancy could be resolved in future
+  bookTimeslotAsStudent(_timeslot: Timeslot, _student: Student | Supervisor) {
     return this.http.put(`${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`, {
       student: _student,
+      timeslot: _timeslot
+    });
+  }
+
+  bookTimeslotAsSupervisor(_timeslot: Timeslot, _supervisor: Supervisor) {
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/supervisor/${_supervisor.uniqueID}`, {
+      student: _supervisor,
       timeslot: _timeslot
     });
   }
@@ -86,7 +88,7 @@ export interface Timeslot {
   startTime: string;
   endTime: string;
   bookedBy?: Student;
-  sendICS ?: boolean;
+  sendICS?: boolean;
 }
 export interface MeetingPeriod {
   start: Date;

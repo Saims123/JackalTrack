@@ -1,5 +1,5 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
 import { GraphService } from '../graph/graph.service';
@@ -8,15 +8,13 @@ import { CustomMailService } from '../graph/custom-mail.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SupervisionService implements OnInit, OnDestroy {
+export class SupervisionService {
   supervisionGroup: Observable<SupervisionGroup>;
   constructor(
     private http: HttpClient,
     private graphService: GraphService,
     private customMailService: CustomMailService
   ) {}
-
-  ngOnInit() {}
 
   getSupervisionGroup() {
     this.supervisionGroup = this.graphService
@@ -44,19 +42,19 @@ export class SupervisionService implements OnInit, OnDestroy {
     );
   }
 
-  removeStudent(_id: any) {
-    return this.http.delete(`${JackalNestAPI.SupervisionGroup}/${_id}`);
+  removeStudent(_studentID: any) {
+    return this.http.delete(`${JackalNestAPI.SupervisionGroup}/${_studentID}`);
   }
 
-  getSingleStudent(_id: string) {
-    return this.http.get(`${JackalNestAPI.SupervisionGroup}/student/${_id}`);
+  getSingleStudent(_studentID: string) {
+    return this.http.get(`${JackalNestAPI.SupervisionGroup}/student/${_studentID}`);
   }
 
-  getSupervisionGroupFromNest(_id: string): Observable<SupervisionGroup> {
-    return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_id}`);
+  getSupervisionGroupFromNest(_supervisorID: string): Observable<SupervisionGroup> {
+    return this.http.get<SupervisionGroup>(
+      `${JackalNestAPI.SupervisionGroup}/supervisor/${_supervisorID}`
+    );
   }
-
-  ngOnDestroy() {}
 }
 
 export interface Student {

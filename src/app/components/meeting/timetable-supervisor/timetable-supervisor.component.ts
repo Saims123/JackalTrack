@@ -46,10 +46,9 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
 
   sendICS(timeslot) {
     timeslot.sendICS = !timeslot.sendICS;
-    const student = this.supervisionService.getSingleStudent(timeslot.bookedBy.uniqueID);
-
-    const timeslotUpdate = this.timeslotService.updateTimeslot(timeslot, this.supervisor.uniqueID);
-    const multiFork = forkJoin([student, timeslotUpdate]).subscribe((results: any) => {
+    const studentSub = this.supervisionService.getSingleStudent(timeslot.bookedBy.uniqueID);
+    const timeslotUpdateSub = this.timeslotService.updateTimeslot(timeslot, this.supervisor.uniqueID);
+    const multiFork = forkJoin([studentSub, timeslotUpdateSub]).subscribe((results: any) => {
       this.customMailService.sendTimeslotEventToStudent(
         results[0].student.email,
         'Project Meeting',

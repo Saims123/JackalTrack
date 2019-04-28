@@ -45,18 +45,17 @@ export class TimeslotCreationComponent implements OnInit {
   meetingEndDate: Date;
 
   dragToCreateActive = false;
-  studentNo = 0;
-  isDataLoaded = false;
+  studentNumber = 0;
+  isMicrosoftDataLoaded = false;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    public supervisionGroupService: SupervisionService,
+    private supervisionService: SupervisionService,
     public graphService: GraphService,
-    public dialog: MatDialog,
     private toastService: ToastrService,
     public timeslotService: TimeslotService,
-    private router: Router,
-    private supervisionService: SupervisionService
+    public dialog: MatDialog,
+    private router: Router
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.importMicrosoftEvents();
@@ -65,7 +64,7 @@ export class TimeslotCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.supervisionService.supervisionGroup.subscribe(
-      group => ((this.studentNo = group[0].students.length), this.cdr.detectChanges())
+      group => ((this.studentNumber = group[0].students.length), this.cdr.detectChanges())
     );
   }
 
@@ -87,7 +86,7 @@ export class TimeslotCreationComponent implements OnInit {
         this.events = microsoftEvents;
       })
       .finally(() => {
-        this.isDataLoaded = true;
+        this.isMicrosoftDataLoaded = true;
         this.refresh();
       });
   }
@@ -125,27 +124,20 @@ export class TimeslotCreationComponent implements OnInit {
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
       data: timeslotGroup
     });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
+    dialogRef.afterClosed().subscribe(state => {
+      if (state) {
         this.timeslotService
           .addNewTimeslot(timeslotGroup.timeslots, timeslotGroup.meetingPeriod)
           .subscribe(data => console.log(data));
         this.router.navigate(['meeting/timetable']);
-        this.toastService.success(
-          'Timeslot creation',
-          'Successfully created and sent to all students'
-        );
+        this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
       }
     });
   }
 
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
   // Considering to split this as child component in future
-  startDragToCreate(
-    segment: DayViewHourSegment,
-    mouseDownEvent: MouseEvent,
-    segmentElement: HTMLElement
-  ) {
+  startDragToCreate(segment: DayViewHourSegment, mouseDownEvent: MouseEvent, segmentElement: HTMLElement) {
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
       title: 'New Timeslot',

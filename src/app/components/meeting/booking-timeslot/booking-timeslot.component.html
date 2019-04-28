@@ -1,7 +1,6 @@
 <h1 class="mat-h1" style="text-align: center;">Booking Timeslot</h1>
 
 <mat-card class="booking-card" *ngIf="timeslotGroup?.timeslots.length > 0">
-
   <mat-card-content>
     <div class="mat-body">
       <h2 class="mat-h1">Meeting Period</h2>
@@ -13,17 +12,24 @@
     </div>
 
     <div class="grid-list" *ngFor="let timeslot of timeslotGroup.timeslots">
-      <h3>{{ timeslot.day }}</h3>
-      <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>
-      <h4>{{ timeslot.endTime | date: 'HH:mm' }}</h4>
-      <button
-        mat-fab
-        color="primary"
-        [disabled]="checkIfBooked(timeslot.bookedBy)"
-        (click)="bookTimeslot(timeslot)"
-      >
-        Book
-      </button>
+      <div
+        [ngClass]="{
+          bookedBySelf: checkIfBookedBySelf(timeslot.bookedBy),
+          notBookedBySelf: !checkIfBookedBySelf(timeslot.bookedBy)
+        }">
+        <h4 *ngIf="checkIfBookedBySelf(timeslot.bookedBy)">You</h4>
+        <h3>{{ timeslot.day }}</h3>
+        <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>
+        <h4>{{ timeslot.endTime | date: 'HH:mm' }}</h4>
+        <button
+          mat-fab
+          color="primary"
+          [disabled]="checkIfBooked(timeslot.bookedBy)"
+          (click)="bookTimeslot(timeslot)"
+        >
+          Book
+        </button>
+      </div>
     </div>
   </mat-card-content>
   <mat-card-actions>
@@ -32,9 +38,9 @@
 </mat-card>
 
 <ng-container *ngIf="isError">
-<h2>Unable to display timeslot information</h2>
+  <h2>Unable to display timeslot information</h2>
 </ng-container>
 
 <ng-container *ngIf="timeslotGroup?.timeslots.length === 0">
-<h2>Currently Timeslot are not scheduled, contact your supervisor to create one</h2>
+  <h2>Currently Timeslot are not scheduled, contact your supervisor to create one</h2>
 </ng-container>

@@ -21,7 +21,7 @@ export class CustomMailService {
   constructor(private authService: AuthService, private toastService: ToastrService) {
     this.graphClient = Client.init({
       authProvider: async done => {
-        let token = await this.authService.getAccessToken().catch(reason => {
+        const token = await this.authService.getAccessToken().catch(reason => {
           done(reason, null);
         });
 
@@ -58,18 +58,13 @@ export class CustomMailService {
       });
     }
   }
-  sentEmailWithCC(
-    emailAddress: string,
-    _subject: string,
-    _content: string,
-    ccEmailAddress: string
-  ) {
+  sentEmailWithCC(_emailAddress: string, _subject: string, _content: string, ccEmailAddress: string) {
     const mail = {
       subject: _subject,
       toRecipients: [
         {
           emailAddress: {
-            address: emailAddress
+            address: _emailAddress
           }
         }
       ],
@@ -135,7 +130,7 @@ export class CustomMailService {
       attendees: [
         {
           emailAddress: {
-          address: studentEmail
+            address: studentEmail
           },
           type: 'required'
         }

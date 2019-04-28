@@ -35,6 +35,7 @@ import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/
 import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
 import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
 import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 
@@ -69,8 +70,7 @@ import { NotesStudentComponent } from './components/meeting/notes/notes-student/
     MaterialModule,
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
-      authority:
-        'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
+      authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
       postLogoutRedirectUri: window.location.origin
     }),
     CalendarModule.forRoot({
@@ -81,7 +81,7 @@ import { NotesStudentComponent } from './components/meeting/notes/notes-student/
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [SupervisionService, GraphService],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   entryComponents: [
     TimeslotConfirmationDialog,
     TimeslotCreationComponent,

@@ -1,10 +1,23 @@
 .grid-list {
   display: inline-block;
   padding: 20px;
+  padding: 10px;
+  border-radius: 5px;
 }
 .booking-card {
   margin: 0 auto;
   text-align: center;
   min-width: 50vw;
   max-width: 90vw;
+}
+.bookedBySelf {
+  background-color: #00e676;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.notBookedBySelf {
+  background-color: initial;
+  padding: 15px;
+  border-radius: 5px;
 }
