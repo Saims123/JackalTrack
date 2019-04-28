@@ -41,7 +41,7 @@ export class CustomMailService {
   sentEmail(emailAddresses: string[], _subject: string, _content: string) {
     const mail = {
       subject: _subject,
-      toRecipients: this.constructEmailAddresses(emailAddresses),
+      bccRecipients: this.constructEmailAddresses(emailAddresses),
       body: {
         content: _content,
         contentType: 'html'
