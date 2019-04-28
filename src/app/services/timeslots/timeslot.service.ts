@@ -1,9 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import {
-  Student,
-  SupervisionService,
-  Supervisor
-} from '../supervision/supervision.service';
+import { Student, SupervisionService, Supervisor } from '../supervision/supervision.service';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
 import { mergeMap, tap } from 'rxjs/operators';
@@ -58,22 +54,10 @@ export class TimeslotService implements OnInit {
     );
   }
   unbookTimeslotsByStudent(_student: Student) {
-    return this.supervisionService.supervisionGroup.pipe(
-      mergeMap(group =>
-        this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {
-          supervisor: { uniqueID: group[0].supervisor.uniqueID }
-        })
-      )
-    );
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/student/${_student.uniqueID}`, {});
   }
   unbookTimeslotsBySupervisor(_supervisor: Supervisor) {
-    return this.supervisionService.supervisionGroup.pipe(
-      mergeMap(group =>
-        this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/supervisor/${_supervisor.uniqueID}`, {
-          supervisor: { uniqueID: group[0].supervisor.uniqueID }
-        })
-      )
-    );
+    return this.http.put(`${JackalNestAPI.Timeslots}/booking/cancel/supervisor/${_supervisor.uniqueID}`, {});
   }
 
   updateTimeslot(_timeslot: Timeslot, supervisorID) {
@@ -81,14 +65,16 @@ export class TimeslotService implements OnInit {
       timeslot: _timeslot
     });
   }
+
+  // Due to Mongoose and JackalNest backend finds the document using supervisor ID, it is needed to speerate the API
+  // into two seperate search parameters, redundancy could be resolved in future
   bookTimeslotAsStudent(_timeslot: Timeslot, _student: Student | Supervisor) {
     return this.http.put(`${JackalNestAPI.Timeslots}/booking/student/${_student.uniqueID}`, {
       student: _student,
       timeslot: _timeslot
     });
   }
-  // Due to Mongoose and JackalNest backend finds the document uisng supervisor ID, it is needed to speerate the API
-  // into two seperate search parameters, redundancy could be resolved in future
+
   bookTimeslotAsSupervisor(_timeslot: Timeslot, _supervisor: Supervisor) {
     return this.http.put(`${JackalNestAPI.Timeslots}/booking/supervisor/${_supervisor.uniqueID}`, {
       student: _supervisor,
@@ -102,7 +88,7 @@ export interface Timeslot {
   startTime: string;
   endTime: string;
   bookedBy?: Student;
-  sendICS ?: boolean;
+  sendICS?: boolean;
 }
 export interface MeetingPeriod {
   start: Date;
