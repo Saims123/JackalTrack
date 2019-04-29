@@ -4,6 +4,7 @@
       <img src="assets/logo/jackal2.png" />
       <span>JackalTrack</span>
     </div>
+    <mat-chip-list> <mat-chip color="primary" selected>Beta</mat-chip> </mat-chip-list>
 
     <div class="nav" *ngIf="authService.isAuth">
       <mat-menu #appProgress="matMenu">
@@ -18,10 +19,11 @@
           Timeslot Booking
         </button>
         <button *ngIf="isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
-        <button mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
+        <button *ngIf="!isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
       </mat-menu>
 
-      <button mat-button matBadge="0">Actions</button>
+      <!-- <button mat-button matBadge="0">Actions</button> -->
+
       <button mat-button [matMenuTriggerFor]="appMeeting">
         Meetings
       </button>
@@ -54,9 +56,5 @@
     </div>
   </mat-toolbar-row>
 
-  <mat-progress-bar
-    *ngIf="!authService.isTokenReady"
-    color="warn"
-    mode="indeterminate"
-  ></mat-progress-bar>
+  <mat-progress-bar *ngIf="!authService.isTokenReady" color="warn" mode="indeterminate"></mat-progress-bar>
 </mat-toolbar>
