@@ -42,11 +42,11 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Default behaviour, create a template task for further use
     this.generateNewTask();
-    let studentGroup =  this.routes.params.pipe(
+    let studentGroup = this.routes.params.pipe(
       mergeMap(param => this.supervisionService.getSingleStudent(param.id))
     );
     studentGroup.subscribe((group: any) => {
-      this.student = (group.student);
+      this.student = group.student;
     });
     this.routeSub = studentGroup;
   }
