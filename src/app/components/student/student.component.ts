@@ -1,16 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-  ChangeDetectorRef,
-  NgZone
-} from '@angular/core';
-import {
-  SupervisionService,
-  Student,
-  Supervisor
-} from '../../services/supervision/supervision.service';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef, NgZone } from '@angular/core';
+import { SupervisionService, Student, Supervisor } from '../../services/supervision/supervision.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
@@ -27,13 +16,9 @@ import { AddStudentConfirmationComponent } from './dialogbox/add-student-confirm
 })
 export class StudentComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = [
-    'displayName',
-    'email',
-    'projectTitle',
-    'course',
-    'Actions'
-  ];
+  @ViewChild('form') form;
+
+  displayedColumns: string[] = ['displayName', 'email', 'projectTitle', 'course', 'Actions'];
   dataSource: MatTableDataSource<Student>;
   studentSubscription: Subscription;
   supervisor: Supervisor;
@@ -42,12 +27,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   studentsForm: FormGroup;
   options: Student[] = [];
 
-  courses = [
-    'Software Engineering',
-    'Computing',
-    'Business In Computing',
-    'Forensics'
-  ];
+  courses = ['Software Engineering', 'Computing', 'Business In Computing', 'Forensics'];
   filteredStudents: Student[] = [];
   isLoading = false;
   constructor(
@@ -81,40 +61,35 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   getSupervisionGroupData(): void {
-    this.studentSubscription = this.supervisionService.supervisionGroup.subscribe(
-      data => {
-        (this.dataSource.data = data[0].students),
-          (this.supervisor = data[0].supervisor),
-          (this.dataSource.sort = this.sort),
-          (this.isLoaded = true),
-          this.changeDetectorRefs.detectChanges();
-      }
-    );
+    this.studentSubscription = this.supervisionService.supervisionGroup.subscribe(data => {
+      (this.dataSource.data = data[0].students),
+        (this.supervisor = data[0].supervisor),
+        (this.dataSource.sort = this.sort),
+        (this.isLoaded = true),
+        this.changeDetectorRefs.detectChanges();
+    });
   }
 
-  addStudent() {
-    let newStudent = this.setSelectedStudent();
+  addStudent(form) {
+    let newStudent = this.getSelectedStudent();
     this.ngZone.run(_ => {
-      const addStudentDialog = this.dialog.open(
-        AddStudentConfirmationComponent,
-        {
-          data: newStudent
-        }
-      );
-
+      const addStudentDialog = this.dialog.open(AddStudentConfirmationComponent, {
+        data: newStudent
+      });
       addStudentDialog.afterClosed().subscribe(state => {
         if (state) {
           this.supervisionService.addStudent(newStudent).subscribe(
             res => {
               this.toastService.success(
-                `Successfully added ${
-                  newStudent.displayName
-                } under your supervision`,
+                `Successfully added ${newStudent.displayName} under your supervision`,
                 'Add Student',
                 { onActivateTick: true }
               ),
                 this.getSupervisionGroupData();
               this.resetStudentForm();
+              // Currently Angular FormControl does not support clean reset of the form, relying on HTML 5 form reset here,
+              // Can be updated once it's implemented on the framework
+              form.resetForm();
             },
             err => {
               this.toastService.error(err.message, 'Add Student', {
@@ -137,10 +112,7 @@ export class StudentComponent implements OnInit, OnDestroy {
         if (state) {
           this.supervisionService.removeStudent(student.uniqueID).subscribe(
             (res: any) => {
-              this.toastService.success(
-                `Successfully deleted ${student.displayName}`,
-                'Delete Student'
-              ),
+              this.toastService.success(`Successfully deleted ${student.displayName}`, 'Delete Student'),
                 this.getSupervisionGroupData();
             },
             err => {
@@ -167,14 +139,12 @@ export class StudentComponent implements OnInit, OnDestroy {
           .getUsers(users)
           .subscribe(
             res => (
-              (this.filteredStudents = res),
-              (this.isLoading = false),
-              this.changeDetectorRefs.detectChanges()
+              (this.filteredStudents = res), (this.isLoading = false), this.changeDetectorRefs.detectChanges()
             )
           );
       });
   }
-  setSelectedStudent() {
+  getSelectedStudent() {
     const _selectedStudent = this.studentsForm.get('userInput').value;
     const _courseName = this.studentsForm.get('courseInput').value;
     const _projectTitle = this.studentsForm.get('projectTitleInput').value;
@@ -190,9 +160,7 @@ export class StudentComponent implements OnInit, OnDestroy {
   }
 
   resetStudentForm() {
-    this.studentsForm.get('userInput').reset();
-    this.studentsForm.get('courseInput').reset();
-    this.studentsForm.get('projectTitleInput').reset();
+    this.studentsForm.reset();
   }
   ngOnDestroy(): void {
     this.studentSubscription.unsubscribe();

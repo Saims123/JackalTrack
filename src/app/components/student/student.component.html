@@ -39,7 +39,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <form [formGroup]="studentsForm">
+  <form #f="ngForm" [formGroup]="studentsForm" (ngSubmit)="addStudent(f)" novalidate>
     <h1 class="mat-h1" style="margin: 10px;">Add students</h1>
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
@@ -57,9 +57,10 @@
         placeholder="Choose a student"
         [matAutocomplete]="auto"
         formControlName="userInput"
-        (change)="setSelectedStudent()"
+        (change)="getSelectedStudent()"
         required
       />
+      <mat-error *ngIf="studentsForm.get('userInput').errors">Student details are needed </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 300px; padding: 10px;">
@@ -71,6 +72,8 @@
         formControlName="projectTitleInput"
         required
       />
+      <mat-label>Project Title</mat-label>
+      <mat-error *ngIf="studentsForm.get('projectTitleInput').errors">Project title are needed </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
@@ -89,9 +92,11 @@
         </mat-option>
       </mat-autocomplete>
       <mat-label>Course</mat-label>
+            <mat-error *ngIf="studentsForm.get('courseInput').errors">Course name are needed </mat-error>
+
     </mat-form-field>
 
-    <button mat-icon-button style="font-size: 24px;" (click)="addStudent()">
+    <button type="submit" mat-icon-button style="font-size: 24px;" [disabled]="studentsForm.invalid">
       <mat-icon>add_circle</mat-icon>
     </button>
   </form>
