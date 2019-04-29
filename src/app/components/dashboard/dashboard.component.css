@@ -10,6 +10,11 @@
   bottom: 15px;
 }
 
+.supervision{
+flex: 1;
+margin: 10px;
+height: 99%;
+}
 .more-button {
   position: absolute;
   top: 5px;

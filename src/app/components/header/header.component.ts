@@ -11,25 +11,22 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   isSupervisor = false;
   profile: any;
-  constructor(public authService: AuthService, public graphService: GraphService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    public graphService: GraphService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-  }
-
-  async signIn(): Promise<void> {
-    await this.authService.signIn().then(() => {
-      this.graphService.getMe().subscribe(user => {
-        this.profile = user;
-        if (user.jobTitle !== 'Student') {
-          this.isSupervisor = true;
-        }
-        if (user.mail == 'i7467177@bournemouth.ac.uk') {
-          // Special case to bypass supervisor role
-          this.isSupervisor = true;
-        }
-      });
-      if (this.authService.isAuth) {
-        this.router.navigate(['/dashboard']);
+    this.graphService.getMe().subscribe(user => {
+      this.profile = user;
+      if (user.jobTitle !== 'Student') {
+        this.isSupervisor = true;
+      }
+      if (user.mail === 'i7467177@bournemouth.ac.uk') {
+        // Special case to bypass supervisor role
+        this.isSupervisor = true;
       }
     });
   }

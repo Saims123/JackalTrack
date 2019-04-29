@@ -18,9 +18,10 @@ import * as moment from 'moment';
 
 import { TimeslotConfirmationDialog } from './dialogbox/confirmation-dialog-component';
 import { ToastrService } from 'ngx-toastr';
-import { TimeslotService, Timeslot } from 'src/app/services/timeslots/timeslot.service';
-import { SupervisionService } from '../../../services/supervision/supervision.service';
+import { TimeslotService, Timeslot, TimeslotPeriod } from 'src/app/services/timeslots/timeslot.service';
+import { SupervisionService, Supervisor, Student } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
+import { CustomMailService } from '../../../services/graph/custom-mail.service';
 
 @Component({
   selector: 'app-timeslot-creation',
@@ -47,7 +48,8 @@ export class TimeslotCreationComponent implements OnInit {
   dragToCreateActive = false;
   studentNumber = 0;
   isMicrosoftDataLoaded = false;
-
+  supervisor: Supervisor;
+  students: Student[] = [];
   constructor(
     private cdr: ChangeDetectorRef,
     private supervisionService: SupervisionService,
@@ -55,7 +57,8 @@ export class TimeslotCreationComponent implements OnInit {
     private toastService: ToastrService,
     public timeslotService: TimeslotService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private emailService: CustomMailService
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.importMicrosoftEvents();
@@ -64,7 +67,12 @@ export class TimeslotCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.supervisionService.supervisionGroup.subscribe(
-      group => ((this.studentNumber = group[0].students.length), this.cdr.detectChanges())
+      group => (
+        (this.studentNumber = group[0].students.length),
+        (this.students = group[0].students),
+        (this.supervisor = group[0].supervisor),
+        this.cdr.detectChanges()
+      )
     );
   }
 
@@ -128,11 +136,44 @@ export class TimeslotCreationComponent implements OnInit {
       if (state) {
         this.timeslotService
           .addNewTimeslot(timeslotGroup.timeslots, timeslotGroup.meetingPeriod)
-          .subscribe(data => console.log(data));
+          .subscribe(_ => {
+            this.emailService.sentEmail(
+              this.getStudentEmails(),
+              'JackalTrack : New Timeslots',
+              this.makeTimeslotEmailContent(timeslotGroup)
+            );
+          });
         this.router.navigate(['meeting/timetable']);
         this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
       }
     });
+  }
+  getStudentEmails() {
+    return this.students.map(student => {
+      return student.email;
+    });
+  }
+
+  makeTimeslotEmailContent(timeslotInfo: TimeslotPeriod) {
+    const message = `
+    <h1>Timeslot Booking</h1>
+    <strong>
+    Supervisor ${this.supervisor.displayName} has created timeslots between:
+    <div style="border: 1px solid black; border-radius: 15px;">
+    Start from : <time datetime="${timeslotInfo.meetingPeriod.start}">
+    ${moment(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
+    <br />
+    Until : <time datetime="${timeslotInfo.meetingPeriod.end}">
+    ${moment(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
+    </strong>
+    </div>
+    <br />
+    Book your timeslot on :
+    <a href="https://i7467177.bucomputing.uk/meeting/timeslots/booking">
+    https://i7467177.bucomputing.uk/meeting/timeslots/booking
+    </a>
+    `;
+    return message;
   }
 
   // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
