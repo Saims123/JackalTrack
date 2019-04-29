@@ -191,7 +191,6 @@ export class TimeslotCreationComponent implements OnInit {
           label: '<i style="font-size: 18px;" class="fa fa-fw fa-times"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter(iEvent => iEvent !== event);
-            console.log('Event deleted', event);
           }
         }
       ]

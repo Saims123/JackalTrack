@@ -31,18 +31,23 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.updateTimetable();
+  }
+  updateTimetable() {
     this.timeslotService.getSupervisorTimeslotsFromNest().subscribe((timeslotPeriods: any) => {
       (this.supervisor = timeslotPeriods.supervisor), (this.timeslots = timeslotPeriods.timeslots);
       this.meetingPeriod = timeslotPeriods.meetingPeriod;
       this.checkTimetableStatus();
-      this.cdr.detectChanges();
       this.findStudentsNotBooked();
+      this.cdr.detectChanges();
     });
   }
-
   deleteCurrentTimeslot() {
     this.timeslotService.deleteCurrentTimeslots().subscribe(_ => {
-      this.toastService.success('Successfully deleted current timeslot', 'Delete Timeslot');
+      this.toastService.success('Successfully deleted current timeslot', 'Delete Timeslot', {
+        onActivateTick: true
+      });
+      this.updateTimetable();
       this.cdr.detectChanges();
     });
   }
