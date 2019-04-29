@@ -105,11 +105,11 @@ export class CustomMailService {
         content: _content
       },
       start: {
-        dateTime: moment(_timeslot.startTime).format('YYYY-MM-DDTHH:mm:ss'),
+        dateTime: moment.utc(_timeslot.startTime).format('YYYY-MM-DDTHH:mm:ss'),
         timeZone: 'UTC'
       },
       end: {
-        dateTime: moment(_timeslot.endTime).format('YYYY-MM-DDTHH:mm:ss'),
+        dateTime: moment.utc(_timeslot.endTime).format('YYYY-MM-DDTHH:mm:ss'),
         timeZone: 'UTC'
       },
       recurrence: {
@@ -120,8 +120,8 @@ export class CustomMailService {
         },
         range: {
           type: 'endDate',
-          startDate: moment(_period.start).format('YYYY-MM-DD'),
-          endDate: moment(_period.end).format('YYYY-MM-DD')
+          startDate: moment.utc(_period.start).format('YYYY-MM-DD'),
+          endDate: moment.utc(_period.end).format('YYYY-MM-DD')
         }
       },
       location: {
