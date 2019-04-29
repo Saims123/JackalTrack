@@ -12,6 +12,7 @@ import {
 } from 'src/app/services/supervision/supervision.service';
 import { forkJoin, Subscription } from 'rxjs';
 import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timetable-supervisor',
@@ -28,7 +29,8 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
     private timeslotService: TimeslotService,
     private supervisionService: SupervisionService,
     private cdr: ChangeDetectorRef,
-    private customMailService: CustomMailService
+    private customMailService: CustomMailService,
+    private toastService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,10 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
   }
 
   deleteCurrentTimeslot() {
-    this.timeslotService.deleteCurrentTimeslots();
+    this.timeslotService.deleteCurrentTimeslots().subscribe(_ => {
+      this.toastService.success('Successfully deleted current timeslot', 'Delete Timeslot');
+      this.cdr.detectChanges();
+    });
   }
 
   sendICS(timeslot) {

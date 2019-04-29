@@ -14,9 +14,6 @@ export class DeleteConfirmationDialog {
   ) {}
 
   onNoClick(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.cdr.detectChanges();
       this.dialogRef.close();
-    });
   }
 }

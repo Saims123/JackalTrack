@@ -5,7 +5,7 @@
   <button color="primary" [routerLink]="['/timeslot']" mat-button>
     Create Timeslot
   </button>
-  <button mat-button color="warn">Delete timeslot</button>
+  <button mat-button color="warn" (click)="deleteCurrentTimeslot()">Delete timeslot</button>
 </div>
 
 <div *ngIf="timeslots.length > 0; else noData">
