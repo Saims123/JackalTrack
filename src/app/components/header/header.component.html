@@ -4,7 +4,8 @@
       <img src="assets/logo/jackal2.png" />
       <span>JackalTrack</span>
     </div>
-    <mat-chip-list> <mat-chip color="primary" selected>Beta</mat-chip> </mat-chip-list>
+    <!-- Temporary Icon , to be removed when out of Beta phase -->
+    <mat-chip-list style="float: left;"> <mat-chip color="primary" selected>Beta</mat-chip> </mat-chip-list>
 
     <div class="nav" *ngIf="authService.isAuth">
       <mat-menu #appProgress="matMenu">
