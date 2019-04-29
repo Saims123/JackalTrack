@@ -1,9 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import {
-  TimeslotService,
-  Timeslot,
-  MeetingPeriod
-} from 'src/app/services/timeslots/timeslot.service';
+import { TimeslotService, Timeslot, MeetingPeriod } from 'src/app/services/timeslots/timeslot.service';
 import {
   SupervisionService,
   Student,
@@ -13,7 +9,7 @@ import {
 import { forkJoin, Subscription } from 'rxjs';
 import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
 import { ToastrService } from 'ngx-toastr';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-timetable-supervisor',
   templateUrl: './timetable-supervisor.component.html',
@@ -25,6 +21,7 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
   meetingPeriod: MeetingPeriod;
   subscription: Subscription[] = [];
   studentsNotBooked: Student[] = [];
+  isActive = false;
   constructor(
     private timeslotService: TimeslotService,
     private supervisionService: SupervisionService,
@@ -37,6 +34,7 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
     this.timeslotService.getSupervisorTimeslotsFromNest().subscribe((timeslotPeriods: any) => {
       (this.supervisor = timeslotPeriods.supervisor), (this.timeslots = timeslotPeriods.timeslots);
       this.meetingPeriod = timeslotPeriods.meetingPeriod;
+      this.checkTimetableStatus();
       this.cdr.detectChanges();
       this.findStudentsNotBooked();
     });
@@ -83,6 +81,14 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
       this.cdr.detectChanges();
       this.subscription.push(sub);
     });
+  }
+
+  checkTimetableStatus() {
+    if (moment.utc(this.meetingPeriod.end).isAfter(moment.utc())) {
+      this.isActive = true;
+    } else {
+      this.isActive = false;
+    }
   }
 
   ngOnDestroy() {

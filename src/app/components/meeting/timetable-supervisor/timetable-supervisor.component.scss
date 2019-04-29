@@ -41,3 +41,12 @@
   margin: 0 auto;
   text-align: center;
 }
+mat-chip-list {
+  .active {
+    background-color: #00C853;
+  }
+  .expired {
+    background-color: #fdd835;
+  }
+  display: inline-block;
+}
