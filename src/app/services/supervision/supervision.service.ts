@@ -51,9 +51,7 @@ export class SupervisionService {
   }
 
   getSupervisionGroupFromNest(_supervisorID: string): Observable<SupervisionGroup> {
-    return this.http.get<SupervisionGroup>(
-      `${JackalNestAPI.SupervisionGroup}/supervisor/${_supervisorID}`
-    );
+    return this.http.get<SupervisionGroup>(`${JackalNestAPI.SupervisionGroup}/supervisor/${_supervisorID}`);
   }
 }
 
