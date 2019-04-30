@@ -2,7 +2,9 @@ import { browser, by, element } from 'protractor';
 
 export class AppPage {
   navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+    return browser.waitForAngularEnabled().then(() => {
+      return browser.get(browser.baseUrl + '/dashboard');
+    }) as Promise<any>;
   }
 
   getTitleText() {
