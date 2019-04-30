@@ -85,7 +85,6 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
       students.forEach(student => {
         this.studentsNotBooked.splice(this.studentsNotBooked.indexOf(student), 1);
       });
-      console.log(this.studentsNotBooked);
       this.cdr.detectChanges();
       this.subscription.push(sub);
     });
