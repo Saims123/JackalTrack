@@ -19,8 +19,6 @@ import { NotesComponent } from './components/meeting/notes/notes.component';
 import { AddNotesComponent } from './components/meeting/notes/add-notes/add-notes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ViewNotesComponent } from './components/meeting/notes/view-notes/view-notes.component';
-import { AttendanceButtonComponent } from './components/progress/attendance-tracking/attendance-button/attendance-button.component';
-import { AttendanceTrackingComponent } from './components/progress/attendance-tracking/attendance-tracking.component';
 import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-dialog-component';
 import { AddStudentConfirmationComponent } from './components/student/dialogbox/add-student-confirm.component';
 
@@ -33,8 +31,6 @@ import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-n
 import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
 import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
-
-
 
 @NgModule({
   declarations: [
@@ -51,10 +47,8 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     AddNotesComponent,
     DashboardComponent,
     ViewNotesComponent,
-    AttendanceButtonComponent,
     AddStudentConfirmationComponent,
     DeleteNoteConfirmationDialog,
-    AttendanceTrackingComponent,
     BookingTimeslotComponent,
     EditNotesComponent,
     NotesStudentComponent

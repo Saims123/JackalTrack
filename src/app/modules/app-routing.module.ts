@@ -9,7 +9,6 @@ import { TimetableSupervisorComponent } from '../components/meeting/timetable-su
 import { AddNotesComponent } from '../components/meeting/notes/add-notes/add-notes.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { NotesComponent } from '../components/meeting/notes/notes.component';
-import { AttendanceTrackingComponent } from '../components/progress/attendance-tracking/attendance-tracking.component';
 import { BookingTimeslotComponent } from '../components/meeting/booking-timeslot/booking-timeslot.component';
 import { EditNotesComponent } from '../components/meeting/notes/edit-notes/edit-notes.component';
 import { NotesStudentComponent } from '../components/meeting/notes/notes-student/notes-student.component';
@@ -46,11 +45,6 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [MsalGuard]
-  },
-  {
-    path: 'progress/attendance',
-    component: AttendanceTrackingComponent,
     canActivate: [MsalGuard]
   },
   {
