@@ -36,9 +36,11 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
   updateTimetable() {
     this.timeslotService.getSupervisorTimeslotsFromNest()
     .subscribe((timeslotPeriods: any) => {
-      (this.supervisor = timeslotPeriods.supervisor), (this.timeslots = timeslotPeriods.timeslots);
+      (this.supervisor = timeslotPeriods.supervisor),
+      (this.timeslots = timeslotPeriods.timeslots);
       this.meetingPeriod = timeslotPeriods.meetingPeriod;
       this.isActive = this.timeslotService.checkTimetableStatus(this.meetingPeriod.end);
+      this.findStudentsNotBooked();
       this.cdr.detectChanges();
     });
   }
@@ -83,6 +85,7 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
       students.forEach(student => {
         this.studentsNotBooked.splice(this.studentsNotBooked.indexOf(student), 1);
       });
+      console.log(this.studentsNotBooked);
       this.cdr.detectChanges();
       this.subscription.push(sub);
     });
