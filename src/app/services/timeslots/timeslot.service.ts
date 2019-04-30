@@ -2,15 +2,14 @@ import { Injectable, OnInit } from '@angular/core';
 import { Student, SupervisionService, Supervisor } from '../supervision/supervision.service';
 import { HttpClient } from '@angular/common/http';
 import { JackalNestAPI } from 'src/app/app-config';
-import { mergeMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
 export class TimeslotService implements OnInit {
   timeslots: Timeslot[] = [];
   students: Student[] = [];
-  studentsNotBooked: Observable<Student[]>;
   supervisor: Supervisor;
   constructor(private supervisionService: SupervisionService, private http: HttpClient) {
     this.supervisionService.getSupervisionGroup();
@@ -80,6 +79,13 @@ export class TimeslotService implements OnInit {
       student: _supervisor,
       timeslot: _timeslot
     });
+  }
+
+  checkTimetableStatus(meetingPeriodEnd) {
+    if (moment.utc(meetingPeriodEnd).isAfter(moment.utc())) {
+      return true;
+    }
+    return false;
   }
 }
 

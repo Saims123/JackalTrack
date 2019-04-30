@@ -16,10 +16,11 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 })
 export class BookingTimeslotComponent implements OnInit {
   timeslotGroup: TimeslotPeriod;
-  group: SupervisionGroup;
+  supervisionGroup: SupervisionGroup;
   booker: Student;
   isError = false;
   isSupervisor = false;
+  isActive = false;
   constructor(
     public timeslotService: TimeslotService,
     private customMailService: CustomMailService,
@@ -126,7 +127,8 @@ export class BookingTimeslotComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          (this.group = data), (this.timeslotGroup = data);
+          (this.supervisionGroup = data), (this.timeslotGroup = data);
+          (this.isActive = this.timeslotService.checkTimetableStatus(this.timeslotGroup.meetingPeriod.end));
           this.cdr.detectChanges();
         },
         error => {
@@ -151,7 +153,7 @@ export class BookingTimeslotComponent implements OnInit {
       this.booker.email,
       'JackalTrack Timeslot Booking',
       this.makeBookingEmailContent(selectedTimeslot),
-      this.group.supervisor.email
+      this.supervisionGroup.supervisor.email
     );
     // Phase 3 : Update UI and data
     this.updateTimeslotInformation();

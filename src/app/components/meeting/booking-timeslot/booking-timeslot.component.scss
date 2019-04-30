@@ -21,3 +21,13 @@
   padding: 15px;
   border-radius: 5px;
 }
+
+mat-chip-list {
+  .active {
+    background-color: #00c853;
+  }
+  .expired {
+    background-color: #fdd835;
+  }
+  display: inline-block;
+}

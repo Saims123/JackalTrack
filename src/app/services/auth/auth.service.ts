@@ -11,10 +11,12 @@ export class AuthService {
   public isAuth: boolean;
   public isTokenReady: boolean;
   public user: User;
+  public isSupervisor: boolean;
   constructor(private msalService: MsalService, private router: Router) {
     this.isAuth = false;
     this.isTokenReady = true;
     this.user = null;
+    this.isSupervisor = false;
     this.isAuth = this.msalService.getUser() != null;
     this.getUser().then(user => {
       this.user = user;
@@ -29,6 +31,13 @@ export class AuthService {
     if (result) {
       this.isAuth = true;
       this.user = await this.getUser();
+      if (this.user.jobTitle !== 'Student') {
+        this.isSupervisor = true;
+      }
+      if (this.user.mail === 'i7467177@bournemouth.ac.uk') {
+        // Special case to bypass supervisor role
+        this.isSupervisor = true;
+      }
     }
   }
 
@@ -79,6 +88,14 @@ export class AuthService {
     user.id = graphUser.id;
     user.jobTitle = graphUser.jobTitle;
     user.location = graphUser.location;
+
+    if (user.jobTitle !== 'Student') {
+      this.isSupervisor = true;
+    }
+    if (user.mail === 'i7467177@bournemouth.ac.uk') {
+      // Special case to bypass supervisor role
+      this.isSupervisor = true;
+    }
     return user;
   }
 }

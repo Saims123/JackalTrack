@@ -15,12 +15,12 @@
       </mat-menu>
 
       <mat-menu #appMeeting="matMenu">
-        <button *ngIf="isSupervisor" mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
         <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">
           Timeslot Booking
         </button>
-        <button *ngIf="isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
-        <button *ngIf="!isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
+        <button *ngIf="!authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
       </mat-menu>
 
       <!-- <button mat-button matBadge="0">Actions</button> -->
@@ -33,7 +33,7 @@
         Progress
       </button> -->
 
-      <button *ngIf="isSupervisor" [routerLink]="['/student']" mat-button>
+      <button *ngIf="authService.isSupervisor" [routerLink]="['/student']" mat-button>
         Students
       </button>
     </div>

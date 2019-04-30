@@ -19,16 +19,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.graphService.getMe().subscribe(user => {
-      this.profile = user;
-      if (user.jobTitle !== 'Student') {
-        this.isSupervisor = true;
-      }
-      if (user.mail === 'i7467177@bournemouth.ac.uk') {
-        // Special case to bypass supervisor role
-        this.isSupervisor = true;
-      }
-    });
   }
 
   signOut(): void {
