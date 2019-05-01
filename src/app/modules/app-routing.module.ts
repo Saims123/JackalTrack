@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'student', component: StudentComponent, canActivate: [MsalGuard] },
   { path: 'login', component: LoginComponent },
   {
-    path: 'timeslot',
+    path: 'meeting/timeslot',
     component: TimeslotCreationComponent,
     canActivate: [MsalGuard]
   },

@@ -17,15 +17,24 @@
 
       <mat-menu #appMeeting="matMenu">
         <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['meeting/timetable']">
+          <mat-icon>calendar_today</mat-icon>
           Timetable
         </button>
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['meeting/timeslot']">
+          <mat-icon>add_box</mat-icon>
+
+          Create Timeslots
+        </button>
         <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">
-          Timeslot Booking
+          <mat-icon>event_available</mat-icon>
+          Book Timeslots
         </button>
         <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">
+          <mat-icon>event_note</mat-icon>
           Notes
         </button>
         <button *ngIf="!authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">
+          <mat-icon>event_note</mat-icon>
           Notes
         </button>
       </mat-menu>
