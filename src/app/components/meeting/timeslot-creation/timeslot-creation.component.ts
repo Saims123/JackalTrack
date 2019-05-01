@@ -169,6 +169,7 @@ export class TimeslotCreationComponent implements OnInit {
           });
         this.router.navigate(['meeting/timetable']);
         this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
+        this.cdr.detectChanges();
       }
     });
   }
