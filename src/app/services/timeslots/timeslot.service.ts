@@ -97,8 +97,8 @@ export interface Timeslot {
   sendICS?: boolean;
 }
 export interface MeetingPeriod {
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   location: string;
 }
 

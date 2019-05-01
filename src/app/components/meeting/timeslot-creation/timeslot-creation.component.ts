@@ -110,25 +110,28 @@ export class TimeslotCreationComponent implements OnInit {
         day: moment(timeslot.start)
           .format('DDD')
           .toString(),
-        startTime: moment(timeslot.start).toJSON(),
-        endTime: moment(timeslot.end).toJSON()
+        startTime: moment.utc(timeslot.start).toJSON(),
+        endTime: moment.utc(timeslot.end).toJSON()
       });
     });
     return timeslots.sort((timeslotA, timeslotB) => {
-      return moment(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
+      return moment.utc(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
     });
   }
 
   openDialog(_location) {
     const timeslotGroup = {
       meetingPeriod: {
-        start: this.meetingStartDate,
-        end: this.meetingEndDate,
+        start: moment(this.meetingStartDate).format('YYYY-MM-DDTHH:mm'),
+        end: moment(this.meetingEndDate)
+          .hour(22) // Taking in account for BST
+          .minute(59)
+          .second(59)
+          .format('YYYY-MM-DDTHH:mm'),
         location: _location
       },
       timeslots: this.getConvertedTimeslots()
     };
-
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
       data: timeslotGroup
     });
@@ -157,15 +160,17 @@ export class TimeslotCreationComponent implements OnInit {
   makeTimeslotEmailContent(timeslotInfo: TimeslotPeriod) {
     const message = `
     <h1>Timeslot Booking</h1>
-    <strong>
+    <h2>
     Supervisor ${this.supervisor.displayName} has created timeslots between:
+    </h2>
     <div style="border: 1px solid black; border-radius: 15px;">
-    Start from : <time datetime="${timeslotInfo.meetingPeriod.start}">
+    <h3>
+    Start from : <time>
     ${moment.utc(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
     <br />
-    Until : <time datetime="${timeslotInfo.meetingPeriod.end}">
+    Until : <time>
     ${moment.utc(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
-    </strong>
+   </h3>
     </div>
     <br />
     Book your timeslot on :

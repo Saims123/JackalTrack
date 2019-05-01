@@ -162,18 +162,21 @@ export class BookingTimeslotComponent implements OnInit {
   makeBookingEmailContent(bookedTimeslot: Timeslot) {
     const message = `
     <h1>Timeslot Booking</h1>
-    <strong>
-    Start from : <time datetime="${this.timeslotGroup.meetingPeriod.start}">
-    ${moment(this.timeslotGroup.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time> -
-    Until : <time datetime="${this.timeslotGroup.meetingPeriod.end}">
-    ${moment(this.timeslotGroup.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
-    </strong>
     <br />
     ${this.booker.displayName} have booked the following timeslot :
-    Every ${moment(bookedTimeslot.startTime).format('dddd')}
-    from ${moment(bookedTimeslot.startTime).format('hh:mm a')}
-    to  ${moment(bookedTimeslot.endTime).format('hh:mm a')}.
+    Every <b>${moment(bookedTimeslot.startTime).format('dddd')} </b>
+    from <b> ${moment(bookedTimeslot.startTime).format('hh:mm a')} </b>
+    to <b> ${moment(bookedTimeslot.endTime).format('hh:mm a')}</b>.
+       <br />
+<strong style="border: 1px solid black; border-radius: 15px;">
+    Start from : <time datetime="${this.timeslotGroup.meetingPeriod.start}">
+    ${moment.utc(this.timeslotGroup.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
+       <br />
+    Until : <time datetime="${this.timeslotGroup.meetingPeriod.end}">
+    ${moment.utc(this.timeslotGroup.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
+    </strong>
     `;
+
     return message;
   }
 }
