@@ -22,7 +22,6 @@ export class StudentComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<Student>;
   studentSubscription: Subscription;
   supervisor: Supervisor;
-  newStudentControl = new FormControl();
   isLoaded = false;
   studentsForm: FormGroup;
   options: Student[] = [];

@@ -87,6 +87,12 @@ export class TimeslotService implements OnInit {
     }
     return false;
   }
+  checkIfEndDateAreBeforeStartDate(meetingPeriodStart, meetingPeriodEnd) {
+    if (moment.utc(meetingPeriodEnd).isBefore(moment.utc(meetingPeriodStart))) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export interface Timeslot {
