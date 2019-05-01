@@ -19,7 +19,6 @@ import { NotesComponent } from './components/meeting/notes/notes.component';
 import { AddNotesComponent } from './components/meeting/notes/add-notes/add-notes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ViewNotesComponent } from './components/meeting/notes/view-notes/view-notes.component';
-import { DeleteConfirmationDialog } from './components/student/dialogbox/delete-dialog-component';
 import { AddStudentConfirmationComponent } from './components/student/dialogbox/add-student-confirm.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -28,9 +27,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ToastrModule } from 'ngx-toastr';
 import { BookingTimeslotComponent } from './components/meeting/booking-timeslot/booking-timeslot.component';
 import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-notes.component';
-import { DeleteNoteConfirmationDialog } from './components/meeting/notes/dialogbox/delete-dialog-component';
 import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { DeleteConfirmationDialog } from './components/dialogbox/delete-dialog-component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     DashboardComponent,
     ViewNotesComponent,
     AddStudentConfirmationComponent,
-    DeleteNoteConfirmationDialog,
     BookingTimeslotComponent,
     EditNotesComponent,
     NotesStudentComponent
@@ -77,7 +75,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     TimeslotCreationComponent,
     DeleteConfirmationDialog,
     AddStudentConfirmationComponent,
-    DeleteNoteConfirmationDialog
+    DeleteConfirmationDialog
   ],
   bootstrap: [AppComponent]
 })

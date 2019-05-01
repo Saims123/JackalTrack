@@ -1,6 +1,6 @@
-<h1 mat-dialog-title><mat-icon>warning</mat-icon>Delete student</h1>
+<h1 mat-dialog-title><mat-icon>warning</mat-icon>Delete {{data.title}}</h1>
 <div mat-dialog-content>
-<p>Are you sure you want to delete meeting note?</p>
+<p>Are you sure you want to delete {{data.target}}?</p>
 </div>
 <div mat-dialog-actions style="display: block; float: right;">
   <button mat-button color="warn" matDialogClose [mat-dialog-close]="false" (click)="onNoClick()">Cancel</button>

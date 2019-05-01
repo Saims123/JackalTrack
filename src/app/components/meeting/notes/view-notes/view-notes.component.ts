@@ -1,15 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
-import {
-  MeetingNotesService,
-  MeetingNote,
-  StudentNotes,
-  TodoList
-} from 'src/app/services/meeting-notes/meeting-notes.service';
+import { MeetingNotesService, MeetingNote } from 'src/app/services/meeting-notes/meeting-notes.service';
 import { Student } from 'src/app/services/supervision/supervision.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { DeleteNoteConfirmationDialog } from '../dialogbox/delete-dialog-component';
+import { DeleteConfirmationDialog } from '../../../dialogbox/delete-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -36,8 +31,13 @@ export class ViewNotesComponent implements OnChanges {
   }
 
   deleteMeetingNote(selectedNote: MeetingNote) {
-    const addDeleteDialog = this.dialog.open(DeleteNoteConfirmationDialog, { data: {} });
-    addDeleteDialog.afterClosed().subscribe(state => {
+    const deleteDialog = this.dialog.open(DeleteConfirmationDialog, {
+      data: {
+        title: 'Meeting note',
+        target: 'meeting note : ' + selectedNote.created
+      }
+    });
+    deleteDialog.afterClosed().subscribe(state => {
       if (state) {
         this.meetingNoteService.deleteStudentNote(this.student, selectedNote).subscribe(_ => {
           this.toastService.success('Successfully deleted meeting note', 'Delete Meeting Note');
@@ -52,10 +52,7 @@ export class ViewNotesComponent implements OnChanges {
     this.meetingNoteService
       .updateTodolistToStudent(this.student.uniqueID, selectedNote, selectedNote.todoList)
       .subscribe(_ => {
-        this.toastService.success(
-          'Successfully updated todolist for meeting note',
-          'Update Todolist'
-        );
+        this.toastService.success('Successfully updated todolist for meeting note', 'Update Todolist');
       });
   }
 

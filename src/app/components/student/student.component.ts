@@ -4,10 +4,10 @@ import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { DeleteConfirmationDialog } from './dialogbox/delete-dialog-component';
 import { ToastrService } from 'ngx-toastr';
 import { GraphService } from 'src/app/services/graph/graph.service';
 import { AddStudentConfirmationComponent } from './dialogbox/add-student-confirm.component';
+import { DeleteConfirmationDialog } from '../dialogbox/delete-dialog-component';
 // Table Documentation https://material.angular.io/components/table/examples
 @Component({
   selector: 'app-student',
@@ -105,7 +105,10 @@ export class StudentComponent implements OnInit, OnDestroy {
   removeStudent(student: Student): void {
     this.ngZone.run(_ => {
       const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
-        data: student
+        data: {
+          title: 'Student',
+          target: student.displayName
+        }
       });
 
       deleteDialogRef.afterClosed().subscribe(state => {

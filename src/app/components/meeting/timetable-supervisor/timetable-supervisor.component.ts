@@ -9,6 +9,8 @@ import {
 import { forkJoin, Subscription } from 'rxjs';
 import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
 import { ToastrService } from 'ngx-toastr';
+import { DeleteConfirmationDialog } from '../../dialogbox/delete-dialog-component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-timetable-supervisor',
   templateUrl: './timetable-supervisor.component.html',
@@ -30,7 +32,8 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
     private supervisionService: SupervisionService,
     private cdr: ChangeDetectorRef,
     private customMailService: CustomMailService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -47,12 +50,19 @@ export class TimetableSupervisorComponent implements OnInit, OnDestroy {
     });
   }
   deleteCurrentTimeslot() {
-    this.timeslotService.deleteCurrentTimeslots().subscribe(_ => {
-      this.toastService.success('Successfully deleted current timeslot', 'Delete Timeslot', {
-        onActivateTick: true
-      });
-      this.updateTimetable();
-      this.cdr.detectChanges();
+    const deleteDialogRef = this.dialog.open(DeleteConfirmationDialog, {
+      data: { title: 'Timeslot', target: 'Current Timeslot' }
+    });
+    deleteDialogRef.afterClosed().subscribe(state => {
+      if (state) {
+        this.timeslotService.deleteCurrentTimeslots().subscribe(_ => {
+          this.toastService.success('Successfully deleted current timeslot', 'Delete Timeslot', {
+            onActivateTick: true
+          });
+          this.updateTimetable();
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
 
