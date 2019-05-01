@@ -4,6 +4,13 @@ import { User } from './user';
 import { OAuthSettings } from './oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Router } from '@angular/router';
+/**
+ *  Authentication Services allows users to login and logout of the application.
+ *
+ *  Uses MSAL for authentication for the Mircrosoft Graph API.
+ *
+ *  Uses Implicit Grant method to retrieve session tokens.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -50,6 +57,10 @@ export class AuthService {
     this.isTokenReady = null;
   }
 
+  /**
+   * Support function that aquires the JWT token during the login phrase.
+   * @returns JWT token string
+   */
   async getAccessToken(): Promise<string> {
     let result = await this.msalService.acquireTokenSilent(OAuthSettings.scopes).catch(reason => {
       console.error('Get token silently failed', JSON.stringify(reason, null, 2));
@@ -61,7 +72,10 @@ export class AuthService {
     }
     return result;
   }
-
+  /**
+   * Support function that aquires the user profile after login phrase
+   * @returns User
+   */
   private async getUser(): Promise<User> {
     if (!this.isAuth) {
       return null;

@@ -9,12 +9,15 @@ import {
 import { forkJoin, Subscription } from 'rxjs';
 import { CustomMailService } from 'src/app/services/graph/custom-mail.service';
 import { ToastrService } from 'ngx-toastr';
-import * as moment from 'moment';
 @Component({
   selector: 'app-timetable-supervisor',
   templateUrl: './timetable-supervisor.component.html',
   styleUrls: ['./timetable-supervisor.component.scss']
 })
+/*
+# Timtable for supervisor to view the timeslots created for the meetings
+# Also shows students who has not booked meeting timeslots
+*/
 export class TimetableSupervisorComponent implements OnInit, OnDestroy {
   timeslots: Timeslot[] = [];
   supervisor: Supervisor;

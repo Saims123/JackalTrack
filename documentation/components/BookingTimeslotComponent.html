@@ -1,0 +1,1352 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>jackal-track documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">jackal-track documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>BookingTimeslotComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-booking-timeslot</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./booking-timeslot.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./booking-timeslot.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#booker">booker</a>
+                            </li>
+                            <li>
+                                <a href="#isActive">isActive</a>
+                            </li>
+                            <li>
+                                <a href="#isError">isError</a>
+                            </li>
+                            <li>
+                                <a href="#isSupervisor">isSupervisor</a>
+                            </li>
+                            <li>
+                                <a href="#supervisionGroup">supervisionGroup</a>
+                            </li>
+                            <li>
+                                <a href="#timeslotGroup">timeslotGroup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#timeslotService">timeslotService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#bookTimeslot">bookTimeslot</a>
+                            </li>
+                            <li>
+                                <a href="#checkIfBooked">checkIfBooked</a>
+                            </li>
+                            <li>
+                                <a href="#checkIfBookedBySelf">checkIfBookedBySelf</a>
+                            </li>
+                            <li>
+                                <a href="#confirmBooking">confirmBooking</a>
+                            </li>
+                            <li>
+                                <a href="#makeBookingEmailContent">makeBookingEmailContent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#unbookAllTimeslot">unbookAllTimeslot</a>
+                            </li>
+                            <li>
+                                <a href="#updateTimeslotInformation">updateTimeslotInformation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(timeslotService: <a href="../injectables/TimeslotService.html">TimeslotService</a>, customMailService: <a href="../injectables/CustomMailService.html">CustomMailService</a>, cdr: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, dialog: MatDialog, ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, toastService: ToastrService, graphService: <a href="../injectables/GraphService.html">GraphService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>timeslotService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TimeslotService.html" target="_self" >TimeslotService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>customMailService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CustomMailService.html" target="_self" >CustomMailService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ngZone</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/NgZone" target="_blank" >NgZone</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toastService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graphService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bookTimeslot"></a>
+                    <span class="name">
+                        <b>
+                            bookTimeslot
+                        </b>
+                        <a href="#bookTimeslot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>bookTimeslot(selectedTimeslot)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>selectedTimeslot</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIfBooked"></a>
+                    <span class="name">
+                        <b>
+                            checkIfBooked
+                        </b>
+                        <a href="#checkIfBooked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIfBooked(student)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>student</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIfBookedBySelf"></a>
+                    <span class="name">
+                        <b>
+                            checkIfBookedBySelf
+                        </b>
+                        <a href="#checkIfBookedBySelf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIfBookedBySelf(student)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:45</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>student</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmBooking"></a>
+                    <span class="name">
+                        <b>
+                            confirmBooking
+                        </b>
+                        <a href="#confirmBooking"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmBooking(selectedTimeslot)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:145</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>selectedTimeslot</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="makeBookingEmailContent"></a>
+                    <span class="name">
+                        <b>
+                            makeBookingEmailContent
+                        </b>
+                        <a href="#makeBookingEmailContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>makeBookingEmailContent(bookedTimeslot: <a href="../interfaces/Timeslot.html">Timeslot</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:162</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>bookedTimeslot</td>
+                                    <td>
+                                                <code><a href="../interfaces/Timeslot.html" target="_self" >Timeslot</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:34</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unbookAllTimeslot"></a>
+                    <span class="name">
+                        <b>
+                            unbookAllTimeslot
+                        </b>
+                        <a href="#unbookAllTimeslot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>unbookAllTimeslot()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:95</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateTimeslotInformation"></a>
+                    <span class="name">
+                        <b>
+                            updateTimeslotInformation
+                        </b>
+                        <a href="#updateTimeslotInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateTimeslotInformation()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="booker"></a>
+                        <span class="name">
+                            <b>
+                            booker</b>
+                            <a href="#booker"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Student.html" target="_self" >Student</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isActive"></a>
+                        <span class="name">
+                            <b>
+                            isActive</b>
+                            <a href="#isActive"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isError"></a>
+                        <span class="name">
+                            <b>
+                            isError</b>
+                            <a href="#isError"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isSupervisor"></a>
+                        <span class="name">
+                            <b>
+                            isSupervisor</b>
+                            <a href="#isSupervisor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="supervisionGroup"></a>
+                        <span class="name">
+                            <b>
+                            supervisionGroup</b>
+                            <a href="#supervisionGroup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SupervisionGroup.html" target="_self" >SupervisionGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timeslotGroup"></a>
+                        <span class="name">
+                            <b>
+                            timeslotGroup</b>
+                            <a href="#timeslotGroup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TimeslotPeriod.html" target="_self" >TimeslotPeriod</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timeslotService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            timeslotService</b>
+                            <a href="#timeslotService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/TimeslotService.html" target="_self" >TimeslotService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/components/meeting/booking-timeslot/booking-timeslot.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ChangeDetectorRef, NgZone } from &#x27;@angular/core&#x27;;
+import { TimeslotService, TimeslotPeriod, Timeslot } from &#x27;src/app/services/timeslots/timeslot.service&#x27;;
+import { SupervisionGroup, Student, Supervisor } from &#x27;src/app/services/supervision/supervision.service&#x27;;
+import { mergeMap, tap } from &#x27;rxjs/operators&#x27;;
+import { TimeslotConfirmationDialog } from &#x27;../timeslot-creation/dialogbox/confirmation-dialog-component&#x27;;
+import { MatDialog } from &#x27;@angular/material&#x27;;
+import * as moment from &#x27;moment&#x27;;
+import { ToastrService } from &#x27;ngx-toastr&#x27;;
+import { CustomMailService } from &#x27;src/app/services/graph/custom-mail.service&#x27;;
+import { GraphService } from &#x27;src/app/services/graph/graph.service&#x27;;
+
+@Component({
+  selector: &#x27;app-booking-timeslot&#x27;,
+  templateUrl: &#x27;./booking-timeslot.component.html&#x27;,
+  styleUrls: [&#x27;./booking-timeslot.component.scss&#x27;]
+})
+export class BookingTimeslotComponent implements OnInit {
+  timeslotGroup: TimeslotPeriod;
+  supervisionGroup: SupervisionGroup;
+  booker: Student;
+  isError &#x3D; false;
+  isSupervisor &#x3D; false;
+  isActive &#x3D; false;
+  constructor(
+    public timeslotService: TimeslotService,
+    private customMailService: CustomMailService,
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private ngZone: NgZone,
+    private toastService: ToastrService,
+    private graphService: GraphService
+  ) {}
+
+  ngOnInit() {
+    this.updateTimeslotInformation();
+  }
+
+  checkIfBooked(student) {
+    if (student.uniqueID !&#x3D;&#x3D; null) {
+      return true;
+    }
+    return false;
+  }
+
+  checkIfBookedBySelf(student) {
+    if (student.uniqueID &#x3D;&#x3D;&#x3D; this.booker.uniqueID) {
+      return true;
+    }
+    return false;
+  }
+
+  bookTimeslot(selectedTimeslot) {
+    this.ngZone.run(_ &#x3D;&gt; {
+      // Currently forcing the dialog component to run within Zone, so it&#x27;s respondant to parent componet
+      const dialogRef &#x3D; this.dialog.open(TimeslotConfirmationDialog, {
+        data: {
+          meetingPeriod: this.timeslotGroup.meetingPeriod,
+          timeslots: [selectedTimeslot]
+        }
+      });
+      dialogRef.afterClosed().subscribe(state &#x3D;&gt; {
+        if (state) {
+          if (!this.isSupervisor) {
+            this.timeslotService.bookTimeslotAsStudent(selectedTimeslot, this.booker).subscribe(
+              _ &#x3D;&gt; {
+                this.confirmBooking(selectedTimeslot);
+              },
+              // Phase FINAL: Error Handling
+              error &#x3D;&gt; {
+                this.toastService.error(
+                  &#x60;Failed to book timeslot ${JSON.stringify(error.message)}&#x60;,
+                  &#x27;Timeslot Booking&#x27;
+                );
+              }
+            );
+          } else {
+            // Edge case : Supervisor can self book an timeslot
+            this.timeslotService.bookTimeslotAsSupervisor(selectedTimeslot, this.booker).subscribe(
+              _ &#x3D;&gt; {
+                this.confirmBooking(selectedTimeslot);
+              },
+              // Phase FINAL: Error Handling
+              error &#x3D;&gt; {
+                this.toastService.error(
+                  &#x60;Failed to book timeslot ${JSON.stringify(error.message)}&#x60;,
+                  &#x27;Timeslot Booking&#x27;
+                );
+              }
+            );
+          }
+        }
+      });
+    });
+  }
+  unbookAllTimeslot() {
+    if (this.isSupervisor) {
+      this.timeslotService
+        .unbookTimeslotsBySupervisor(this.booker)
+        .subscribe(_ &#x3D;&gt; this.updateTimeslotInformation());
+    } else {
+      this.timeslotService
+        .unbookTimeslotsByStudent(this.booker)
+        .subscribe(_ &#x3D;&gt; this.updateTimeslotInformation());
+    }
+  }
+
+  updateTimeslotInformation() {
+    this.graphService
+      .getMe()
+      .pipe(
+        tap(me &#x3D;&gt; {
+          this.booker &#x3D; {
+            displayName: me.displayName,
+            uniqueID: me.id,
+            email: me.mail
+          };
+        }),
+        mergeMap(user &#x3D;&gt; {
+          //  Bug 3 : Check if it&#x27;s student, thenswitch to different API output
+          if (user.jobTitle &#x3D;&#x3D;&#x3D; &#x27;Student&#x27; &amp;&amp; user.mail !&#x3D;&#x3D; &#x27;i7467177@bournemouth.ac.uk&#x27;) {
+            this.isSupervisor &#x3D; false;
+            return this.timeslotService.getTimeslotsViaStudentID(user.id);
+          }
+          this.isSupervisor &#x3D; true;
+          return this.timeslotService.getTimeslotsViaSupervisorID(user.id);
+        })
+      )
+      .subscribe(
+        (data: any) &#x3D;&gt; {
+          (this.supervisionGroup &#x3D; data), (this.timeslotGroup &#x3D; data);
+          (this.isActive &#x3D; this.timeslotService.checkTimetableStatus(this.timeslotGroup.meetingPeriod.end));
+          this.cdr.detectChanges();
+        },
+        error &#x3D;&gt; {
+          this.isError &#x3D; true;
+          this.toastService.error(error.message, &#x27;Timeslot Retreival&#x27;, {
+            timeOut: 20000,
+            progressBar: true
+          });
+        }
+      );
+  }
+
+  // Helper Functions
+  confirmBooking(selectedTimeslot) {
+    // Phase 1 : Client confirm
+    this.toastService.success(
+      &#x60;Successfully booked timeslot ${JSON.stringify(selectedTimeslot)}&#x60;,
+      &#x27;Timeslot Booking&#x27;
+    );
+    // Phase 2 : Email
+    this.customMailService.sentEmailWithCC(
+      this.booker.email,
+      &#x27;JackalTrack Timeslot Booking&#x27;,
+      this.makeBookingEmailContent(selectedTimeslot),
+      this.supervisionGroup.supervisor.email
+    );
+    // Phase 3 : Update UI and data
+    this.updateTimeslotInformation();
+  }
+
+  makeBookingEmailContent(bookedTimeslot: Timeslot) {
+    const message &#x3D; &#x60;
+    &lt;h1&gt;Timeslot Booking&lt;/h1&gt;
+    &lt;strong&gt;
+    Start from : &lt;time datetime&#x3D;&quot;${this.timeslotGroup.meetingPeriod.start}&quot;&gt;
+    ${moment(this.timeslotGroup.meetingPeriod.start).format(&#x27;dddd DD MMMM YYYY&#x27;)} &lt;/time&gt; -
+    Until : &lt;time datetime&#x3D;&quot;${this.timeslotGroup.meetingPeriod.end}&quot;&gt;
+    ${moment(this.timeslotGroup.meetingPeriod.end).format(&#x27;dddd DD MMMM YYYY&#x27;)} &lt;/time&gt;
+    &lt;/strong&gt;
+    &lt;br /&gt;
+    ${this.booker.displayName} have booked the following timeslot :
+    Every ${moment(bookedTimeslot.startTime).format(&#x27;dddd&#x27;)}
+    from ${moment(bookedTimeslot.startTime).format(&#x27;hh:mm a&#x27;)}
+    to  ${moment(bookedTimeslot.endTime).format(&#x27;hh:mm a&#x27;)}.
+    &#x60;;
+    return message;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1 class&#x3D;&quot;mat-h1&quot; style&#x3D;&quot;text-align: center;&quot;&gt;Booking Timeslot&lt;/h1&gt;
+
+&lt;mat-card class&#x3D;&quot;booking-card&quot; *ngIf&#x3D;&quot;timeslotGroup?.timeslots.length &gt; 0&quot;&gt;
+  &lt;mat-card-content&gt;
+    &lt;div class&#x3D;&quot;mat-body&quot;&gt;
+      &lt;h2 class&#x3D;&quot;mat-h1&quot;&gt;Meeting Period&lt;/h2&gt;
+      &lt;h3 class&#x3D;&quot;mat-h2&quot;&gt;
+        {{ timeslotGroup.meetingPeriod.start | date: &#x27;EEE  dd MMM yyyy&#x27; }} -
+        {{ timeslotGroup.meetingPeriod.end | date: &#x27;EEE  dd MMM yyyy&#x27; }}
+        &lt;mat-chip-list&gt;
+          &lt;mat-chip class&#x3D;&quot;active&quot; *ngIf&#x3D;&quot;isActive&quot;&gt;Active&lt;/mat-chip&gt;
+          &lt;mat-chip class&#x3D;&quot;expired&quot; *ngIf&#x3D;&quot;!isActive&quot;&gt;Expired&lt;/mat-chip&gt;
+        &lt;/mat-chip-list&gt;
+      &lt;/h3&gt;
+      &lt;h3 class&#x3D;&quot;mat-h2&quot;&gt;At : {{ timeslotGroup.meetingPeriod.location }}&lt;/h3&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;grid-list&quot; *ngFor&#x3D;&quot;let timeslot of timeslotGroup.timeslots&quot;&gt;
+      &lt;div
+        [ngClass]&#x3D;&quot;{
+          bookedBySelf: checkIfBookedBySelf(timeslot.bookedBy),
+          notBookedBySelf: !checkIfBookedBySelf(timeslot.bookedBy)
+        }&quot;
+      &gt;
+        &lt;h4 *ngIf&#x3D;&quot;checkIfBookedBySelf(timeslot.bookedBy)&quot;&gt;You&lt;/h4&gt;
+        &lt;h3&gt;{{ timeslot.day }}&lt;/h3&gt;
+        &lt;h4&gt;{{ timeslot.startTime | date: &#x27;HH:mm&#x27; }}&lt;/h4&gt;
+        &lt;h4&gt;{{ timeslot.endTime | date: &#x27;HH:mm&#x27; }}&lt;/h4&gt;
+        &lt;button
+          mat-fab
+          color&#x3D;&quot;primary&quot;
+          [disabled]&#x3D;&quot;checkIfBooked(timeslot.bookedBy)&quot;
+          (click)&#x3D;&quot;bookTimeslot(timeslot)&quot;
+        &gt;
+          Book
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/mat-card-content&gt;
+  &lt;mat-card-actions&gt;
+    &lt;button mat-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;unbookAllTimeslot()&quot;&gt;Reset booking&lt;/button&gt;
+  &lt;/mat-card-actions&gt;
+&lt;/mat-card&gt;
+
+&lt;ng-container *ngIf&#x3D;&quot;isError&quot;&gt;
+  &lt;h2&gt;Unable to display timeslot information&lt;/h2&gt;
+&lt;/ng-container&gt;
+
+&lt;ng-container *ngIf&#x3D;&quot;timeslotGroup?.timeslots.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+  &lt;h2&gt;Currently Timeslot are not scheduled, contact your supervisor to create one&lt;/h2&gt;
+&lt;/ng-container&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./booking-timeslot.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.grid-list {
+  display: inline-block;
+  padding: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.booking-card {
+  margin: 0 auto;
+  text-align: center;
+  min-width: 50vw;
+  max-width: 90vw;
+}
+.bookedBySelf {
+  background-color: #00e676;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.notBookedBySelf {
+  background-color: initial;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+mat-chip-list {
+  .active {
+    background-color: #00c853;
+  }
+  .expired {
+    background-color: #fdd835;
+  }
+  display: inline-block;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1 class="mat-h1" style="text-align: center;">Booking Timeslot</h1><mat-card class="booking-card" *ngIf="timeslotGroup?.timeslots.length > 0">  <mat-card-content>    <div class="mat-body">      <h2 class="mat-h1">Meeting Period</h2>      <h3 class="mat-h2">        {{ timeslotGroup.meetingPeriod.start | date: \'EEE  dd MMM yyyy\' }} -        {{ timeslotGroup.meetingPeriod.end | date: \'EEE  dd MMM yyyy\' }}        <mat-chip-list>          <mat-chip class="active" *ngIf="isActive">Active</mat-chip>          <mat-chip class="expired" *ngIf="!isActive">Expired</mat-chip>        </mat-chip-list>      </h3>      <h3 class="mat-h2">At : {{ timeslotGroup.meetingPeriod.location }}</h3>    </div>    <div class="grid-list" *ngFor="let timeslot of timeslotGroup.timeslots">      <div        [ngClass]="{          bookedBySelf: checkIfBookedBySelf(timeslot.bookedBy),          notBookedBySelf: !checkIfBookedBySelf(timeslot.bookedBy)        }"      >        <h4 *ngIf="checkIfBookedBySelf(timeslot.bookedBy)">You</h4>        <h3>{{ timeslot.day }}</h3>        <h4>{{ timeslot.startTime | date: \'HH:mm\' }}</h4>        <h4>{{ timeslot.endTime | date: \'HH:mm\' }}</h4>        <button          mat-fab          color="primary"          [disabled]="checkIfBooked(timeslot.bookedBy)"          (click)="bookTimeslot(timeslot)"        >          Book        </button>      </div>    </div>  </mat-card-content>  <mat-card-actions>    <button mat-button color="primary" (click)="unbookAllTimeslot()">Reset booking</button>  </mat-card-actions></mat-card><ng-container *ngIf="isError">  <h2>Unable to display timeslot information</h2></ng-container><ng-container *ngIf="timeslotGroup?.timeslots.length === 0">  <h2>Currently Timeslot are not scheduled, contact your supervisor to create one</h2></ng-container></div>'
+    var COMPONENTS = [{'name': 'AddNotesComponent', 'selector': 'app-add-notes'},{'name': 'AddStudentConfirmationComponent', 'selector': 'add-confirmation-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookingTimeslotComponent', 'selector': 'app-booking-timeslot'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteConfirmationDialog', 'selector': 'delete-confirmation-dialog'},{'name': 'DeleteNoteConfirmationDialog', 'selector': 'delete-note-confirmation-dialog'},{'name': 'EditNotesComponent', 'selector': 'app-edit-notes'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesStudentComponent', 'selector': 'app-notes-student'},{'name': 'StudentComponent', 'selector': 'app-student'},{'name': 'TimeslotConfirmationDialog', 'selector': 'timeslot-confirmation-dialog'},{'name': 'TimeslotCreationComponent', 'selector': 'app-timeslot-creation'},{'name': 'TimetableSupervisorComponent', 'selector': 'app-timetable-supervisor'},{'name': 'ViewNotesComponent', 'selector': 'view-meeting-notes'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'BookingTimeslotComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'BookingTimeslotComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

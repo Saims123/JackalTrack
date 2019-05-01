@@ -161,10 +161,10 @@ export class TimeslotCreationComponent implements OnInit {
     Supervisor ${this.supervisor.displayName} has created timeslots between:
     <div style="border: 1px solid black; border-radius: 15px;">
     Start from : <time datetime="${timeslotInfo.meetingPeriod.start}">
-    ${moment(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
+    ${moment.utc(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
     <br />
     Until : <time datetime="${timeslotInfo.meetingPeriod.end}">
-    ${moment(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
+    ${moment.utc(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
     </strong>
     </div>
     <br />
