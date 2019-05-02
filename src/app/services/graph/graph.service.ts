@@ -6,7 +6,9 @@ import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../auth/user';
-
+/**
+ *  Microsoft Graph Service that uses MSAL for authentication and Graph API to call the email, people and calendar services.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +33,10 @@ export class GraphService {
       }
     });
   }
-
+  /**
+   * Graph API to GET authenticated user's Calendar Events
+   * @return Microsoft Event[]
+   */
   async getEvents(): Promise<Event[]> {
     try {
       let result = await this.graphClient
@@ -47,6 +52,10 @@ export class GraphService {
       });
     }
   }
+  /**
+   * Graph API to GET authenticated user's basic profile
+   * @return User
+   */
   getMe(): Observable<User> {
     return Observable.fromPromise(
       this.graphClient
@@ -67,7 +76,10 @@ export class GraphService {
         })
     );
   }
-
+  /**
+   * Graph API to GET authenticated user's Calendar Event based on the current week
+   * @return Event
+   */
   async getEventsOnCurrentWeek(): Promise<Event[]> {
     const startOfWeek = moment()
       .startOf('isoWeek')
@@ -89,7 +101,11 @@ export class GraphService {
       });
     }
   }
-
+  /**
+   * Graph API to GET multiple users on Bournemouth University Domain
+   * @param {string} name name of the user to search
+   * @return User[]
+   */
   getUsers(name: string): Observable<any[]> {
     if (name == '') {
       return of([]);

@@ -2,10 +2,10 @@
   <h1 class="mat-h1" style="text-align: center;">
     Timetable
   </h1>
-  <button color="primary" [routerLink]="['/timeslot']" mat-button>
+  <button color="primary" [routerLink]="['/meeting/timeslot']" mat-button>
     Create Timeslot
   </button>
-  <button mat-button color="warn">Delete timeslot</button>
+  <button mat-button color="warn" (click)="deleteCurrentTimeslot()">Delete timeslot</button>
 </div>
 
 <div *ngIf="timeslots.length > 0; else noData">
@@ -13,6 +13,10 @@
     <h3 class="mat-h2">
       Start : {{ meetingPeriod.start | date: 'EEE  dd MMM yyyy' }} - Until :
       {{ meetingPeriod.end | date: 'EEE  dd MMM yyyy' }}
+      <mat-chip-list>
+        <mat-chip class="active" *ngIf="isActive">Active</mat-chip>
+        <mat-chip class="expired" *ngIf="!isActive">Expired</mat-chip>
+      </mat-chip-list>
     </h3>
     <h3 class="mat-h2">Location : {{ meetingPeriod.location }}</h3>
   </div>
@@ -36,7 +40,8 @@
               *ngIf="!timeslot.sendICS"
               (click)="sendICS(timeslot)"
               mat-raised-button
-              color="primary">
+              color="primary"
+            >
               Send ISC
             </button>
           </ng-template>
@@ -45,7 +50,6 @@
     </div>
   </div>
 </div>
-
 
 <h1 class="mat-h1" style="text-align: center; padding-top: 10px;">
   <mat-divider> </mat-divider>

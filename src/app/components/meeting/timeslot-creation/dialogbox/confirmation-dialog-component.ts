@@ -23,10 +23,10 @@ export class TimeslotConfirmationDialog {
   ) {
     this.data.meetingPeriod.start = moment.utc(this.data.meetingPeriod.start);
     this.data.meetingPeriod.end = moment.utc(this.data.meetingPeriod.end);
-    this.sortData();
+    this.sortTimeslots();
   }
 
-  sortData() {
+  sortTimeslots() {
     this.data.timeslots.sort((left, right) => {
       return moment.utc(left.start).diff(moment.utc(right.start));
     });

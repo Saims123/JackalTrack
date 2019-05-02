@@ -7,6 +7,10 @@
       <h3 class="mat-h2">
         {{ timeslotGroup.meetingPeriod.start | date: 'EEE  dd MMM yyyy' }} -
         {{ timeslotGroup.meetingPeriod.end | date: 'EEE  dd MMM yyyy' }}
+        <mat-chip-list>
+          <mat-chip class="active" *ngIf="isActive">Active</mat-chip>
+          <mat-chip class="expired" *ngIf="!isActive">Expired</mat-chip>
+        </mat-chip-list>
       </h3>
       <h3 class="mat-h2">At : {{ timeslotGroup.meetingPeriod.location }}</h3>
     </div>
@@ -16,7 +20,8 @@
         [ngClass]="{
           bookedBySelf: checkIfBookedBySelf(timeslot.bookedBy),
           notBookedBySelf: !checkIfBookedBySelf(timeslot.bookedBy)
-        }">
+        }"
+      >
         <h4 *ngIf="checkIfBookedBySelf(timeslot.bookedBy)">You</h4>
         <h3>{{ timeslot.day }}</h3>
         <h4>{{ timeslot.startTime | date: 'HH:mm' }}</h4>

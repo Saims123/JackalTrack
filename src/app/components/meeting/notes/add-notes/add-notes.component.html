@@ -9,6 +9,21 @@
       <h5>Meeting : {{ createdDateTime | date: 'EEEE dd MMM yyyy hh:mm:ss a' }}</h5>
       <div class="todo-list">
         <ng-scrollbar class="max-height: 200px;">
+
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          aria-label="To"
+          [matDatepicker]="meetingPicker"
+          placeholder="Meeting Date"
+          required
+          [(ngModel)]="createdDateTime"
+          [ngModelOptions]="{standalone: true}"
+        />
+        <mat-label>Meeting End Date</mat-label>
+        <mat-datepicker-toggle matSuffix [for]="meetingPicker"></mat-datepicker-toggle>
+        <mat-datepicker #meetingPicker></mat-datepicker>
+      </mat-form-field>
           <mat-form-field appearance="outline" class="area-expand" *ngFor="let list of todoList">
             <mat-label>Task</mat-label>
             <input

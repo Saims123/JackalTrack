@@ -5,22 +5,37 @@
       <span>JackalTrack</span>
     </div>
     <!-- Temporary Icon , to be removed when out of Beta phase -->
-    <mat-chip-list style="float: left;"> <mat-chip color="primary" selected>Beta</mat-chip> </mat-chip-list>
+    <mat-chip-list style="float: left;"> <mat-chip color="warn" selected>Alpha</mat-chip> </mat-chip-list>
 
     <div class="nav" *ngIf="authService.isAuth">
-      <mat-menu #appProgress="matMenu">
+      <!-- <mat-menu #appProgress="matMenu">
         <button mat-menu-item [routerLink]="['progress/attendance']">Attendance</button>
         <button mat-menu-item [routerLink]="['progress/milestone']">Milestones</button>
         <button mat-menu-item [routerLink]="['progress/chapter']">Chapters</button>
       </mat-menu>
+      -->
 
       <mat-menu #appMeeting="matMenu">
-        <button *ngIf="isSupervisor" mat-menu-item [routerLink]="['meeting/timetable']">Timetable</button>
-        <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">
-          Timeslot Booking
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['meeting/timetable']">
+          <mat-icon>calendar_today</mat-icon>
+          Timetable
         </button>
-        <button *ngIf="isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">Notes</button>
-        <button *ngIf="!isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">Notes</button>
+        <button mat-menu-item [routerLink]="['/meeting/timeslots/booking']">
+          <mat-icon>event_available</mat-icon>
+          Book Timeslots
+        </button>
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['meeting/timeslot']">
+          <mat-icon>add_box</mat-icon>
+          Create Timeslots
+        </button>
+        <button *ngIf="authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/notes']">
+          <mat-icon>event_note</mat-icon>
+          Notes
+        </button>
+        <button *ngIf="!authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">
+          <mat-icon>event_note</mat-icon>
+          Notes
+        </button>
       </mat-menu>
 
       <!-- <button mat-button matBadge="0">Actions</button> -->
@@ -29,11 +44,11 @@
         Meetings
       </button>
 
-      <button *ngIf="isSupervisor" mat-button [matMenuTriggerFor]="appProgress">
+      <!-- <button *ngIf="isSupervisor" mat-button [matMenuTriggerFor]="appProgress">
         Progress
-      </button>
+      </button> -->
 
-      <button *ngIf="isSupervisor" [routerLink]="['/student']" mat-button>
+      <button *ngIf="authService.isSupervisor" [routerLink]="['/student']" mat-button>
         Students
       </button>
     </div>

@@ -49,13 +49,18 @@ export class CustomMailService {
     };
 
     try {
-      this.graphClient.api('me/sendMail').post({ message: mail });
+      this.graphClient
+        .api('me/sendMail')
+        .post({ message: mail })
+        .catch(error => {
+          this.toastService.error(JSON.stringify(error, null, 2), 'Unable to send email to students', {
+            timeOut: 60000,
+            progressBar: true,
+            onActivateTick: true
+          });
+        });
     } catch (error) {
-      this.toastService.error(JSON.stringify(error, null, 2), 'Unable to send email to students', {
-        timeOut: 20000,
-        progressBar: true,
-        onActivateTick: true
-      });
+      console.error(error);
     }
   }
   sentEmailWithCC(_emailAddress: string, _subject: string, _content: string, ccEmailAddress: string) {
@@ -85,7 +90,7 @@ export class CustomMailService {
       this.graphClient.api('me/sendMail').post({ message: mail });
     } catch (error) {
       this.toastService.error(JSON.stringify(error, null, 2), 'Unable to send email to students', {
-        timeOut: 20000,
+        timeOut: 60000,
         progressBar: true,
         onActivateTick: true
       });
@@ -142,11 +147,11 @@ export class CustomMailService {
         .api('me/events')
         .post(event)
         .then(() => {
-          this.toastService.success(
-            `Successfully send ICS to ${studentEmail}`,
-            'Timeslot ICS for Student',
-            { timeOut: 10000, progressBar: true, onActivateTick: true }
-          );
+          this.toastService.success(`Successfully send ICS to ${studentEmail}`, 'Timeslot ICS for Student', {
+            timeOut: 10000,
+            progressBar: true,
+            onActivateTick: true
+          });
         })
         .catch(error => {
           this.toastService.error(
@@ -157,11 +162,11 @@ export class CustomMailService {
           );
         });
     } catch (error) {
-      this.toastService.error(
-        JSON.stringify(error, null, 2),
-        'Unable to send timeslots to students',
-        { timeOut: 20000, progressBar: true, onActivateTick: true }
-      );
+      this.toastService.error(JSON.stringify(error, null, 2), 'Unable to send timeslots to students', {
+        timeOut: 20000,
+        progressBar: true,
+        onActivateTick: true
+      });
     }
   }
 

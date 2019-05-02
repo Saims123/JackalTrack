@@ -1,0 +1,1754 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>jackal-track documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">jackal-track documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TimeslotCreationComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{
+    provide: CalendarEventTitleFormatter, useClass: CustomEventTitleFormatter
+}</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-timeslot-creation</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./timeslot-creation.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./timeslot-creation.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calColor">calColor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog">dialog</a>
+                            </li>
+                            <li>
+                                <a href="#dragToCreateActive">dragToCreateActive</a>
+                            </li>
+                            <li>
+                                <a href="#events">events</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#graphService">graphService</a>
+                            </li>
+                            <li>
+                                <a href="#isMicrosoftDataLoaded">isMicrosoftDataLoaded</a>
+                            </li>
+                            <li>
+                                <a href="#meetingEndDate">meetingEndDate</a>
+                            </li>
+                            <li>
+                                <a href="#meetingStartDate">meetingStartDate</a>
+                            </li>
+                            <li>
+                                <a href="#minDate">minDate</a>
+                            </li>
+                            <li>
+                                <a href="#studentNumber">studentNumber</a>
+                            </li>
+                            <li>
+                                <a href="#students">students</a>
+                            </li>
+                            <li>
+                                <a href="#supervisor">supervisor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#timeslotService">timeslotService</a>
+                            </li>
+                            <li>
+                                <a href="#viewDate">viewDate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getConvertedTimeslots">getConvertedTimeslots</a>
+                            </li>
+                            <li>
+                                <a href="#getNewTimeslots">getNewTimeslots</a>
+                            </li>
+                            <li>
+                                <a href="#getStudentEmails">getStudentEmails</a>
+                            </li>
+                            <li>
+                                <a href="#importMicrosoftEvents">importMicrosoftEvents</a>
+                            </li>
+                            <li>
+                                <a href="#makeTimeslotEmailContent">makeTimeslotEmailContent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDialog">openDialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#refresh">refresh</a>
+                            </li>
+                            <li>
+                                <a href="#startDragToCreate">startDragToCreate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(cdr: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, supervisionService: <a href="../injectables/SupervisionService.html">SupervisionService</a>, graphService: <a href="../injectables/GraphService.html">GraphService</a>, toastService: ToastrService, timeslotService: <a href="../injectables/TimeslotService.html">TimeslotService</a>, dialog: MatDialog, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, emailService: <a href="../injectables/CustomMailService.html">CustomMailService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>supervisionService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SupervisionService.html" target="_self" >SupervisionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graphService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toastService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>timeslotService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TimeslotService.html" target="_self" >TimeslotService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>emailService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CustomMailService.html" target="_self" >CustomMailService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getConvertedTimeslots"></a>
+                    <span class="name">
+                        <b>
+                            getConvertedTimeslots
+                        </b>
+                        <a href="#getConvertedTimeslots"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getConvertedTimeslots()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:106</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNewTimeslots"></a>
+                    <span class="name">
+                        <b>
+                            getNewTimeslots
+                        </b>
+                        <a href="#getNewTimeslots"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNewTimeslots()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStudentEmails"></a>
+                    <span class="name">
+                        <b>
+                            getStudentEmails
+                        </b>
+                        <a href="#getStudentEmails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStudentEmails()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="151"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:151</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importMicrosoftEvents"></a>
+                    <span class="name">
+                        <b>
+                            importMicrosoftEvents
+                        </b>
+                        <a href="#importMicrosoftEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>importMicrosoftEvents()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="79"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:79</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="makeTimeslotEmailContent"></a>
+                    <span class="name">
+                        <b>
+                            makeTimeslotEmailContent
+                        </b>
+                        <a href="#makeTimeslotEmailContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>makeTimeslotEmailContent(timeslotInfo: <a href="../interfaces/TimeslotPeriod.html">TimeslotPeriod</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="157"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:157</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>timeslotInfo</td>
+                                    <td>
+                                                <code><a href="../interfaces/TimeslotPeriod.html" target="_self" >TimeslotPeriod</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialog"></a>
+                    <span class="name">
+                        <b>
+                            openDialog
+                        </b>
+                        <a href="#openDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialog(_location)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_location</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refresh"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            refresh
+                        </b>
+                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>refresh()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="245"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:245</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startDragToCreate"></a>
+                    <span class="name">
+                        <b>
+                            startDragToCreate
+                        </b>
+                        <a href="#startDragToCreate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startDragToCreate(segment: DayViewHourSegment, mouseDownEvent: <a href="../classes/Event.html">MouseEvent</a>, segmentElement: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="181"
+                            class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:181</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>segment</td>
+                                    <td>
+                                            <code>DayViewHourSegment</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>mouseDownEvent</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >MouseEvent</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>segmentElement</td>
+                                    <td>
+                                            <code>HTMLElement</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="calColor"></a>
+                        <span class="name">
+                            <b>
+                            calColor</b>
+                            <a href="#calColor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >EventColor</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialog"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialog</b>
+                            <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDialog</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dragToCreateActive"></a>
+                        <span class="name">
+                            <b>
+                            dragToCreateActive</b>
+                            <a href="#dragToCreateActive"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="events"></a>
+                        <span class="name">
+                            <b>
+                            events</b>
+                            <a href="#events"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >CalendarEvent[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="graphService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            graphService</b>
+                            <a href="#graphService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isMicrosoftDataLoaded"></a>
+                        <span class="name">
+                            <b>
+                            isMicrosoftDataLoaded</b>
+                            <a href="#isMicrosoftDataLoaded"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="meetingEndDate"></a>
+                        <span class="name">
+                            <b>
+                            meetingEndDate</b>
+                            <a href="#meetingEndDate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="meetingStartDate"></a>
+                        <span class="name">
+                            <b>
+                            meetingStartDate</b>
+                            <a href="#meetingStartDate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="minDate"></a>
+                        <span class="name">
+                            <b>
+                            minDate</b>
+                            <a href="#minDate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Date()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="studentNumber"></a>
+                        <span class="name">
+                            <b>
+                            studentNumber</b>
+                            <a href="#studentNumber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="students"></a>
+                        <span class="name">
+                            <b>
+                            students</b>
+                            <a href="#students"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Student.html" target="_self" >Student[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="supervisor"></a>
+                        <span class="name">
+                            <b>
+                            supervisor</b>
+                            <a href="#supervisor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Supervisor.html" target="_self" >Supervisor</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timeslotService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            timeslotService</b>
+                            <a href="#timeslotService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/TimeslotService.html" target="_self" >TimeslotService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:58</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="viewDate"></a>
+                        <span class="name">
+                            <b>
+                            viewDate</b>
+                            <a href="#viewDate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Date()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/meeting/timeslot-creation/timeslot-creation.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ViewEncapsulation,
+  OnInit
+} from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MatDialog } from &#x27;@angular/material&#x27;;
+
+import { CalendarEvent, CalendarEventTitleFormatter } from &#x27;angular-calendar&#x27;;
+import { DayViewHourSegment, EventColor } from &#x27;calendar-utils&#x27;;
+import { fromEvent } from &#x27;rxjs&#x27;;
+import { finalize, takeUntil } from &#x27;rxjs/operators&#x27;;
+import { addDays, addMinutes, endOfWeek } from &#x27;date-fns&#x27;;
+import { ceilToNearest, floorToNearest, CustomEventTitleFormatter } from &#x27;./ng-calendar-utilities&#x27;;
+import * as moment from &#x27;moment&#x27;;
+
+import { TimeslotConfirmationDialog } from &#x27;./dialogbox/confirmation-dialog-component&#x27;;
+import { ToastrService } from &#x27;ngx-toastr&#x27;;
+import { TimeslotService, Timeslot, TimeslotPeriod } from &#x27;src/app/services/timeslots/timeslot.service&#x27;;
+import { SupervisionService, Supervisor, Student } from &#x27;../../../services/supervision/supervision.service&#x27;;
+import { GraphService } from &#x27;../../../services/graph/graph.service&#x27;;
+import { CustomMailService } from &#x27;../../../services/graph/custom-mail.service&#x27;;
+
+@Component({
+  selector: &#x27;app-timeslot-creation&#x27;,
+  templateUrl: &#x27;./timeslot-creation.component.html&#x27;,
+  styleUrls: [&#x27;./timeslot-creation.component.scss&#x27;],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
+  ]
+})
+export class TimeslotCreationComponent implements OnInit {
+  viewDate &#x3D; new Date();
+  minDate &#x3D; new Date();
+  events: CalendarEvent[] &#x3D; [];
+  calColor: EventColor;
+
+  meetingStartDate: Date;
+  meetingEndDate: Date;
+
+  dragToCreateActive &#x3D; false;
+  studentNumber &#x3D; 0;
+  isMicrosoftDataLoaded &#x3D; false;
+  supervisor: Supervisor;
+  students: Student[] &#x3D; [];
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private supervisionService: SupervisionService,
+    public graphService: GraphService,
+    private toastService: ToastrService,
+    public timeslotService: TimeslotService,
+    public dialog: MatDialog,
+    private router: Router,
+    private emailService: CustomMailService
+  ) {
+    this.calColor &#x3D; { primary: &#x27;#e3bc08&#x27;, secondary: &#x27;#FDF1BA&#x27; };
+    this.importMicrosoftEvents();
+    this.supervisionService.getSupervisionGroup();
+  }
+
+  ngOnInit(): void {
+    this.supervisionService.supervisionGroup.subscribe(
+      group &#x3D;&gt; (
+        (this.studentNumber &#x3D; group[0].students.length),
+        (this.students &#x3D; group[0].students),
+        (this.supervisor &#x3D; group[0].supervisor),
+        this.cdr.detectChanges()
+      )
+    );
+  }
+
+  importMicrosoftEvents() {
+    const microsoftEvents: CalendarEvent[] &#x3D; [];
+    this.graphService
+      .getEventsOnCurrentWeek()
+      .then(data &#x3D;&gt;
+        data.forEach(event &#x3D;&gt; {
+          microsoftEvents.push({
+            start: moment.utc(event.start.dateTime).toDate(),
+            end: moment.utc(event.end.dateTime).toDate(),
+            title: event.subject,
+            color: this.calColor
+          });
+        })
+      )
+      .then(() &#x3D;&gt; {
+        this.events &#x3D; microsoftEvents;
+      })
+      .finally(() &#x3D;&gt; {
+        this.isMicrosoftDataLoaded &#x3D; true;
+        this.refresh();
+      });
+  }
+
+  getNewTimeslots() {
+    return this.events.filter(event &#x3D;&gt; event.title &#x3D;&#x3D;&#x3D; &#x27;New Timeslot&#x27;);
+  }
+  //  Consider moving to Timeslot Service for simplicity and code sanity sake
+  getConvertedTimeslots() {
+    const timeslots: Timeslot[] &#x3D; [];
+    this.getNewTimeslots().forEach(timeslot &#x3D;&gt; {
+      timeslots.push({
+        day: moment(timeslot.start)
+          .format(&#x27;DDD&#x27;)
+          .toString(),
+        startTime: moment(timeslot.start).toJSON(),
+        endTime: moment(timeslot.end).toJSON()
+      });
+    });
+    return timeslots.sort((timeslotA, timeslotB) &#x3D;&gt; {
+      return moment(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
+    });
+  }
+
+  openDialog(_location) {
+    const timeslotGroup &#x3D; {
+      meetingPeriod: {
+        start: this.meetingStartDate,
+        end: this.meetingEndDate,
+        location: _location
+      },
+      timeslots: this.getConvertedTimeslots()
+    };
+
+    const dialogRef &#x3D; this.dialog.open(TimeslotConfirmationDialog, {
+      data: timeslotGroup
+    });
+    dialogRef.afterClosed().subscribe(state &#x3D;&gt; {
+      if (state) {
+        this.timeslotService
+          .addNewTimeslot(timeslotGroup.timeslots, timeslotGroup.meetingPeriod)
+          .subscribe(_ &#x3D;&gt; {
+            this.emailService.sentEmail(
+              this.getStudentEmails(),
+              &#x27;JackalTrack : New Timeslots&#x27;,
+              this.makeTimeslotEmailContent(timeslotGroup)
+            );
+          });
+        this.router.navigate([&#x27;meeting/timetable&#x27;]);
+        this.toastService.success(&#x27;Timeslot creation&#x27;, &#x27;Successfully created and sent to all students&#x27;);
+      }
+    });
+  }
+  getStudentEmails() {
+    return this.students.map(student &#x3D;&gt; {
+      return student.email;
+    });
+  }
+
+  makeTimeslotEmailContent(timeslotInfo: TimeslotPeriod) {
+    const message &#x3D; &#x60;
+    &lt;h1&gt;Timeslot Booking&lt;/h1&gt;
+    &lt;strong&gt;
+    Supervisor ${this.supervisor.displayName} has created timeslots between:
+    &lt;div style&#x3D;&quot;border: 1px solid black; border-radius: 15px;&quot;&gt;
+    Start from : &lt;time datetime&#x3D;&quot;${timeslotInfo.meetingPeriod.start}&quot;&gt;
+    ${moment(timeslotInfo.meetingPeriod.start).format(&#x27;dddd DD MMMM YYYY&#x27;)} &lt;/time&gt;
+    &lt;br /&gt;
+    Until : &lt;time datetime&#x3D;&quot;${timeslotInfo.meetingPeriod.end}&quot;&gt;
+    ${moment(timeslotInfo.meetingPeriod.end).format(&#x27;dddd DD MMMM YYYY&#x27;)} &lt;/time&gt;
+    &lt;/strong&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    Book your timeslot on :
+    &lt;a href&#x3D;&quot;https://i7467177.bucomputing.uk/meeting/timeslots/booking&quot;&gt;
+    https://i7467177.bucomputing.uk/meeting/timeslots/booking
+    &lt;/a&gt;
+    &#x60;;
+    return message;
+  }
+
+  // Direct implementation from https://mattlewis92.github.io/angular-calendar/#/drag-to-create-events
+  // Considering to split this as child component in future
+  startDragToCreate(segment: DayViewHourSegment, mouseDownEvent: MouseEvent, segmentElement: HTMLElement) {
+    const dragToSelectEvent: CalendarEvent &#x3D; {
+      id: this.events.length,
+      title: &#x27;New Timeslot&#x27;,
+      start: segment.date,
+      meta: {
+        tmpEvent: true
+      },
+      actions: [
+        {
+          label: &#x27;&lt;i style&#x3D;&quot;font-size: 18px;&quot; class&#x3D;&quot;fa fa-fw fa-times&quot;&gt;&lt;/i&gt;&#x27;,
+          onClick: ({ event }: { event: CalendarEvent }): void &#x3D;&gt; {
+            this.events &#x3D; this.events.filter(iEvent &#x3D;&gt; iEvent !&#x3D;&#x3D; event);
+          }
+        }
+      ]
+    };
+
+    this.events &#x3D; [...this.events, dragToSelectEvent];
+    const segmentPosition &#x3D; segmentElement.getBoundingClientRect();
+    this.dragToCreateActive &#x3D; true;
+    const endOfView &#x3D; endOfWeek(this.viewDate);
+
+    fromEvent(document, &#x27;mousedown&#x27;)
+      .pipe(
+        finalize(() &#x3D;&gt; {
+          delete dragToSelectEvent.meta.tmpEvent;
+          this.dragToCreateActive &#x3D; false;
+          this.refresh();
+        }),
+        takeUntil(fromEvent(document, &#x27;mouseup&#x27;))
+      )
+      .subscribe(() &#x3D;&gt; {
+        const newEnd &#x3D; moment
+          .utc(segment.date)
+          .add(30, &#x27;minutes&#x27;)
+          .toDate();
+        dragToSelectEvent.end &#x3D; newEnd;
+      });
+
+    fromEvent(document, &#x27;mousemove&#x27;)
+      .pipe(
+        finalize(() &#x3D;&gt; {
+          delete dragToSelectEvent.meta.tmpEvent;
+          this.dragToCreateActive &#x3D; false;
+          this.refresh();
+        }),
+        takeUntil(fromEvent(document, &#x27;mouseup&#x27;))
+      )
+      .subscribe((mouseMoveEvent: MouseEvent) &#x3D;&gt; {
+        const minutesDiff &#x3D; ceilToNearest(mouseMoveEvent.clientY - segmentPosition.top, 30);
+
+        const daysDiff &#x3D;
+          floorToNearest(mouseMoveEvent.clientX - segmentPosition.left, segmentPosition.width) /
+          segmentPosition.width;
+
+        const newEnd &#x3D; addDays(addMinutes(segment.date, minutesDiff), daysDiff);
+        if (newEnd &gt; segment.date &amp;&amp; newEnd &lt; endOfView) {
+          dragToSelectEvent.end &#x3D; newEnd;
+        }
+        this.refresh();
+      });
+  }
+
+  private refresh() {
+    this.events &#x3D; [...this.events];
+    this.cdr.detectChanges();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-card class&#x3D;&quot;mat-elevation-z8&quot; style&#x3D;&quot;margin-bottom: 15px;&quot;&gt;
+  &lt;mat-card-header style&#x3D;&quot;text-align: initial;&quot;&gt;
+    &lt;mat-card-title&gt;Meeting Time period&lt;/mat-card-title&gt;
+    &lt;mat-card-subtitle
+      &gt;Specify the period you will be supervising the students and location, along with
+      timeslots&lt;/mat-card-subtitle
+    &gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content&gt;
+    &lt;form class&#x3D;&quot;form-group&quot;&gt;
+      &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+        &lt;input
+          matInput
+          aria-label&#x3D;&quot;From&quot;
+          [min]&#x3D;&quot;minDate&quot;
+          [matDatepicker]&#x3D;&quot;startPicker&quot;
+          placeholder&#x3D;&quot;Choose a starting date&quot;
+          required
+          (dateChange)&#x3D;&quot;meetingStartDate &#x3D; $event.value&quot;
+        /&gt;
+        &lt;mat-label&gt;Meeting Start Date&lt;/mat-label&gt;
+        &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;startPicker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+        &lt;mat-datepicker #startPicker&gt; &lt;/mat-datepicker&gt;
+      &lt;/mat-form-field&gt;
+
+      &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+        &lt;input
+          matInput
+          aria-label&#x3D;&quot;To&quot;
+          [min]&#x3D;&quot;minDate&quot;
+          [matDatepicker]&#x3D;&quot;endPicker&quot;
+          placeholder&#x3D;&quot;Choose a finishing date&quot;
+          required
+          (dateChange)&#x3D;&quot;meetingEndDate &#x3D; $event.value&quot;
+        /&gt;
+        &lt;mat-label&gt;Meeting End Date&lt;/mat-label&gt;
+        &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;endPicker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+        &lt;mat-datepicker #endPicker&gt;&lt;/mat-datepicker&gt;
+      &lt;/mat-form-field&gt;
+
+      &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+        &lt;mat-label&gt;Meeting Location&lt;/mat-label&gt;
+        &lt;input matInput required placeholder&#x3D;&quot;Location&quot; #location /&gt;
+      &lt;/mat-form-field&gt;
+
+      &lt;button
+        style&#x3D;&quot;width: 80%;&quot;
+        mat-raised-button
+        color&#x3D;&quot;primary&quot;
+        matBadge&#x3D;&quot;{{ getNewTimeslots().length }}&quot;
+        matBadgeColor&#x3D;&quot;accent&quot;
+        [disabled]&#x3D;&quot;studentNumber &gt; getNewTimeslots().length&quot;
+        (click)&#x3D;&quot;openDialog(location.value)&quot;
+      &gt;
+        &lt;mat-icon&gt;schedule&lt;/mat-icon&gt;
+        Schedule
+      &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;mat-card *ngIf&#x3D;&quot;studentNumber &gt; getNewTimeslots().length&quot;
+      &gt;&lt;mat-icon&gt;info&lt;/mat-icon&gt;You have {{ studentNumber }} students, please create
+      {{ studentNumber - getNewTimeslots().length }} more slots&lt;/mat-card
+    &gt;
+  &lt;/mat-card-content&gt;
+&lt;/mat-card&gt;
+
+&lt;mat-card&gt;
+  &lt;mat-card-header&gt;
+    &lt;mat-card-title&gt;Calendar View&lt;/mat-card-title&gt;
+    &lt;mat-card-subtitle&gt;Current Week&lt;/mat-card-subtitle&gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content&gt;
+    &lt;ng-template
+      class&#x3D;&quot;mat-typography&quot;
+      #weekViewHourSegmentTemplate
+      let-segment&#x3D;&quot;segment&quot;
+      let-locale&#x3D;&quot;locale&quot;
+      let-segmentHeight&#x3D;&quot;segmentHeight&quot;
+      let-isTimeLabel&#x3D;&quot;isTimeLabel&quot;
+    &gt;
+      &lt;div
+        class&#x3D;&quot;mat-typography&quot;
+        #segmentElement
+        class&#x3D;&quot;cal-hour-segment&quot;
+        [style.height.px]&#x3D;&quot;segmentHeight&quot;
+        [class.cal-hour-start]&#x3D;&quot;segment.isStart&quot;
+        [class.cal-after-hour-start]&#x3D;&quot;!segment.isStart&quot;
+        [ngClass]&#x3D;&quot;segment.cssClass&quot;
+        (mousedown)&#x3D;&quot;this.startDragToCreate(segment, $event, segmentElement)&quot;
+      &gt;
+        &lt;div class&#x3D;&quot;cal-time&quot; *ngIf&#x3D;&quot;isTimeLabel&quot;&gt;
+          {{ segment.date | calendarDate: &#x27;weekViewHour&#x27;:locale }}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+
+    &lt;ng-template #loading&gt;
+      &lt;div class&#x3D;&quot;text-center&quot;&gt;
+        &lt;mat-spinner&gt; &lt;/mat-spinner&gt; &lt;br /&gt;
+        Loading events...
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+
+    &lt;div *ngIf&#x3D;&quot;isMicrosoftDataLoaded; else loading&quot;&gt;
+      &lt;mwl-calendar-week-view
+        class&#x3D;&quot;mat-typography&quot;
+        [viewDate]&#x3D;&quot;viewDate&quot;
+        [events]&#x3D;&quot;events&quot;
+        [excludeDays]&#x3D;&quot;[0, 6]&quot;
+        [dayStartHour]&#x3D;&quot;8&quot;
+        [dayEndHour]&#x3D;&quot;19&quot;
+        [hourSegmentTemplate]&#x3D;&quot;weekViewHourSegmentTemplate&quot;
+      &gt;
+      &lt;/mwl-calendar-week-view&gt;
+    &lt;/div&gt;
+  &lt;/mat-card-content&gt;
+&lt;/mat-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./timeslot-creation.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"> .disable-hover {
+   pointer-events: none;
+ }
+ mwl-calendar-week-view {
+   @import &quot;../../../../../node_modules/angular-calendar/css/angular-calendar.css&quot;;
+  }
+section{
+  margin: 0 auto;
+  user-select: none;
+  margin-top: 10px;
+}
+
+
+.mat-elevation-z8 {
+  margin: 0 auto;
+  width: 80%;
+}
+mat-form-field{
+  padding: 10px;
+}
+
+.form-control{
+  padding: 50px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-card class="mat-elevation-z8" style="margin-bottom: 15px;">  <mat-card-header style="text-align: initial;">    <mat-card-title>Meeting Time period</mat-card-title>    <mat-card-subtitle      >Specify the period you will be supervising the students and location, along with      timeslots</mat-card-subtitle    >  </mat-card-header>  <mat-card-content>    <form class="form-group">      <mat-form-field appearance="outline">        <input          matInput          aria-label="From"          [min]="minDate"          [matDatepicker]="startPicker"          placeholder="Choose a starting date"          required          (dateChange)="meetingStartDate = $event.value"        />        <mat-label>Meeting Start Date</mat-label>        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>        <mat-datepicker #startPicker> </mat-datepicker>      </mat-form-field>      <mat-form-field appearance="outline">        <input          matInput          aria-label="To"          [min]="minDate"          [matDatepicker]="endPicker"          placeholder="Choose a finishing date"          required          (dateChange)="meetingEndDate = $event.value"        />        <mat-label>Meeting End Date</mat-label>        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>        <mat-datepicker #endPicker></mat-datepicker>      </mat-form-field>      <mat-form-field appearance="outline">        <mat-label>Meeting Location</mat-label>        <input matInput required placeholder="Location" #location />      </mat-form-field>      <button        style="width: 80%;"        mat-raised-button        color="primary"        matBadge="{{ getNewTimeslots().length }}"        matBadgeColor="accent"        [disabled]="studentNumber > getNewTimeslots().length"        (click)="openDialog(location.value)"      >        <mat-icon>schedule</mat-icon>        Schedule      </button>    </form>    <mat-card *ngIf="studentNumber > getNewTimeslots().length"      ><mat-icon>info</mat-icon>You have {{ studentNumber }} students, please create      {{ studentNumber - getNewTimeslots().length }} more slots</mat-card    >  </mat-card-content></mat-card><mat-card>  <mat-card-header>    <mat-card-title>Calendar View</mat-card-title>    <mat-card-subtitle>Current Week</mat-card-subtitle>  </mat-card-header>  <mat-card-content>    <ng-template      class="mat-typography"      #weekViewHourSegmentTemplate      let-segment="segment"      let-locale="locale"      let-segmentHeight="segmentHeight"      let-isTimeLabel="isTimeLabel"    >      <div        class="mat-typography"        #segmentElement        class="cal-hour-segment"        [style.height.px]="segmentHeight"        [class.cal-hour-start]="segment.isStart"        [class.cal-after-hour-start]="!segment.isStart"        [ngClass]="segment.cssClass"        (mousedown)="this.startDragToCreate(segment, $event, segmentElement)"      >        <div class="cal-time" *ngIf="isTimeLabel">          {{ segment.date | calendarDate: \'weekViewHour\':locale }}        </div>      </div>    </ng-template>    <ng-template #loading>      <div class="text-center">        <mat-spinner> </mat-spinner> <br />        Loading events...      </div>    </ng-template>    <div *ngIf="isMicrosoftDataLoaded; else loading">      <mwl-calendar-week-view        class="mat-typography"        [viewDate]="viewDate"        [events]="events"        [excludeDays]="[0, 6]"        [dayStartHour]="8"        [dayEndHour]="19"        [hourSegmentTemplate]="weekViewHourSegmentTemplate"      >      </mwl-calendar-week-view>    </div>  </mat-card-content></mat-card></div>'
+    var COMPONENTS = [{'name': 'AddNotesComponent', 'selector': 'app-add-notes'},{'name': 'AddStudentConfirmationComponent', 'selector': 'add-confirmation-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookingTimeslotComponent', 'selector': 'app-booking-timeslot'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteConfirmationDialog', 'selector': 'delete-confirmation-dialog'},{'name': 'DeleteNoteConfirmationDialog', 'selector': 'delete-note-confirmation-dialog'},{'name': 'EditNotesComponent', 'selector': 'app-edit-notes'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesStudentComponent', 'selector': 'app-notes-student'},{'name': 'StudentComponent', 'selector': 'app-student'},{'name': 'TimeslotConfirmationDialog', 'selector': 'timeslot-confirmation-dialog'},{'name': 'TimeslotCreationComponent', 'selector': 'app-timeslot-creation'},{'name': 'TimetableSupervisorComponent', 'selector': 'app-timetable-supervisor'},{'name': 'ViewNotesComponent', 'selector': 'view-meeting-notes'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TimeslotCreationComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TimeslotCreationComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

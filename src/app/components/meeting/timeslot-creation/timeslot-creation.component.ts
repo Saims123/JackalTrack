@@ -22,6 +22,7 @@ import { TimeslotService, Timeslot, TimeslotPeriod } from 'src/app/services/time
 import { SupervisionService, Supervisor, Student } from '../../../services/supervision/supervision.service';
 import { GraphService } from '../../../services/graph/graph.service';
 import { CustomMailService } from '../../../services/graph/custom-mail.service';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-timeslot-creation',
@@ -37,32 +38,41 @@ import { CustomMailService } from '../../../services/graph/custom-mail.service';
   ]
 })
 export class TimeslotCreationComponent implements OnInit {
-  viewDate = new Date();
-  minDate = new Date();
-  events: CalendarEvent[] = [];
-  calColor: EventColor;
+  public viewDate = new Date();
+  public minDate = new Date();
+  public events: CalendarEvent[] = [];
+  public calColor: EventColor;
+  public meetingForm: FormGroup;
+  public dragToCreateActive = false;
+  public studentNumber = 0;
+  public isMicrosoftDataLoaded = false;
+  public supervisor: Supervisor;
+  public students: Student[] = [];
+  public dateValidation = false;
 
-  meetingStartDate: Date;
-  meetingEndDate: Date;
-
-  dragToCreateActive = false;
-  studentNumber = 0;
-  isMicrosoftDataLoaded = false;
-  supervisor: Supervisor;
-  students: Student[] = [];
   constructor(
     private cdr: ChangeDetectorRef,
     private supervisionService: SupervisionService,
     public graphService: GraphService,
     private toastService: ToastrService,
     public timeslotService: TimeslotService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private router: Router,
-    private emailService: CustomMailService
+    private emailService: CustomMailService,
+    private fb: FormBuilder
   ) {
     this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.importMicrosoftEvents();
     this.supervisionService.getSupervisionGroup();
+    this.setUpMeetingForm();
+  }
+
+  setUpMeetingForm() {
+    this.meetingForm = this.fb.group({
+      meetingStartInput: new FormControl(null, [Validators.required]),
+      meetingEndInput: new FormControl(null, [Validators.required]),
+      locationInput: new FormControl(null, [Validators.required])
+    });
   }
 
   ngOnInit(): void {
@@ -110,25 +120,39 @@ export class TimeslotCreationComponent implements OnInit {
         day: moment(timeslot.start)
           .format('DDD')
           .toString(),
-        startTime: moment(timeslot.start).toJSON(),
-        endTime: moment(timeslot.end).toJSON()
+        startTime: moment.utc(timeslot.start).toJSON(),
+        endTime: moment.utc(timeslot.end).toJSON()
       });
     });
     return timeslots.sort((timeslotA, timeslotB) => {
-      return moment(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
+      return moment.utc(moment.utc(timeslotA.startTime)).diff(moment.utc(timeslotB.startTime));
     });
   }
 
-  openDialog(_location) {
+  startEndDateValidator() {
+    this.dateValidation = this.timeslotService.checkIfEndDateAreBeforeStartDate(
+      this.meetingForm.get('meetingStartInput').value,
+      this.meetingForm.get('meetingEndInput').value
+    );
+  }
+
+  createNewTimeslot() {
+    const meetingStartDate = this.meetingForm.get('meetingStartInput').value;
+    const meetingEndDate = this.meetingForm.get('meetingEndInput').value;
+    const location = this.meetingForm.get('locationInput').value;
+
     const timeslotGroup = {
       meetingPeriod: {
-        start: this.meetingStartDate,
-        end: this.meetingEndDate,
-        location: _location
+        start: moment(meetingStartDate).format('YYYY-MM-DDTHH:mm'),
+        end: moment(meetingEndDate)
+          .hour(22) // Taking in account for BST
+          .minute(59)
+          .second(59)
+          .format('YYYY-MM-DDTHH:mm'),
+        location: location
       },
       timeslots: this.getConvertedTimeslots()
     };
-
     const dialogRef = this.dialog.open(TimeslotConfirmationDialog, {
       data: timeslotGroup
     });
@@ -145,6 +169,7 @@ export class TimeslotCreationComponent implements OnInit {
           });
         this.router.navigate(['meeting/timetable']);
         this.toastService.success('Timeslot creation', 'Successfully created and sent to all students');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -157,15 +182,17 @@ export class TimeslotCreationComponent implements OnInit {
   makeTimeslotEmailContent(timeslotInfo: TimeslotPeriod) {
     const message = `
     <h1>Timeslot Booking</h1>
-    <strong>
+    <h2>
     Supervisor ${this.supervisor.displayName} has created timeslots between:
+    </h2>
     <div style="border: 1px solid black; border-radius: 15px;">
-    Start from : <time datetime="${timeslotInfo.meetingPeriod.start}">
-    ${moment(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
+    <h3>
+    Start from : <time>
+    ${moment.utc(timeslotInfo.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
     <br />
-    Until : <time datetime="${timeslotInfo.meetingPeriod.end}">
-    ${moment(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
-    </strong>
+    Until : <time>
+    ${moment.utc(timeslotInfo.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
+   </h3>
     </div>
     <br />
     Book your timeslot on :
@@ -191,7 +218,6 @@ export class TimeslotCreationComponent implements OnInit {
           label: '<i style="font-size: 18px;" class="fa fa-fw fa-times"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter(iEvent => iEvent !== event);
-            console.log('Event deleted', event);
           }
         }
       ]

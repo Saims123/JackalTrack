@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSelectModule,
-} from '@angular/material';
 
 import { AddNotesComponent } from './add-notes.component';
+import { MaterialModule } from 'src/app/modules/material-design.module';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { MsalModule } from '@azure/msal-angular';
+import { OAuthSettings } from 'src/app/services/auth/oauth';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('AddNotesComponent', () => {
   let component: AddNotesComponent;
@@ -17,15 +17,26 @@ describe('AddNotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddNotesComponent ],
+      declarations: [AddNotesComponent],
       imports: [
-        NoopAnimationsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatCardModule,
-        MatInputModule,
-        MatRadioModule,
-        MatSelectModule,
+        MaterialModule,
+        RouterTestingModule,
+        NgScrollbarModule,
+        HttpClientModule,
+        MsalModule.forRoot({
+          clientID: OAuthSettings.appId,
+          authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
+          postLogoutRedirectUri: window.location.origin
+        }),
+        ToastrModule.forRoot()
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: Observable.of({ id: 'testing-123' })
+          }
+        }
       ]
     }).compileComponents();
   }));
