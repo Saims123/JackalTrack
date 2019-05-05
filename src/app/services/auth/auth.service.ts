@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
-import { User } from './user';
+import { MicrosoftUser } from './user';
 import { OAuthSettings } from './oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   public isAuth: boolean;
   public isTokenReady: boolean;
-  public user: User;
+  public user: MicrosoftUser;
   public isSupervisor: boolean;
   constructor(private msalService: MsalService, private router: Router) {
     this.isAuth = false;
@@ -76,7 +76,7 @@ export class AuthService {
    * Support function that aquires the user profile after login phrase
    * @returns User
    */
-  private async getUser(): Promise<User> {
+  private async getUser(): Promise<MicrosoftUser> {
     if (!this.isAuth) {
       return null;
     }
@@ -96,7 +96,7 @@ export class AuthService {
     });
 
     const graphUser = await graphClient.api('/me').get();
-    let user = new User();
+    let user = new MicrosoftUser();
     user.displayName = graphUser.displayName;
     user.mail = graphUser.mail || graphUser.userPrincipalName;
     user.id = graphUser.id;

@@ -1,4 +1,4 @@
-export class User {
+export class MicrosoftUser {
   displayName: string;
   mail: string;
   jobTitle: string;

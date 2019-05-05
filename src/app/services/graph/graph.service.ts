@@ -5,7 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../auth/user';
+import { MicrosoftUser } from '../auth/user';
 /**
  *  Microsoft Graph Service that uses MSAL for authentication and Graph API to call the email, people and calendar services.
  */
@@ -56,7 +56,7 @@ export class GraphService {
    * Graph API to GET authenticated user's basic profile
    * @return User
    */
-  getMe(): Observable<User> {
+  getMe(): Observable<MicrosoftUser> {
     return Observable.fromPromise(
       this.graphClient
         .api('/me')
