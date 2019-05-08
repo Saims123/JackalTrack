@@ -4,6 +4,7 @@
       <img src="assets/logo/jackal2.png" />
       <span>JackalTrack</span>
     </div>
+    
     <!-- Temporary Icon , to be removed when out of Alpha phase -->
     <mat-chip-list style="float: left;"> <mat-chip color="warn" selected>Alpha</mat-chip> </mat-chip-list>
 
@@ -26,6 +27,7 @@
           <mat-icon>event_note</mat-icon>
           Notes
         </button>
+
         <!-- Only display when isSupervisor === false -->
         <button *ngIf="!authService.isSupervisor" mat-menu-item [routerLink]="['/meeting/student/notes']">
           <mat-icon>event_note</mat-icon>

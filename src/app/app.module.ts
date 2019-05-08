@@ -32,6 +32,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { DeleteConfirmationDialog } from './components/dialogbox/delete-dialog-component';
 import { JackaLConfig } from './app-config';
 
+
 @NgModule({
   declarations: [
     AppComponent,
