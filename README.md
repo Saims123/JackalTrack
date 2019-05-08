@@ -30,6 +30,15 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ### Custom build
 Run `npm run build` which already has the --prod flag set to using 'https://i7467177.bucomputing.uk' as the URL
 
+## Deployment to BU-EDAM server 
+Once the build is completed, it can be copied over into the EDAM server.
+
+1. Use Filezilla to access to the server, under the user `i7467177`
+2. Copy and paste the entire content within ./dist folder into ./public_html folder on the server
+3. Test the server by navigating to `https://i7467177.bucomputing.uk`
+### Caution
+Due to the use of Apache servers, special configuration file called `.htaccess` need to be place inside public_html folder to ensure that every re-route goes to index.html.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
@@ -49,6 +58,7 @@ After it's finished building , serve the documentation to be view on browser, ru
 npm run serve-docs
 ```
 Then navigate to `http://127.0.0.1:8080` to view the documentation
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

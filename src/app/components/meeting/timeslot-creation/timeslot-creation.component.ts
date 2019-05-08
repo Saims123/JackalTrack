@@ -41,7 +41,7 @@ export class TimeslotCreationComponent implements OnInit {
   public viewDate = new Date();
   public minDate = new Date();
   public events: CalendarEvent[] = [];
-  public calColor: EventColor;
+  public microsoftCalendarColor: EventColor;
   public meetingForm: FormGroup;
   public dragToCreateActive = false;
   public studentNumber = 0;
@@ -61,7 +61,7 @@ export class TimeslotCreationComponent implements OnInit {
     private emailService: CustomMailService,
     private fb: FormBuilder
   ) {
-    this.calColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
+    this.microsoftCalendarColor = { primary: '#e3bc08', secondary: '#FDF1BA' };
     this.importMicrosoftEvents();
     this.supervisionService.getSupervisionGroup();
     this.setUpMeetingForm();
@@ -93,10 +93,11 @@ export class TimeslotCreationComponent implements OnInit {
       .then(data =>
         data.forEach(event => {
           microsoftEvents.push({
+            // Force event datetime to UTC so it's not affected by BST
             start: moment.utc(event.start.dateTime).toDate(),
             end: moment.utc(event.end.dateTime).toDate(),
             title: event.subject,
-            color: this.calColor
+            color: this.microsoftCalendarColor
           });
         })
       )

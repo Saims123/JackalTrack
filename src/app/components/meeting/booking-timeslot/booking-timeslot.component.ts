@@ -168,7 +168,7 @@ export class BookingTimeslotComponent implements OnInit {
     from <b> ${moment(bookedTimeslot.startTime).format('hh:mm a')} </b>
     to <b> ${moment(bookedTimeslot.endTime).format('hh:mm a')}</b>.
        <br />
-<strong style="border: 1px solid black; border-radius: 15px;">
+    <strong style="border: 1px solid black; border-radius: 15px;">
     Start from : <time datetime="${this.timeslotGroup.meetingPeriod.start}">
     ${moment.utc(this.timeslotGroup.meetingPeriod.start).format('dddd DD MMMM YYYY')} </time>
        <br />
@@ -176,7 +176,6 @@ export class BookingTimeslotComponent implements OnInit {
     ${moment.utc(this.timeslotGroup.meetingPeriod.end).format('dddd DD MMMM YYYY')} </time>
     </strong>
     `;
-
     return message;
   }
 }
