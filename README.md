@@ -59,6 +59,15 @@ npm run serve-docs
 ```
 Then navigate to `http://127.0.0.1:8080` to view the documentation
 
+## Azure Authentication 
+This project's authentication are handled by Microsoft Azure, this includes the indivisual routes as well.
+Each routes to a different page needs to be registered there in order for the authentication process to work.
+They are configured on `https://portal.azure.com/`, under the `Azure Active Directory` sector.
+
+If in the event that there are issues with authentication, then login into the Azure Portal and search under `Application Registration` for "JackalTrack" for troubleshooting.
+
+Further documents regarding on how AAD works : 
+[Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/authentication-scenarios)
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
