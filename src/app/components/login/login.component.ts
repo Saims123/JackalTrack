@@ -7,19 +7,16 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
-  constructor(public authService: AuthService , private router: Router) {
+export class LoginComponent {
+  constructor(public authService: AuthService, private router: Router) {
     if (this.authService.isAuth) {
       this.router.navigate(['/dashboard']);
     }
   }
 
-  ngOnInit() {
-  }
-
   async signIn(): Promise<void> {
-    await this.authService.signIn().then(() => { this.router.navigate(['/dashboard']); });
+    await this.authService.signIn().then(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
-
 }

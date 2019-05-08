@@ -131,7 +131,7 @@ export class StudentComponent implements OnInit, OnDestroy {
       .get('userInput')
       .valueChanges.pipe(
         tap(_ => {
-          this.isLoading = true;
+          this.isLoading = true; // Used to display the loading circle animation
         }),
         debounceTime(200),
         distinctUntilChanged()
@@ -141,7 +141,8 @@ export class StudentComponent implements OnInit, OnDestroy {
           .getUsers(users)
           .subscribe(
             res => (
-              (this.filteredStudents = res), (this.isLoading = false), this.changeDetectorRefs.detectChanges()
+              (this.filteredStudents = res), (this.isLoading = false),
+               this.changeDetectorRefs.detectChanges() // Refresh the autocomplete box with list of students
             )
           );
       });

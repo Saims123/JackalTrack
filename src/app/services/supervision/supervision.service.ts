@@ -33,7 +33,7 @@ export class SupervisionService {
       tap(_ =>
         this.customMailService.sentEmail(
           [_student.email],
-          'Final year Project-BETA : JackalTrack Invitation',
+          'Final year Project-ALPHA : JackalTrack Invitation',
           `<h3>Hi ${_student.displayName},</h3>
           <br />
            ${welcomeMessage}`
@@ -55,13 +55,15 @@ export class SupervisionService {
   }
 }
 
-export interface Student {
+export interface User {
+  uniqueID: string;
   displayName: string;
   email?: string;
+}
+
+export interface Student extends User {
   course?: string;
   projectTitle?: string;
-  id?: any;
-  uniqueID: string;
 }
 
 export interface SupervisionGroup {
@@ -69,10 +71,7 @@ export interface SupervisionGroup {
   students: Student[];
 }
 
-export interface Supervisor {
-  displayName?: string;
-  email?: string;
-  uniqueID?: string;
+export interface Supervisor extends User {
   location?: string;
 }
 
@@ -81,7 +80,4 @@ export const welcomeMessage = `
 <br />
 Access link : https://i7467177.bucomputing.uk/
 <br />
-<strong>
--THIS IS FOR TESTING PURPOSES ONLY-
-</strong>
 `;

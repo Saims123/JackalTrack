@@ -30,6 +30,8 @@ import { EditNotesComponent } from './components/meeting/notes/edit-notes/edit-n
 import { NotesStudentComponent } from './components/meeting/notes/notes-student/notes-student.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { DeleteConfirmationDialog } from './components/dialogbox/delete-dialog-component';
+import { JackaLConfig } from './app-config';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +61,7 @@ import { DeleteConfirmationDialog } from './components/dialogbox/delete-dialog-c
     MsalModule.forRoot({
       clientID: OAuthSettings.appId,
       authority: 'https://login.microsoftonline.com/livebournemouthac.onmicrosoft.com/',
-      postLogoutRedirectUri: window.location.origin
+      postLogoutRedirectUri: JackaLConfig.JackalTrackProdURL
     }),
     CalendarModule.forRoot({
       provide: DateAdapter,
